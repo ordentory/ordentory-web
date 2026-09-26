@@ -60,15 +60,9 @@ body, body * {
 .story-copy h3,
 .story-copy p,
 .story-list li,
-.audience-item,
-.audience-item strong,
-.audience-item span,
 .feature-row,
 .feature-row h3,
 .feature-row p,
-.faq details,
-.faq summary,
-.faq p,
 .final-cta,
 .final-cta h2,
 .final-cta p {
@@ -861,6 +855,37 @@ img, video { display: block; max-width: 100%; }
 .faq-list details[open] summary::after { content: "−"; }
 .faq-answer { max-width: 760px; padding: 0 4px 28px; color: var(--muted); font-size: 14px; line-height: 1.8; }
 
+
+/* Targeted wrap restoration: audience + FAQ */
+.audience-item > div {
+  min-width: 0;
+  width: 100%;
+}
+.audience-item strong,
+.audience-item > div > span {
+  display: block;
+  width: 100%;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  text-wrap: wrap;
+}
+.faq-list summary {
+  width: 100%;
+}
+.faq-question {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  text-wrap: wrap;
+}
+.faq-list summary::after {
+  flex: 0 0 auto;
+}
+
 /* final cta / footer */
 .final-cta { padding: 118px 0; text-align: center; }
 .final-cta h2 { margin: 0; color: var(--ink-strong); font-size: clamp(44px, 6vw, 76px); line-height: 1.03; letter-spacing: -.06em; }
@@ -1379,27 +1404,27 @@ img, video { display: block; max-width: 100%; }
         </div>
         <div class="faq-list reveal">
           <details>
-            <summary>ORDENTORY는 어떤 프로그램인가요?</summary>
+            <summary><span class="faq-question">ORDENTORY는 어떤 프로그램인가요?</span></summary>
             <div class="faq-answer">상품과 SKU, 현재재고, 입출고, 공급처, 발주와 입고예정을 관리하는 Windows용 데스크톱 재고관리 소프트웨어입니다.</div>
           </details>
           <details>
-            <summary>ERP를 대체하는 프로그램인가요?</summary>
+            <summary><span class="faq-question">ERP를 대체하는 프로그램인가요?</span></summary>
             <div class="faq-answer">ORDENTORY는 회계·인사·생산 등 모든 경영영역을 포함하는 ERP가 아니라, 소규모 사업자의 재고관리 업무에 집중한 제품입니다.</div>
           </details>
           <details>
-            <summary>Excel이나 CSV로 데이터를 내보낼 수 있나요?</summary>
+            <summary><span class="faq-question">Excel이나 CSV로 데이터를 내보낼 수 있나요?</span></summary>
             <div class="faq-answer">재고 관련 데이터를 Excel·CSV 형태로 활용할 수 있도록 제공하는 방향으로 구성되어 있습니다. 실제 판매 버전의 제공 범위는 출시 안내에서 최종 확인할 수 있습니다.</div>
           </details>
           <details>
-            <summary>데이터 백업은 가능한가요?</summary>
+            <summary><span class="faq-question">데이터 백업은 가능한가요?</span></summary>
             <div class="faq-answer">데이터 보관 기능을 통해 백업을 관리할 수 있으며, 판매 버전에서는 사용자 지정 위치를 활용한 백업 흐름을 제공합니다.</div>
           </details>
           <details>
-            <summary>구매와 라이선스 발급은 어떻게 진행되나요?</summary>
+            <summary><span class="faq-question">구매와 라이선스 발급은 어떻게 진행되나요?</span></summary>
             <div class="faq-answer">자사몰 결제 기능 오픈 후에는 결제 확인을 서버에서 검증한 뒤 ORDENTORY 라이선스가 발급되는 흐름으로 제공할 예정입니다.</div>
           </details>
           <details>
-            <summary>문의는 어디로 하면 되나요?</summary>
+            <summary><span class="faq-question">문의는 어디로 하면 되나요?</span></summary>
             <div class="faq-answer">제품 및 구매 문의는 admin@ordentory.kr, 고객지원은 support@ordentory.kr로 연락할 수 있습니다.</div>
           </details>
         </div>
