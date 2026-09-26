@@ -852,6 +852,7 @@ img, video { display: block; max-width: 100%; }
 .demo .section-label { color: #8fb5ff; }
 .demo .section-title { color: #fff; }
 .demo .section-copy { color: #aeb9ca; }
+
 .demo-shell {
   margin-top: 56px;
   overflow: hidden;
@@ -864,27 +865,395 @@ img, video { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 18px;
   padding: 15px 18px;
   border-bottom: 1px solid #29354a;
 }
-.demo-tabs { display: flex; gap: 7px; }
+.demo-tabs { display: flex; gap: 7px; min-width: 0; }
 .demo-tab {
   border: 1px solid #35435a;
   border-radius: 999px;
-  padding: 7px 11px;
+  padding: 8px 12px;
   color: #93a4bc;
   background: transparent;
   font-size: 10px;
   font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
 }
+.demo-tab span { margin-right: 5px; color: #6f86aa; font-size: 9px; }
 .demo-tab.active { border-color: #668feb; color: #fff; background: #1d376c; }
-.demo-caption { color: #8d9bb1; font-size: 11px; }
-.demo-stage { min-height: 500px; padding: 32px; display: flex; align-items: center; background: linear-gradient(180deg,#101a2d,#0d1424); }
+.demo-tab.active span { color: #9ebcff; }
+.demo-restart {
+  flex: 0 0 auto;
+  border: 0;
+  padding: 7px 4px;
+  color: #9aabc2;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.demo-restart:hover { color: #fff; }
+
+.demo-stage {
+  min-height: 590px;
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(55,97,178,.18), transparent 42%),
+    linear-gradient(180deg,#101a2d,#0d1424);
+}
 .demo-scene { display: none; width: 100%; animation: sceneIn .35s ease; }
 .demo-scene.active { display: block; }
-.demo-scene .ui-preview { max-width: 920px; margin: 0 auto; color: var(--ink); background: #f7f8fa; }
 @keyframes sceneIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.demo-app-window {
+  width: min(100%, 990px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #d8e1ed;
+  border-radius: 16px;
+  color: #172033;
+  background: #f4f7fb;
+  box-shadow: 0 26px 70px rgba(0,0,0,.28);
+}
+.demo-app-bar {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 18px;
+  border-bottom: 1px solid #dce4ee;
+  background: #fff;
+}
+.demo-app-bar img { width: 118px; height: auto; }
+.demo-app-bar span {
+  padding-left: 16px;
+  border-left: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+}
+.demo-app-body { min-height: 445px; }
+
+.demo-product-body {
+  display: grid;
+  grid-template-columns: 142px 1fr;
+}
+.demo-side-rail {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 24px 12px;
+  border-right: 1px solid #dce4ee;
+  background: #fff;
+}
+.demo-side-rail b,
+.demo-side-rail span {
+  border-radius: 6px;
+  padding: 9px 10px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 750;
+}
+.demo-side-rail b { color: #0758d4; background: #eaf2ff; }
+.demo-content { padding: 28px 30px; }
+.demo-content-head,
+.demo-po-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.demo-content-head small,
+.demo-po-head small,
+.demo-scan-panel > small,
+.demo-result-panel > small,
+.demo-alert-copy small {
+  display: block;
+  margin-bottom: 6px;
+  color: #1264e8;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+.demo-content-head h3,
+.demo-po-head h3,
+.demo-product-found h3,
+.demo-alert-copy h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -.025em;
+}
+.demo-po-head p,
+.demo-product-found p,
+.demo-alert-copy p {
+  margin: 5px 0 0;
+  color: #748196;
+  font-size: 9px;
+  line-height: 1.6;
+}
+.demo-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.demo-status.neutral { color: #475569; background: #eef2f7; }
+.demo-status.success { color: #15803d; background: #dcfce7; }
+.demo-status.warning { color: #b45309; background: #ffedd5; }
+.demo-status.info { color: #1d4ed8; background: #dbeafe; }
+
+.demo-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.demo-field {
+  min-height: 64px;
+  border: 1px solid #cfdae8;
+  border-radius: 8px;
+  padding: 10px 11px;
+  background: #fff;
+}
+.demo-field span,
+.demo-stock-cards span,
+.demo-alert-metrics span,
+.demo-po-metrics span,
+.demo-receipt-result div > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #718096;
+  font-size: 8px;
+  font-weight: 800;
+}
+.demo-field strong { display: block; font-size: 11px; }
+.demo-action-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 15px;
+  color: #718096;
+  font-size: 9px;
+}
+.demo-primary {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 7px;
+  padding: 9px 13px;
+  color: #fff;
+  background: #1264e8;
+  font-size: 9px;
+  font-weight: 900;
+  box-shadow: 0 6px 16px rgba(18,100,232,.18);
+}
+
+.demo-scan-layout {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 0;
+}
+.demo-scan-panel { padding: 36px 38px; }
+.demo-scan-input {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #1264e8;
+  border-radius: 9px;
+  padding: 0 14px;
+  background: #fff;
+  color: #23324a;
+  font-size: 13px;
+  font-weight: 800;
+}
+.demo-scan-input i {
+  width: 2px;
+  height: 20px;
+  background: #1264e8;
+  animation: cursorBlink .8s steps(1) infinite;
+}
+@keyframes cursorBlink { 50% { opacity: 0; } }
+.demo-product-found {
+  margin-top: 18px;
+  border: 1px solid #dce4ee;
+  border-radius: 10px;
+  padding: 16px;
+  background: #fff;
+}
+.demo-product-found .demo-status { margin-bottom: 10px; }
+.demo-stock-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.demo-stock-cards > div,
+.demo-alert-metrics > div,
+.demo-po-metrics > div {
+  border: 1px solid #dce4ee;
+  border-radius: 9px;
+  padding: 13px;
+  background: #fff;
+}
+.demo-stock-cards strong,
+.demo-alert-metrics strong,
+.demo-po-metrics strong {
+  font-size: 19px;
+}
+.demo-scan-button { margin-top: 14px; width: 100%; }
+.demo-result-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #dce4ee;
+  background: #edf4ff;
+  text-align: center;
+}
+.demo-stock-change {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 14px 0;
+}
+.demo-stock-change span { color: #64748b; font-size: 30px; font-weight: 800; }
+.demo-stock-change i { color: #94a3b8; font-size: 20px; font-style: normal; }
+.demo-stock-change strong { color: #1264e8; font-size: 42px; }
+.demo-result-panel p { max-width: 220px; margin: 0; color: #64748b; font-size: 9px; line-height: 1.6; }
+
+.demo-alert-layout {
+  display: grid;
+  grid-template-columns: .55fr 1fr;
+  gap: 36px;
+  align-items: center;
+  padding: 38px;
+}
+.demo-alert-copy h3 { font-size: 28px; }
+.demo-alert-card {
+  border: 1px solid #dce4ee;
+  border-radius: 12px;
+  padding: 18px;
+  background: #fff;
+}
+.demo-alert-product {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #edf1f6;
+}
+.demo-alert-product strong { display: block; font-size: 12px; }
+.demo-alert-product div > span { display: block; margin-top: 4px; color: #748196; font-size: 8px; }
+.demo-alert-metrics,
+.demo-po-metrics {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 9px;
+  margin-top: 14px;
+}
+.demo-alert-metrics .recommended { border-color: #f0c998; background: #fffaf3; }
+.demo-alert-metrics .recommended strong { color: #b45309; }
+
+.demo-receipt-layout { padding: 32px 36px; }
+.demo-po-metrics .receipt-input {
+  border-color: #9fc0f6;
+  box-shadow: inset 0 0 0 1px #c7dcfb;
+}
+.demo-receipt-result {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: .8fr .8fr 1.2fr auto;
+  gap: 9px;
+  align-items: center;
+  border: 1px solid #bed4f6;
+  border-radius: 10px;
+  padding: 12px;
+  background: #f4f8ff;
+}
+.demo-receipt-result > div {
+  min-height: 54px;
+  border-right: 1px solid #dce6f4;
+  padding: 6px 10px;
+}
+.demo-receipt-result > div:last-of-type { border-right: 0; }
+.demo-receipt-result strong { color: #1264e8; font-size: 18px; }
+.demo-receipt-result .stock-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-receipt-result .stock-result span { margin: 0 4px 0 0; }
+.demo-receipt-result .stock-result b { color: #64748b; font-size: 14px; }
+.demo-receipt-result .stock-result i { color: #94a3b8; font-style: normal; }
+.demo-mini-flow {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 8px;
+  padding: 10px;
+  color: #64748b;
+  background: #eef2f7;
+  font-size: 8px;
+  font-weight: 800;
+}
+.demo-mini-flow i { color: #9aa6b6; font-style: normal; }
+.demo-mini-flow strong { border-radius: 999px; padding: 5px 8px; color: #fff; background: #1264e8; }
+
+.demo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 18px 15px;
+  border-top: 1px solid #29354a;
+  color: #8190a7;
+  font-size: 9px;
+}
+.demo-progress {
+  width: 140px;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #263349;
+}
+.demo-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #6593ef;
+}
+.demo-shell.is-running .demo-progress i { animation: demoProgress 5s linear forwards; }
+@keyframes demoProgress { from { width: 0; } to { width: 100%; } }
+
+/* Scene choreography */
+.demo-scene.active .demo-step-1,
+.demo-scene.active .demo-step-2,
+.demo-scene.active .demo-step-3,
+.demo-scene.active .demo-step-4,
+.demo-scene.active .demo-step-5 {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: demoStep .38s ease forwards;
+}
+.demo-scene.active .demo-step-1 { animation-delay: .18s; }
+.demo-scene.active .demo-step-2 { animation-delay: .72s; }
+.demo-scene.active .demo-step-3 { animation-delay: 1.28s; }
+.demo-scene.active .demo-step-4 { animation-delay: 1.9s; }
+.demo-scene.active .demo-step-5 { animation-delay: 2.55s; }
+@keyframes demoStep { to { opacity: 1; transform: none; } }
 
 /* features */
 .features-grid { margin-top: 64px; border-top: 1px solid var(--line); }
@@ -1123,6 +1492,48 @@ img, video { display: block; max-width: 100%; }
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
   .footer-brand { grid-column: auto; }
   .footer-bottom { display: grid; }
+}
+
+
+@media (max-width: 980px) {
+  .demo-stage { min-height: 540px; padding: 24px; }
+  .demo-toolbar { align-items: flex-start; }
+  .demo-tabs { overflow-x: auto; padding-bottom: 2px; }
+  .demo-restart { margin-top: 3px; }
+  .demo-product-body { grid-template-columns: 112px 1fr; }
+  .demo-content { padding: 24px; }
+  .demo-alert-layout { grid-template-columns: .7fr 1fr; gap: 24px; padding: 28px; }
+  .demo-receipt-layout { padding: 28px; }
+}
+@media (max-width: 720px) {
+  .demo-shell { margin-top: 38px; border-radius: 14px; }
+  .demo-toolbar { display: block; padding: 12px; }
+  .demo-tabs { width: 100%; }
+  .demo-tab { padding: 7px 10px; }
+  .demo-restart { display: block; margin: 8px 0 0 auto; }
+  .demo-stage { min-height: 500px; padding: 12px; }
+  .demo-app-window { border-radius: 11px; }
+  .demo-app-bar { height: 46px; padding: 0 12px; }
+  .demo-app-bar img { width: 102px; }
+  .demo-product-body { display: block; }
+  .demo-side-rail { display: none; }
+  .demo-content { padding: 18px; }
+  .demo-form-grid { grid-template-columns: 1fr; }
+  .demo-action-line { align-items: flex-start; flex-direction: column; }
+  .demo-primary { width: 100%; }
+  .demo-scan-layout { grid-template-columns: 1fr; }
+  .demo-scan-panel { padding: 22px 18px; }
+  .demo-result-panel { min-height: 170px; border-left: 0; border-top: 1px solid #dce4ee; }
+  .demo-alert-layout { grid-template-columns: 1fr; gap: 18px; padding: 20px 18px; }
+  .demo-alert-copy h3 { font-size: 24px; }
+  .demo-alert-metrics { grid-template-columns: 1fr 1fr; }
+  .demo-receipt-layout { padding: 20px 18px; }
+  .demo-po-metrics { grid-template-columns: 1fr 1fr; }
+  .demo-receipt-result { grid-template-columns: 1fr 1fr; }
+  .demo-receipt-result > div { border-right: 0; border-bottom: 1px solid #dce6f4; }
+  .demo-mini-flow { flex-wrap: wrap; }
+  .demo-footer { align-items: flex-start; flex-direction: column; }
+  .demo-progress { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1467,41 +1878,161 @@ img, video { display: block; max-width: 100%; }
       </div>
     </section>
 
-    <section class="section demo" id="demo">
+    <section class="section demo" id="demo" data-allow-word-break>
       <div class="container">
         <div class="reveal">
           <p class="section-label">Product Demo</p>
           <h2 class="section-title">설명보다,<br>실제 흐름을 먼저 보여드립니다.</h2>
           <p class="section-copy">
-            실제 ORDENTORY 프로그램 화면으로 상품 등록부터 재고 원장, 발주·입고 흐름을 확인할 수 있습니다. 정식 데모 영상은 화면 녹화본이 준비되면 이 영역에 연결합니다.
+            실제 ORDENTORY의 기능과 업무 흐름을 기반으로 구성한 인터랙티브 데모입니다.
+            상품 등록부터 실제 입고가 재고에 반영되는 과정까지 순서대로 확인해보세요.
           </p>
         </div>
 
         <div class="demo-shell reveal">
           <div class="demo-toolbar">
-            <div class="demo-tabs" role="tablist" aria-label="제품 데모 장면">
-              <button class="demo-tab active" type="button">상품 등록</button>
-              <button class="demo-tab" type="button">재고 확인</button>
-              <button class="demo-tab" type="button">발주 · 입고</button>
+            <div class="demo-tabs" role="tablist" aria-label="ORDENTORY 업무 흐름 데모">
+              <button class="demo-tab active" type="button" role="tab" aria-selected="true"><span>01</span> 상품 등록</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>02</span> 바코드 입고</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>03</span> 재고 부족</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>04</span> 발주 · 부분입고</button>
             </div>
-            <span class="demo-caption">실제 프로그램 화면 · 정식 영상 추가 예정</span>
+            <button class="demo-restart" type="button" aria-label="데모 처음부터 보기">↻ 처음부터 보기</button>
           </div>
+
           <div class="demo-stage">
-            <div class="demo-scene active">
-              <a class="screenshot-frame demo-screenshot portrait-demo" href="assets/images/product/product-registration.webp" target="_blank" rel="noopener">
-                <img src="assets/images/product/product-registration.webp" alt="ORDENTORY 상품 등록 실제 화면" width="450" height="558">
-              </a>
+            <div class="demo-scene active" role="tabpanel" aria-label="상품 등록 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>상품 관리</span>
+                </div>
+                <div class="demo-app-body demo-product-body">
+                  <div class="demo-side-rail">
+                    <b>상품</b><span>재고</span><span>입출고</span><span>공급처</span><span>발주 · 입고예정</span>
+                  </div>
+                  <div class="demo-content">
+                    <div class="demo-content-head">
+                      <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><h3>상품 등록</h3></div>
+                      <span class="demo-status neutral">신규 상품</span>
+                    </div>
+                    <div class="demo-form-grid">
+                      <label class="demo-field demo-step-1"><span>상품명</span><strong>베이직 반팔 티셔츠</strong></label>
+                      <label class="demo-field demo-step-1"><span>상품코드</span><strong>TS</strong></label>
+                      <label class="demo-field demo-step-2"><span>SKU 코드</span><strong>TS-WHITE-M</strong></label>
+                      <label class="demo-field demo-step-2"><span>옵션</span><strong>화이트 / M</strong></label>
+                      <label class="demo-field demo-step-3"><span>안전재고</span><strong>10</strong></label>
+                      <label class="demo-field demo-step-3"><span>대표 공급처</span><strong>한빛어패럴</strong></label>
+                    </div>
+                    <div class="demo-action-line">
+                      <span>상품과 SKU, 공급처를 한 흐름에서 연결합니다.</span>
+                      <button class="demo-primary demo-step-4" type="button" tabindex="-1">상품 등록</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="demo-scene">
-              <a class="screenshot-frame demo-screenshot" href="assets/images/product/stock-ledger.webp" target="_blank" rel="noopener">
-                <img src="assets/images/product/stock-ledger.webp" alt="ORDENTORY 입출고 재고원장 실제 화면" width="600" height="239">
-              </a>
+
+            <div class="demo-scene" role="tabpanel" aria-label="바코드 입고 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>바코드 빠른 입출고</span>
+                </div>
+                <div class="demo-app-body demo-scan-layout">
+                  <div class="demo-scan-panel">
+                    <small>BARCODE SCAN</small>
+                    <div class="demo-scan-input demo-step-1"><span>8801000000028</span><i></i></div>
+                    <div class="demo-product-found demo-step-2">
+                      <span class="demo-status success">SKU 확인</span>
+                      <h3>베이직 반팔 티셔츠</h3>
+                      <p>TS-WHITE-M · 화이트 / M</p>
+                    </div>
+                    <div class="demo-stock-cards demo-step-3">
+                      <div><span>현재재고</span><strong>17</strong></div>
+                      <div><span>입고수량</span><strong>10</strong></div>
+                    </div>
+                    <button class="demo-primary demo-step-4 demo-scan-button" type="button" tabindex="-1">입고 처리</button>
+                  </div>
+                  <div class="demo-result-panel demo-step-5">
+                    <small>STOCK UPDATED</small>
+                    <div class="demo-stock-change"><span>17</span><i>→</i><strong>27</strong></div>
+                    <p>입고 원장이 생성되고 현재고가 반영되었습니다.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="demo-scene">
-              <a class="screenshot-frame demo-screenshot" href="assets/images/product/purchase-receipt.webp" target="_blank" rel="noopener">
-                <img src="assets/images/product/purchase-receipt.webp" alt="ORDENTORY 발주 및 입고예정 실제 화면" width="600" height="239">
-              </a>
+
+            <div class="demo-scene" role="tabpanel" aria-label="재고 부족 확인 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>오늘의 업무</span>
+                </div>
+                <div class="demo-app-body demo-alert-layout">
+                  <div class="demo-alert-copy">
+                    <small>ATTENTION</small>
+                    <h3>안전재고 이하</h3>
+                    <p>현재고와 입고예정을 함께 확인해 발주 대상을 판단합니다.</p>
+                  </div>
+                  <div class="demo-alert-card">
+                    <div class="demo-alert-product demo-step-1">
+                      <div><strong>베이직 반팔 티셔츠</strong><span>TS-BLACK-M · 블랙 / M</span></div>
+                      <span class="demo-status warning">재고 부족</span>
+                    </div>
+                    <div class="demo-alert-metrics">
+                      <div class="demo-step-2"><span>현재고</span><strong>8</strong></div>
+                      <div class="demo-step-2"><span>안전재고</span><strong>10</strong></div>
+                      <div class="demo-step-3"><span>입고예정</span><strong>0</strong></div>
+                      <div class="demo-step-3 recommended"><span>추천수량</span><strong>2</strong></div>
+                    </div>
+                    <div class="demo-action-line demo-step-4">
+                      <span>부족 수량을 확인한 뒤 공급처 기준으로 발주를 준비합니다.</span>
+                      <button class="demo-primary" type="button" tabindex="-1">발주 준비</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <div class="demo-scene" role="tabpanel" aria-label="발주 및 부분입고 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>발주 · 입고예정</span>
+                </div>
+                <div class="demo-app-body demo-receipt-layout">
+                  <div class="demo-po-head">
+                    <div><small>PURCHASE ORDER</small><h3>한빛어패럴 · PO-002</h3><p>베이직 반팔 티셔츠 · TS-BLACK-M</p></div>
+                    <span class="demo-status info">입고예정</span>
+                  </div>
+                  <div class="demo-po-metrics">
+                    <div class="demo-step-1"><span>발주수량</span><strong>20</strong></div>
+                    <div class="demo-step-1"><span>누적입고</span><strong>0</strong></div>
+                    <div class="demo-step-1"><span>미입고</span><strong>20</strong></div>
+                    <div class="demo-step-2 receipt-input"><span>이번 입고</span><strong>5</strong></div>
+                  </div>
+                  <div class="demo-action-line demo-step-3">
+                    <span>도착한 수량만 입력해 부분입고 처리합니다.</span>
+                    <button class="demo-primary" type="button" tabindex="-1">입고 처리</button>
+                  </div>
+                  <div class="demo-receipt-result demo-step-4">
+                    <div><span>누적입고</span><strong>5</strong></div>
+                    <div><span>미입고</span><strong>15</strong></div>
+                    <div class="stock-result"><span>현재재고</span><b>8</b><i>→</i><strong>13</strong></div>
+                    <span class="demo-status success">부분입고 완료</span>
+                  </div>
+                  <div class="demo-mini-flow demo-step-5">
+                    <span>발주완료</span><i>→</i><span>입고예정</span><i>→</i><strong>실제 입고처리</strong><i>→</i><span>재고 반영</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-footer">
+            <span>실제 ORDENTORY의 기능과 업무 흐름을 기반으로 구성한 데모입니다.</span>
+            <div class="demo-progress" aria-hidden="true"><i></i></div>
           </div>
         </div>
       </div>
@@ -1708,18 +2239,43 @@ if ("IntersectionObserver" in window) {
 
 const tabs = Array.from(document.querySelectorAll(".demo-tab"));
 const scenes = Array.from(document.querySelectorAll(".demo-scene"));
+const demoShell = document.querySelector(".demo-shell");
+const restartDemoButton = document.querySelector(".demo-restart");
+const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 let activeScene = 0;
 let timer;
 
-function showScene(index) {
+function restartSceneAnimation(scene) {
+  if (!scene) return;
+  scene.classList.remove("active");
+  void scene.offsetWidth;
+  scene.classList.add("active");
+}
+
+function restartDemoProgress() {
+  if (!demoShell) return;
+  demoShell.classList.remove("is-running");
+  void demoShell.offsetWidth;
+  if (!reduceMotion) demoShell.classList.add("is-running");
+}
+
+function showScene(index, restartAnimation = true) {
   activeScene = index;
-  tabs.forEach((tab, i) => tab.classList.toggle("active", i === index));
+  tabs.forEach((tab, i) => {
+    const selected = i === index;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-selected", String(selected));
+  });
   scenes.forEach((scene, i) => scene.classList.toggle("active", i === index));
+
+  if (restartAnimation) restartSceneAnimation(scenes[index]);
+  restartDemoProgress();
 }
 
 function startDemo() {
   clearInterval(timer);
-  timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 3200);
+  if (reduceMotion || !tabs.length || !scenes.length) return;
+  timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 5000);
 }
 
 tabs.forEach((tab, index) => {
@@ -1729,7 +2285,15 @@ tabs.forEach((tab, index) => {
   });
 });
 
-if (tabs.length && scenes.length) startDemo();
+restartDemoButton?.addEventListener("click", () => {
+  showScene(0);
+  startDemo();
+});
+
+if (tabs.length && scenes.length) {
+  showScene(0);
+  startDemo();
+}
 
 
 // Prevent Korean words from breaking between syllables.
