@@ -1,0 +1,1 @@
+const d=document.getElementById("trialDialog");document.querySelector('[data-action="trial"]').addEventListener("click",()=>d.showModal());document.querySelector(".close").addEventListener("click",()=>d.close());if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/admin/sw.js"));}
