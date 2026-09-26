@@ -59,3 +59,50 @@ tabs.forEach((tab, index) => {
 });
 
 if (tabs.length && scenes.length) startDemo();
+
+
+// Prevent Korean words from breaking between syllables.
+// CSS word-break: keep-all is retained as the first layer; this wraps
+// each whitespace-delimited token containing Hangul as a non-breaking unit.
+(function enforceKoreanWordIntegrity() {
+  const roots = document.querySelectorAll('.site-header, main, .site-footer');
+
+  const shouldSkip = (parent) => {
+    if (!parent || parent.nodeType !== 1) return true;
+    return Boolean(parent.closest('script, style, textarea, select, option, svg, [data-allow-word-break]')) ||
+      parent.classList.contains('word-token');
+  };
+
+  roots.forEach((root) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+
+    while ((node = walker.nextNode())) {
+      if (!node.nodeValue || !node.nodeValue.trim()) continue;
+      if (shouldSkip(node.parentElement)) continue;
+      if (!/[가-힣]/.test(node.nodeValue)) continue;
+      nodes.push(node);
+    }
+
+    nodes.forEach((textNode) => {
+      const parts = textNode.nodeValue.split(/(\s+)/);
+      const fragment = document.createDocumentFragment();
+
+      parts.forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part) || !/[가-힣]/.test(part)) {
+          fragment.appendChild(document.createTextNode(part));
+          return;
+        }
+
+        const span = document.createElement('span');
+        span.className = 'word-token';
+        span.textContent = part;
+        fragment.appendChild(span);
+      });
+
+      textNode.replaceWith(fragment);
+    });
+  });
+})();
