@@ -45,10 +45,62 @@
           <span>Excel · CSV · 백업</span>
         </div>
 
-        <div class="product-stage reveal" aria-label="ORDENTORY 실제 프로그램 화면">
-          <a class="screenshot-frame screenshot-frame-hero" href="assets/images/product/hero-home.webp" target="_blank" rel="noopener" aria-label="ORDENTORY 오늘의 업무 화면 크게 보기">
-            <img src="assets/images/product/hero-home.webp" alt="ORDENTORY 오늘의 업무 대시보드 실제 화면" width="800" height="318">
-          </a>
+        <div class="product-stage reveal" aria-label="ORDENTORY 오늘의 업무 화면 재구성">
+          <div class="mkt-app hero-mkt-app">
+            <aside class="mkt-sidebar">
+              <div class="mkt-brand"><span class="mkt-logo-mark"></span><strong>ORDENTORY</strong></div>
+              <span class="mkt-edition">INVENTORY</span>
+              <nav class="mkt-side-nav" aria-label="프로그램 메뉴 예시">
+                <span class="active">홈</span>
+                <span>상품</span>
+                <span>재고</span>
+                <span>입출고</span>
+                <span>공급처</span>
+                <span>발주 · 입고예정</span>
+              </nav>
+            </aside>
+            <div class="mkt-main">
+              <div class="mkt-page-head">
+                <div>
+                  <small>ORDENTORY / Inventory</small>
+                  <h3>오늘의 업무</h3>
+                  <p>주의가 필요한 재고와 오늘의 입출고를 한눈에 확인합니다.</p>
+                </div>
+                <span class="mkt-ghost-button">새로고침</span>
+              </div>
+              <div class="mkt-metrics mkt-metrics-four">
+                <div><span>사용중 상품</span><strong>4</strong><small>SKU 6개</small></div>
+                <div><span>전체 재고</span><strong>81</strong><small>SKU 합계</small></div>
+                <div class="attention"><span>안전재고 이하</span><strong>2</strong><small>품목 2개</small></div>
+                <div><span>입고예정</span><strong>20</strong><small>미입고 수량</small></div>
+              </div>
+              <div class="mkt-dashboard-grid">
+                <section class="mkt-panel">
+                  <div class="mkt-panel-head">
+                    <div><small>ATTENTION</small><strong>재고 부족 / 품절</strong></div>
+                    <span>발주추천 보기 →</span>
+                  </div>
+                  <div class="mkt-short-row">
+                    <div><strong>스테인리스 텀블러</strong><small>TUM-500-SILVER · 실버 / 500mL</small></div>
+                    <b>5</b><span>안전 10</span>
+                  </div>
+                  <div class="mkt-short-row">
+                    <div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M · 블랙 / M</small></div>
+                    <b>8</b><span>안전 10</span>
+                  </div>
+                </section>
+                <section class="mkt-panel">
+                  <div class="mkt-panel-head">
+                    <div><small>RECENT</small><strong>최근 재고변동</strong></div>
+                    <span>전체 원장 →</span>
+                  </div>
+                  <div class="mkt-change-row"><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><b class="plus">+5</b><em>14</em></div>
+                  <div class="mkt-change-row"><span class="type adjust">조정</span><div><strong>A5 데일리 노트</strong><small>NOTE-A5-IVORY</small></div><b class="minus">-2</b><em>16</em></div>
+                  <div class="mkt-change-row"><span class="type out">출고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M</small></div><b class="minus">-8</b><em>17</em></div>
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -88,15 +140,61 @@
               <li>안전재고 · 초기재고 · 공급처 연결</li>
             </ul>
           </div>
-          <a class="screenshot-frame screenshot-frame-portrait" href="assets/images/product/product-registration.webp" target="_blank" rel="noopener" aria-label="ORDENTORY 상품 등록 실제 화면 크게 보기">
-            <img src="assets/images/product/product-registration.webp" alt="ORDENTORY 상품 등록 실제 화면" width="450" height="558">
-          </a>
+          <div class="mkt-ui registration-mock" aria-label="실제 상품 등록 화면을 기반으로 재구성한 UI">
+            <div class="mock-backdrop">
+              <div class="mock-list-line"></div><div class="mock-list-line short"></div><div class="mock-list-line"></div>
+            </div>
+            <div class="registration-card">
+              <div class="reg-head">
+                <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><strong>상품 등록</strong></div>
+                <span class="mock-close">×</span>
+              </div>
+              <div class="reg-section">
+                <div class="reg-title"><strong>1. Product</strong><span>상품의 공통 기본정보</span></div>
+                <div class="reg-grid">
+                  <label><span>상품명</span><b>베이직 반팔 티셔츠</b></label>
+                  <label><span>상품코드</span><b>TS</b></label>
+                  <label class="wide"><span>카테고리</span><b>의류</b></label>
+                </div>
+              </div>
+              <div class="reg-section">
+                <div class="reg-title"><strong>2. SKU / Option</strong><span>실제 재고를 관리할 SKU</span></div>
+                <div class="reg-grid">
+                  <label><span>SKU 코드</span><b>TS-WHITE-M</b></label>
+                  <label><span>바코드</span><b>선택 입력</b></label>
+                  <label><span>판매단가</span><b>19,900원</b></label>
+                  <label><span>기본 매입단가</span><b>8,500원</b></label>
+                  <label class="wide"><span>옵션</span><b>색상 - 화이트　/　사이즈 - M</b></label>
+                  <label><span>안전재고</span><b>10</b></label>
+                  <label><span>초기재고</span><b>27</b></label>
+                </div>
+              </div>
+              <div class="reg-section compact">
+                <div class="reg-title"><strong>3. Supplier</strong><span>SKU 기준 공급처 연결</span></div>
+                <div class="supplier-line"><span>대표 공급처</span><strong>한빛어패럴</strong></div>
+              </div>
+            </div>
+          </div>
         </article>
 
         <article class="story-block reverse reveal">
-          <a class="screenshot-frame screenshot-frame-landscape" href="assets/images/product/stock-ledger.webp" target="_blank" rel="noopener" aria-label="ORDENTORY 입출고 재고원장 실제 화면 크게 보기">
-            <img src="assets/images/product/stock-ledger.webp" alt="ORDENTORY 입출고 재고원장 실제 화면" width="600" height="239">
-          </a>
+          <div class="mkt-ui ledger-mock" aria-label="실제 입출고 재고원장을 기반으로 재구성한 UI">
+            <div class="mock-page-head">
+              <div><small>ORDENTORY / Inventory</small><strong>입출고 · 재고원장</strong><span>모든 재고 변동의 원인과 처리 전·후 수량을 추적합니다.</span></div>
+              <div class="mock-actions"><b>기간별 요약</b><span>Excel 저장</span><span>CSV 저장</span></div>
+            </div>
+            <div class="ledger-stats">
+              <div><span>표시 거래</span><strong>15</strong></div>
+              <div><span>입고</span><strong class="plus">+15</strong></div>
+              <div><span>출고 / 조정</span><strong class="minus">-21</strong></div>
+            </div>
+            <div class="mock-search">상품, SKU, 사유, 메모, 공급처 검색</div>
+            <div class="ledger-grid ledger-head"><span>일자</span><span>유형</span><span>상품 / SKU</span><span>변동</span><span>재고</span></div>
+            <div class="ledger-grid"><span>2026-09-25</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L · 화이트 / L</small></div><b class="plus">+5</b><em>9 → 14</em></div>
+            <div class="ledger-grid"><span>2026-09-22</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M · 화이트 / M</small></div><b class="plus">+10</b><em>17 → 27</em></div>
+            <div class="ledger-grid"><span>2026-09-22</span><span class="type adjust">조정</span><div><strong>A5 데일리 노트</strong><small>NOTE-A5-IVORY · 아이보리</small></div><b class="minus">-2</b><em>18 → 16</em></div>
+            <div class="ledger-grid"><span>2026-09-12</span><span class="type out">출고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M · 화이트 / M</small></div><b class="minus">-8</b><em>25 → 17</em></div>
+          </div>
           <div class="story-copy">
             <span class="story-number">02 · STOCK / LEDGER</span>
             <h3>현재고만 보지 않고,<br>변화가 기록으로 남습니다.</h3>
@@ -120,9 +218,24 @@
               <li>실제 입고 처리 후 재고 증가</li>
             </ul>
           </div>
-          <a class="screenshot-frame screenshot-frame-landscape" href="assets/images/product/purchase-receipt.webp" target="_blank" rel="noopener" aria-label="ORDENTORY 발주 입고예정 실제 화면 크게 보기">
-            <img src="assets/images/product/purchase-receipt.webp" alt="ORDENTORY 발주 및 입고예정 실제 화면" width="600" height="239">
-          </a>
+          <div class="mkt-ui purchase-mock" aria-label="실제 발주 및 입고예정 화면을 기반으로 재구성한 UI">
+            <div class="mock-page-head">
+              <div><small>ORDENTORY / Inventory</small><strong>발주 · 입고예정</strong><span>부족한 재고를 준비하고 실제 도착한 물품을 입고 처리합니다.</span></div>
+            </div>
+            <section class="purchase-section">
+              <div class="purchase-title"><strong>발주추천</strong><span>안전재고와 입고예정을 함께 반영합니다.</span></div>
+              <div class="purchase-rec-head"><span>상품 / SKU</span><span>현재고</span><span>안전재고</span><span>입고예정</span><span>추천수량</span></div>
+              <div class="purchase-rec-row"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M · 블랙 / M</small></div><b>8</b><span>10</span><span>20</span><em>0</em></div>
+              <div class="purchase-rec-row"><div><strong>스테인리스 텀블러</strong><small>TUM-500-SILVER · 실버 / 500mL</small></div><b>5</b><span>10</span><span>0</span><em class="attention">6</em></div>
+            </section>
+            <section class="po-card">
+              <div class="po-head"><div><strong>한빛어패럴</strong><small>발주번호 PO-002 · 입고예정 2026-09-30</small></div><span class="status-pill">입고예정</span></div>
+              <div class="po-grid po-grid-head"><span>상품 / SKU</span><span>발주수량</span><span>누적입고</span><span>미입고</span><span>이번 입고</span></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M</small></div><span>20</span><span>0</span><b>20</b><em>20</em></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><span>20</span><span>5</span><b>15</b><em>15</em></div>
+              <div class="receipt-flow"><span>발주완료</span><i>→</i><span>입고예정</span><i>→</i><strong>실제 입고처리</strong><i>→</i><span>재고 반영</span></div>
+            </section>
+          </div>
         </article>
       </div>
     </section>
