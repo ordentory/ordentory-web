@@ -115,7 +115,7 @@ img, video { display: block; max-width: 100%; }
 }
 .brand img {
   display: block;
-  width: 136px;
+  width: 150px;
   height: auto;
 }
 .site-nav {
@@ -412,7 +412,7 @@ img, video { display: block; max-width: 100%; }
   background: #fff;
 }
 .mkt-brand { display:flex; align-items:center; min-height:28px; }
-.mkt-brand img { display:block; width:122px; height:auto; }
+.mkt-brand img { display:block; width:132px; height:auto; }
 .mkt-edition { display:inline-flex; margin:8px 0 22px 2px; border-radius:999px; padding:4px 8px; color:#0b63f6; background:#eef4ff; font-size:8px; font-weight:900; letter-spacing:.08em; }
 .mkt-side-nav { display:grid; gap:4px; padding-top:12px; border-top:1px solid #e7ecf3; }
 .mkt-side-nav span { border-radius:7px; padding:10px 11px; color:#536176; font-size:11px; font-weight:750; }
@@ -820,7 +820,7 @@ img, video { display: block; max-width: 100%; }
 .footer-grid { display: grid; grid-template-columns: 1.2fr .8fr 1fr; gap: 64px; }
 .footer-logo {
   display: block;
-  width: 168px;
+  width: 176px;
   height: auto;
   box-sizing: content-box;
   border-radius: 10px;
