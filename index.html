@@ -1,29 +1,669 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORDENTORY | 오덴토리</title>
-<meta name="description" content="소규모 사업자를 위한 쉽고 직관적인 재고관리 소프트웨어 ORDENTORY">
-<style>
-:root{--ink:#111827;--muted:#64748b;--line:#e5e7eb;--bg:#f8fafc}
-*{box-sizing:border-box}body{margin:0;font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;color:var(--ink);background:white}
-.wrap{max-width:1080px;margin:auto;padding:0 24px}header{height:76px;display:flex;align-items:center;border-bottom:1px solid var(--line)}
-.brand{font-size:22px;font-weight:800;letter-spacing:.08em}.hero{padding:110px 0 90px;background:linear-gradient(180deg,#fff,var(--bg))}
-.eyebrow{font-size:14px;font-weight:700;letter-spacing:.12em;color:#475569}.hero h1{font-size:52px;line-height:1.15;margin:18px 0 22px;letter-spacing:-.04em}
-.hero p{font-size:20px;line-height:1.7;color:#475569;max-width:700px}.section{padding:76px 0}.section h2{font-size:30px;margin:0 0 20px}
-.section p{font-size:17px;line-height:1.8;color:#475569}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
-.card{padding:24px;border:1px solid var(--line);border-radius:16px;background:white}.card b{display:block;margin-bottom:9px}.card span{font-size:14px;color:var(--muted)}
-.info{background:var(--bg)}dl{display:grid;grid-template-columns:160px 1fr;gap:13px 20px;max-width:760px;margin:28px 0 0}dt{font-weight:700}dd{margin:0;color:#475569}
-a{color:inherit}footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:14px}
-@media(max-width:700px){.hero{padding:70px 0}.hero h1{font-size:38px}.cards{grid-template-columns:1fr 1fr}dl{grid-template-columns:1fr;gap:5px}dd{margin-bottom:12px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>ORDENTORY | 재고관리를 더 단순하게</title>
+  <meta name="description" content="상품, SKU, 재고, 입출고, 공급처와 발주를 하나의 흐름으로 관리하는 Windows 재고관리 소프트웨어 ORDENTORY">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-<header><div class="wrap brand">ORDENTORY</div></header>
-<main>
-<section class="hero"><div class="wrap"><div class="eyebrow">INVENTORY MANAGEMENT SOFTWARE</div><h1>재고관리를 더 쉽고,<br>더 명확하게.</h1><p>ORDENTORY는 소규모 사업자를 위한 재고관리 소프트웨어입니다. 상품, 재고, 입출고, 공급처와 발주 업무를 한 곳에서 체계적으로 관리할 수 있도록 돕습니다.</p></div></section>
-<section class="section"><div class="wrap"><h2>ORDENTORY</h2><p>복잡한 재고 업무를 직관적으로 관리할 수 있도록 설계된 데스크톱 재고관리 솔루션입니다.</p><div class="cards"><div class="card"><b>상품 관리</b><span>상품과 SKU 정보를 체계적으로 관리</span></div><div class="card"><b>재고 관리</b><span>현재고와 재고 변동을 명확하게 확인</span></div><div class="card"><b>입출고 관리</b><span>입고와 출고 이력을 일관되게 기록</span></div><div class="card"><b>발주 관리</b><span>안전재고를 기반으로 발주 업무 지원</span></div></div></div></section>
-<section class="section info"><div class="wrap"><h2>사업자 정보</h2><dl><dt>상호</dt><dd>오덴토리</dd><dt>대표자</dt><dd>이보승</dd><dt>사업자등록번호</dt><dd>286-34-01739</dd><dt>사업장 소재지</dt><dd>인천광역시 부평구 동수북로 172, 4층 가2호(부평동)</dd><dt>고객지원</dt><dd><a href="mailto:support@ordentory.kr">support@ordentory.kr</a></dd><dt>사업 문의</dt><dd><a href="mailto:admin@ordentory.kr">admin@ordentory.kr</a></dd></dl></div></section>
-</main>
-<footer><div class="wrap">© 2026 ORDENTORY. All rights reserved.</div></footer>
-</body></html>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="ORDENTORY 홈"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a href="#product">제품 소개</a>
+        <a href="#workflow">사용 흐름</a>
+        <a href="#demo">데모</a>
+        <a href="#features">기능</a>
+        <a href="#pricing">가격</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="button button-primary header-cta" href="#pricing">구매 안내</a>
+      <button class="menu-button" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-kicker">ORDENTORY INVENTORY · WINDOWS</div>
+        <h1>재고관리를<br><span>더 단순하게.</span></h1>
+        <p class="hero-description">
+          상품과 SKU부터 현재재고, 입출고, 공급처, 발주와 실제 입고까지.
+          흩어진 재고 업무를 하나의 흐름으로 관리하세요.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#product">ORDENTORY 살펴보기</a>
+          <a class="button button-secondary" href="#demo">제품 데모 보기</a>
+        </div>
+        <div class="hero-points" aria-label="핵심 범위">
+          <span>상품 · SKU</span>
+          <span>재고 · 입출고</span>
+          <span>공급처 · 발주</span>
+          <span>Excel · CSV · 백업</span>
+        </div>
+
+        <div class="product-stage reveal" aria-label="ORDENTORY 오늘의 업무 화면 재구성">
+          <div class="mkt-app hero-mkt-app">
+            <aside class="mkt-sidebar">
+              <div class="mkt-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></div>
+              <span class="mkt-edition">INVENTORY</span>
+              <nav class="mkt-side-nav" aria-label="프로그램 메뉴 예시">
+                <span class="active">홈</span>
+                <span>상품</span>
+                <span>재고</span>
+                <span>입출고</span>
+                <span>공급처</span>
+                <span>발주 · 입고예정</span>
+              </nav>
+            </aside>
+            <div class="mkt-main">
+              <div class="mkt-page-head">
+                <div>
+                  <small>ORDENTORY / Inventory</small>
+                  <h3>오늘의 업무</h3>
+                  <p>주의가 필요한 재고와 오늘의 입출고를 한눈에 확인합니다.</p>
+                </div>
+                <span class="mkt-ghost-button">새로고침</span>
+              </div>
+              <div class="mkt-metrics mkt-metrics-four">
+                <div><span>사용중 상품</span><strong>4</strong><small>SKU 6개</small></div>
+                <div><span>전체 재고</span><strong>81</strong><small>SKU 합계</small></div>
+                <div class="attention"><span>안전재고 이하</span><strong>2</strong><small>품목 2개</small></div>
+                <div><span>입고예정</span><strong>20</strong><small>미입고 수량</small></div>
+              </div>
+              <div class="mkt-dashboard-grid">
+                <section class="mkt-panel">
+                  <div class="mkt-panel-head">
+                    <div><small>ATTENTION</small><strong>재고 부족 / 품절</strong></div>
+                    <span>발주추천 보기 →</span>
+                  </div>
+                  <div class="mkt-short-row">
+                    <div><strong>스테인리스 텀블러</strong><small>TUM-500-SILVER · 실버 / 500mL</small></div>
+                    <b>5</b><span>안전 10</span>
+                  </div>
+                  <div class="mkt-short-row">
+                    <div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M · 블랙 / M</small></div>
+                    <b>8</b><span>안전 10</span>
+                  </div>
+                </section>
+                <section class="mkt-panel">
+                  <div class="mkt-panel-head">
+                    <div><small>RECENT</small><strong>최근 재고변동</strong></div>
+                    <span>전체 원장 →</span>
+                  </div>
+                  <div class="mkt-change-row"><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><b class="plus">+5</b><em>14</em></div>
+                  <div class="mkt-change-row"><span class="type adjust">조정</span><div><strong>A5 데일리 노트</strong><small>NOTE-A5-IVORY</small></div><b class="minus">-2</b><em>16</em></div>
+                  <div class="mkt-change-row"><span class="type out">출고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M</small></div><b class="minus">-8</b><em>17</em></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section positioning">
+      <div class="container reveal">
+        <p class="section-label">Why ORDENTORY</p>
+        <h2 class="section-title">
+          엑셀은 복잡해졌지만,<br>
+          <span>ERP까지는 필요하지 않을 때.</span>
+        </h2>
+        <p class="section-copy">
+          ORDENTORY는 소규모 사업자의 재고 흐름에 집중합니다.
+          필요한 기능은 연결하고, 불필요한 복잡함은 줄였습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section story" id="product">
+      <div class="container">
+        <div class="story-intro reveal">
+          <p class="section-label">Product Experience</p>
+          <h2 class="section-title">업무 순서 그대로,<br>화면도 이어집니다.</h2>
+          <p class="section-copy">
+            기능을 따로따로 배우는 대신, 상품 등록부터 입고 반영까지 실제 업무 흐름을 따라가도록 설계했습니다.
+          </p>
+        </div>
+
+        <article class="story-block reveal">
+          <div class="story-copy">
+            <span class="story-number">01 · PRODUCT / SKU</span>
+            <h3>상품은 한 번 등록하고,<br>SKU 단위로 관리합니다.</h3>
+            <p>상품의 공통 정보와 실제 재고를 관리하는 SKU·옵션 정보를 분리해 구조적으로 관리합니다.</p>
+            <ul class="story-list">
+              <li>상품명 · 상품코드 · 카테고리</li>
+              <li>SKU 코드 · 바코드 · 옵션</li>
+              <li>안전재고 · 초기재고 · 공급처 연결</li>
+            </ul>
+          </div>
+          <div class="mkt-ui registration-mock" aria-label="실제 상품 등록 화면을 기반으로 재구성한 UI">
+            <div class="mock-backdrop">
+              <div class="mock-list-line"></div><div class="mock-list-line short"></div><div class="mock-list-line"></div>
+            </div>
+            <div class="registration-card">
+              <div class="reg-head">
+                <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><strong>상품 등록</strong></div>
+                <span class="mock-close">×</span>
+              </div>
+              <div class="reg-section">
+                <div class="reg-title"><strong>1. Product</strong><span>상품의 공통 기본정보</span></div>
+                <div class="reg-grid">
+                  <label><span>상품명</span><b>베이직 반팔 티셔츠</b></label>
+                  <label><span>상품코드</span><b>TS</b></label>
+                  <label class="wide"><span>카테고리</span><b>의류</b></label>
+                </div>
+              </div>
+              <div class="reg-section">
+                <div class="reg-title"><strong>2. SKU / Option</strong><span>실제 재고를 관리할 SKU</span></div>
+                <div class="reg-grid">
+                  <label><span>SKU 코드</span><b>TS-WHITE-M</b></label>
+                  <label><span>바코드</span><b>선택 입력</b></label>
+                  <label><span>판매단가</span><b>19,900원</b></label>
+                  <label><span>기본 매입단가</span><b>8,500원</b></label>
+                  <label class="wide"><span>옵션</span><b>색상 - 화이트　/　사이즈 - M</b></label>
+                  <label><span>안전재고</span><b>10</b></label>
+                  <label><span>초기재고</span><b>27</b></label>
+                </div>
+              </div>
+              <div class="reg-section compact">
+                <div class="reg-title"><strong>3. Supplier</strong><span>SKU 기준 공급처 연결</span></div>
+                <div class="supplier-line"><span>대표 공급처</span><strong>한빛어패럴</strong></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-block reverse reveal">
+          <div class="mkt-ui ledger-mock" aria-label="실제 입출고 재고원장을 기반으로 재구성한 UI">
+            <div class="mock-page-head">
+              <div><small>ORDENTORY / Inventory</small><strong>입출고 · 재고원장</strong><span>모든 재고 변동의 원인과 처리 전·후 수량을 추적합니다.</span></div>
+              <div class="mock-actions"><b>기간별 요약</b><span>Excel 저장</span><span>CSV 저장</span></div>
+            </div>
+            <div class="ledger-stats">
+              <div><span>표시 거래</span><strong>15</strong></div>
+              <div><span>입고</span><strong class="plus">+15</strong></div>
+              <div><span>출고 / 조정</span><strong class="minus">-21</strong></div>
+            </div>
+            <div class="mock-search">상품, SKU, 사유, 메모, 공급처 검색</div>
+            <div class="ledger-grid ledger-head"><span>일자</span><span>유형</span><span>상품 / SKU</span><span>변동</span><span>재고</span></div>
+            <div class="ledger-grid"><span>2026-09-25</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L · 화이트 / L</small></div><b class="plus">+5</b><em>9 → 14</em></div>
+            <div class="ledger-grid"><span>2026-09-22</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M · 화이트 / M</small></div><b class="plus">+10</b><em>17 → 27</em></div>
+            <div class="ledger-grid"><span>2026-09-22</span><span class="type adjust">조정</span><div><strong>A5 데일리 노트</strong><small>NOTE-A5-IVORY · 아이보리</small></div><b class="minus">-2</b><em>18 → 16</em></div>
+            <div class="ledger-grid"><span>2026-09-12</span><span class="type out">출고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M · 화이트 / M</small></div><b class="minus">-8</b><em>25 → 17</em></div>
+          </div>
+          <div class="story-copy">
+            <span class="story-number">02 · STOCK / LEDGER</span>
+            <h3>현재고만 보지 않고,<br>변화가 기록으로 남습니다.</h3>
+            <p>입고와 출고, 초기재고와 재고조정을 원장으로 남겨 현재 수량이 어떻게 만들어졌는지 확인할 수 있습니다.</p>
+            <ul class="story-list">
+              <li>현재고와 안전재고 비교</li>
+              <li>입고 · 출고 · 조정 이력</li>
+              <li>검색 · 필터 · 기간별 확인</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="story-block story-block-purchase reveal">
+          <div class="story-copy">
+            <span class="story-number">03 · PURCHASE / RECEIPT</span>
+            <h3>부족한 재고를 발주하고,<br>실제 입고까지 연결합니다.</h3>
+            <p>안전재고 이하 SKU를 확인하고 공급처 기준으로 발주한 뒤, 실제 입고 처리 시점에 재고를 반영합니다.</p>
+            <ul class="story-list">
+              <li>안전재고 기반 발주 판단</li>
+              <li>공급처 · 발주 · 입고예정 연결</li>
+              <li>실제 입고 처리 후 재고 증가</li>
+            </ul>
+          </div>
+          <div class="mkt-ui purchase-mock" aria-label="실제 발주 및 입고예정 화면을 기반으로 재구성한 UI">
+            <div class="mock-page-head">
+              <div><small>ORDENTORY / Inventory</small><strong>발주 · 입고예정</strong><span>부족한 재고를 준비하고 실제 도착한 물품을 입고 처리합니다.</span></div>
+            </div>
+            <section class="purchase-section">
+              <div class="purchase-title"><strong>발주추천</strong><span>안전재고와 입고예정을 함께 반영합니다.</span></div>
+              <div class="purchase-rec-head"><span>상품 / SKU</span><span>현재고</span><span>안전재고</span><span>입고예정</span><span>추천수량</span></div>
+              <div class="purchase-rec-row"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M · 블랙 / M</small></div><b>8</b><span>10</span><span>20</span><em>0</em></div>
+              <div class="purchase-rec-row"><div><strong>스테인리스 텀블러</strong><small>TUM-500-SILVER · 실버 / 500mL</small></div><b>5</b><span>10</span><span>0</span><em class="attention">6</em></div>
+            </section>
+            <section class="po-card">
+              <div class="po-head"><div><strong>한빛어패럴</strong><small>발주번호 PO-002 · 입고예정 2026-09-30</small></div><span class="status-pill">입고예정</span></div>
+              <div class="po-grid po-grid-head"><span>상품 / SKU</span><span>발주수량</span><span>누적입고</span><span>미입고</span><span>이번 입고</span></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M</small></div><span>20</span><span>0</span><b>20</b><em>20</em></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><span>20</span><span>5</span><b>15</b><em>15</em></div>
+              <div class="receipt-flow"><span>발주완료</span><i>→</i><span>입고예정</span><i>→</i><strong>실제 입고처리</strong><i>→</i><span>재고 반영</span></div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section practical" id="practical" data-allow-word-break>
+      <div class="container">
+        <div class="practical-head reveal">
+          <p class="section-label">Practical Tools</p>
+          <h2 class="section-title">반복되는 재고 업무도,<br>더 빠르고 안전하게.</h2>
+          <p class="section-copy">
+            단순히 재고를 기록하는 데서 끝나지 않습니다.
+            실사, 바코드 입출고, 대량 등록과 백업처럼 실제 운영에서 자주 반복되는 업무까지 이어집니다.
+          </p>
+        </div>
+
+        <div class="practical-list">
+          <article class="practical-row reveal">
+            <span class="practical-index">01</span>
+            <div class="practical-title">
+              <small>STOCKTAKE</small>
+              <h3>재고실사</h3>
+            </div>
+            <p class="practical-copy">
+              실제 수량을 입력하면 현재고와의 차이를 먼저 확인하고,
+              확정한 차이만 재고조정 원장으로 남깁니다.
+            </p>
+            <div class="practical-flow" aria-label="재고실사 흐름">
+              <b>현재고</b><i>→</i><b>실제수량</b><i>→</i><strong>차이 확인</strong><i>→</i><b>조정 원장</b>
+            </div>
+          </article>
+
+          <article class="practical-row reveal">
+            <span class="practical-index">02</span>
+            <div class="practical-title">
+              <small>BARCODE</small>
+              <h3>바코드 빠른 입출고</h3>
+            </div>
+            <p class="practical-copy">
+              USB 바코드 스캐너로 SKU와 현재고를 빠르게 찾고,
+              수량을 확인한 뒤에만 입고·출고를 반영합니다.
+            </p>
+            <div class="practical-flow" aria-label="바코드 입출고 흐름">
+              <b>스캔</b><i>→</i><b>SKU 확인</b><i>→</i><strong>수량 확정</strong><i>→</i><b>원장 생성</b>
+            </div>
+          </article>
+
+          <article class="practical-row reveal">
+            <span class="practical-index">03</span>
+            <div class="practical-title">
+              <small>IMPORT</small>
+              <h3>Excel · CSV 가져오기</h3>
+            </div>
+            <p class="practical-copy">
+              상품이 많다면 한 건씩 입력하지 않아도 됩니다.
+              가져오기 전에 미리보기를 확인하고 중복·충돌을 점검한 뒤 반영합니다.
+            </p>
+            <div class="practical-flow" aria-label="데이터 가져오기 흐름">
+              <b>파일 선택</b><i>→</i><b>미리보기</b><i>→</i><strong>오류 확인</strong><i>→</i><b>가져오기</b>
+            </div>
+          </article>
+
+          <article class="practical-row reveal">
+            <span class="practical-index">04</span>
+            <div class="practical-title">
+              <small>BACKUP & RESTORE</small>
+              <h3>자동백업 · 복원</h3>
+            </div>
+            <p class="practical-copy">
+              원하는 폴더를 지정하면 실행 중 하루 한 번 자동으로 백업하고 최근 14개를 보관합니다.
+              복원 전에는 미리보기와 안전백업으로 한 번 더 확인합니다.
+            </p>
+            <div class="practical-flow" aria-label="자동백업 복원 흐름">
+              <b>폴더 지정</b><i>→</i><b>자동백업</b><i>→</i><strong>복원 미리보기</strong><i>→</i><b>안전 복원</b>
+            </div>
+          </article>
+        </div>
+
+        <div class="practical-more reveal">
+          <span>부분입고</span>
+          <span>기간별 입출고 요약</span>
+          <span>참고 재고금액</span>
+          <span>Excel · CSV 저장</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow" id="workflow" data-allow-word-break>
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Workflow</p>
+          <h2 class="section-title">재고가 움직이는 순서를<br>그대로 관리합니다.</h2>
+        </div>
+        <div class="workflow-line reveal">
+          <div class="workflow-step"><div class="workflow-dot">01</div><strong>상품 등록</strong><span>Product · SKU<br>기본정보 구성</span></div>
+          <div class="workflow-step"><div class="workflow-dot">02</div><strong>현재재고</strong><span>SKU 단위<br>수량 확인</span></div>
+          <div class="workflow-step"><div class="workflow-dot">03</div><strong>재고 부족</strong><span>안전재고 이하<br>대상 확인</span></div>
+          <div class="workflow-step"><div class="workflow-dot">04</div><strong>발주</strong><span>공급처 기준<br>발주 생성</span></div>
+          <div class="workflow-step"><div class="workflow-dot">05</div><strong>입고예정</strong><span>도착 전<br>상태 관리</span></div>
+          <div class="workflow-step"><div class="workflow-dot">06</div><strong>실제 입고</strong><span>처리 시점에<br>재고 반영</span></div>
+        </div>
+        <div class="workflow-note reveal">
+          <strong>ORDENTORY의 원칙:</strong> 발주 상태가 바뀌었다고 재고가 증가하지 않습니다.
+          실제 입고 처리 시점에 입고 원장이 생성되고 현재재고에 반영됩니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo" id="demo" data-allow-word-break>
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Product Demo</p>
+          <h2 class="section-title">설명보다,<br>실제 흐름을 먼저 보여드립니다.</h2>
+          <p class="section-copy">
+            실제 ORDENTORY의 기능과 업무 흐름을 기반으로 구성한 인터랙티브 데모입니다.
+            상품 등록부터 실제 입고가 재고에 반영되는 과정까지 순서대로 확인해보세요.
+          </p>
+        </div>
+
+        <div class="demo-shell reveal">
+          <div class="demo-toolbar">
+            <div class="demo-tabs" role="tablist" aria-label="ORDENTORY 업무 흐름 데모">
+              <button class="demo-tab active" type="button" role="tab" aria-selected="true"><span>01</span> 상품 등록</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>02</span> 바코드 입고</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>03</span> 재고 부족</button>
+              <button class="demo-tab" type="button" role="tab" aria-selected="false"><span>04</span> 발주 · 부분입고</button>
+            </div>
+            <button class="demo-restart" type="button" aria-label="데모 처음부터 보기">↻ 처음부터 보기</button>
+          </div>
+
+          <div class="demo-stage">
+            <div class="demo-scene active" role="tabpanel" aria-label="상품 등록 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>상품 관리</span>
+                </div>
+                <div class="demo-app-body demo-product-body">
+                  <div class="demo-side-rail">
+                    <b>상품</b><span>재고</span><span>입출고</span><span>공급처</span><span>발주 · 입고예정</span>
+                  </div>
+                  <div class="demo-content">
+                    <div class="demo-content-head">
+                      <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><h3>상품 등록</h3></div>
+                      <span class="demo-status neutral">신규 상품</span>
+                    </div>
+                    <div class="demo-form-grid">
+                      <label class="demo-field demo-step-1"><span>상품명</span><strong>베이직 반팔 티셔츠</strong></label>
+                      <label class="demo-field demo-step-1"><span>상품코드</span><strong>TS</strong></label>
+                      <label class="demo-field demo-step-2"><span>SKU 코드</span><strong>TS-WHITE-M</strong></label>
+                      <label class="demo-field demo-step-2"><span>옵션</span><strong>화이트 / M</strong></label>
+                      <label class="demo-field demo-step-3"><span>안전재고</span><strong>10</strong></label>
+                      <label class="demo-field demo-step-3"><span>대표 공급처</span><strong>한빛어패럴</strong></label>
+                    </div>
+                    <div class="demo-action-line">
+                      <span>상품과 SKU, 공급처를 한 흐름에서 연결합니다.</span>
+                      <button class="demo-primary demo-step-4" type="button" tabindex="-1">상품 등록</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-scene" role="tabpanel" aria-label="바코드 입고 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>바코드 빠른 입출고</span>
+                </div>
+                <div class="demo-app-body demo-scan-layout">
+                  <div class="demo-scan-panel">
+                    <small>BARCODE SCAN</small>
+                    <div class="demo-scan-input demo-step-1"><span>8801000000028</span><i></i></div>
+                    <div class="demo-product-found demo-step-2">
+                      <span class="demo-status success">SKU 확인</span>
+                      <h3>베이직 반팔 티셔츠</h3>
+                      <p>TS-WHITE-M · 화이트 / M</p>
+                    </div>
+                    <div class="demo-stock-cards demo-step-3">
+                      <div><span>현재재고</span><strong>17</strong></div>
+                      <div><span>입고수량</span><strong>10</strong></div>
+                    </div>
+                    <button class="demo-primary demo-step-4 demo-scan-button" type="button" tabindex="-1">입고 처리</button>
+                  </div>
+                  <div class="demo-result-panel demo-step-5">
+                    <small>STOCK UPDATED</small>
+                    <div class="demo-stock-change"><span>17</span><i>→</i><strong>27</strong></div>
+                    <p>입고 원장이 생성되고 현재고가 반영되었습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-scene" role="tabpanel" aria-label="재고 부족 확인 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>오늘의 업무</span>
+                </div>
+                <div class="demo-app-body demo-alert-layout">
+                  <div class="demo-alert-copy">
+                    <small>ATTENTION</small>
+                    <h3>안전재고 이하</h3>
+                    <p>현재고와 입고예정을 함께 확인해 발주 대상을 판단합니다.</p>
+                  </div>
+                  <div class="demo-alert-card">
+                    <div class="demo-alert-product demo-step-1">
+                      <div><strong>베이직 반팔 티셔츠</strong><span>TS-BLACK-M · 블랙 / M</span></div>
+                      <span class="demo-status warning">재고 부족</span>
+                    </div>
+                    <div class="demo-alert-metrics">
+                      <div class="demo-step-2"><span>현재고</span><strong>8</strong></div>
+                      <div class="demo-step-2"><span>안전재고</span><strong>10</strong></div>
+                      <div class="demo-step-3"><span>입고예정</span><strong>0</strong></div>
+                      <div class="demo-step-3 recommended"><span>추천수량</span><strong>2</strong></div>
+                    </div>
+                    <div class="demo-action-line demo-step-4">
+                      <span>부족 수량을 확인한 뒤 공급처 기준으로 발주를 준비합니다.</span>
+                      <button class="demo-primary" type="button" tabindex="-1">발주 준비</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-scene" role="tabpanel" aria-label="발주 및 부분입고 데모">
+              <div class="demo-app-window">
+                <div class="demo-app-bar">
+                  <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+                  <span>발주 · 입고예정</span>
+                </div>
+                <div class="demo-app-body demo-receipt-layout">
+                  <div class="demo-po-head">
+                    <div><small>PURCHASE ORDER</small><h3>한빛어패럴 · PO-002</h3><p>베이직 반팔 티셔츠 · TS-BLACK-M</p></div>
+                    <span class="demo-status info">입고예정</span>
+                  </div>
+                  <div class="demo-po-metrics">
+                    <div class="demo-step-1"><span>발주수량</span><strong>20</strong></div>
+                    <div class="demo-step-1"><span>누적입고</span><strong>0</strong></div>
+                    <div class="demo-step-1"><span>미입고</span><strong>20</strong></div>
+                    <div class="demo-step-2 receipt-input"><span>이번 입고</span><strong>5</strong></div>
+                  </div>
+                  <div class="demo-action-line demo-step-3">
+                    <span>도착한 수량만 입력해 부분입고 처리합니다.</span>
+                    <button class="demo-primary" type="button" tabindex="-1">입고 처리</button>
+                  </div>
+                  <div class="demo-receipt-result demo-step-4">
+                    <div><span>누적입고</span><strong>5</strong></div>
+                    <div><span>미입고</span><strong>15</strong></div>
+                    <div class="stock-result"><span>현재재고</span><b>8</b><i>→</i><strong>13</strong></div>
+                    <span class="demo-status success">부분입고 완료</span>
+                  </div>
+                  <div class="demo-mini-flow demo-step-5">
+                    <span>발주완료</span><i>→</i><span>입고예정</span><i>→</i><strong>실제 입고처리</strong><i>→</i><span>재고 반영</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-footer">
+            <span>실제 ORDENTORY의 기능과 업무 흐름을 기반으로 구성한 데모입니다.</span>
+            <div class="demo-progress" aria-hidden="true"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Core Features</p>
+          <h2 class="section-title">재고관리에서<br>자주 쓰는 것에 집중했습니다.</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-row reveal">
+            <span class="feature-index">01</span>
+            <h3>상품 · SKU</h3>
+            <p>상품, 옵션, SKU 코드, 바코드, 카테고리와 안전재고를 구조적으로 관리합니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">02</span>
+            <h3>재고 · 입출고</h3>
+            <p>현재재고와 입고·출고·조정 원장을 함께 확인해 수량 변화의 근거를 남깁니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">03</span>
+            <h3>공급처 · 발주</h3>
+            <p>SKU별 공급처와 매입정보를 연결하고 안전재고 기준으로 발주와 입고예정을 관리합니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">04</span>
+            <h3>데이터 · 백업</h3>
+            <p>재고 데이터를 Excel·CSV로 활용하고 지정 위치에 백업해 데스크톱 데이터를 안전하게 관리합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section audience" data-allow-word-break>
+      <div class="container audience-layout">
+        <div class="reveal">
+          <p class="section-label">For Small Business</p>
+          <h2 class="section-title">
+            엑셀보다 체계적이고,<br>
+            ERP보다 가볍게.
+          </h2>
+          <p class="section-copy">
+            ORDENTORY는 모든 경영업무를 담으려 하지 않습니다.
+            상품과 재고, 입출고, 공급처와 발주가 복잡해지기 시작한 사업자의 재고 업무에 집중합니다.
+          </p>
+        </div>
+        <div class="audience-list reveal">
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>SKU가 늘어나기 시작한 판매자</strong><span>엑셀 행과 시트가 늘어날수록 관리가 어려워졌다면.</span></div></div>
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>현재고와 입출고 이력을 함께 보고 싶은 사업자</strong><span>숫자 하나가 아니라 재고가 변한 이유까지 확인하고 싶다면.</span></div></div>
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>공급처와 발주까지 연결하고 싶은 운영팀</strong><span>재고 부족 확인부터 실제 입고까지 한 흐름으로 관리하고 싶다면.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="pricing-wrap reveal">
+          <div class="pricing-copy">
+            <p class="section-label">Pricing & Purchase</p>
+            <h2>필요한 재고관리부터<br>ORDENTORY로.</h2>
+            <p>
+              자사몰 직접 구매와 자동 라이선스 발급을 준비하고 있습니다.
+              가격 및 구매 정책 확정 후 이 영역에서 바로 구매할 수 있도록 연결됩니다.
+            </p>
+          </div>
+          <div class="price-box">
+            <small>ORDENTORY INVENTORY</small>
+            <h3>Windows 재고관리 프로그램</h3>
+            <div class="price-pending">출시 가격 준비 중</div>
+            <ul class="price-list">
+              <li>상품 · SKU · 옵션 관리</li>
+              <li>재고 · 입출고 원장</li>
+              <li>공급처 · 발주 · 입고예정</li>
+              <li>Excel · CSV 내보내기 및 데이터 백업</li>
+            </ul>
+            <span class="button button-disabled" aria-disabled="true">자사몰 구매 준비 중</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight" id="faq">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">FAQ</p>
+          <h2 class="section-title">구매 전에<br>자주 묻는 질문.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary><span class="faq-question">ORDENTORY는 어떤 프로그램인가요?</span></summary>
+            <div class="faq-answer">상품과 SKU, 현재재고, 입출고, 공급처, 발주와 입고예정을 관리하는 Windows용 데스크톱 재고관리 소프트웨어입니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">ERP를 대체하는 프로그램인가요?</span></summary>
+            <div class="faq-answer">ORDENTORY는 회계·인사·생산 등 모든 경영영역을 포함하는 ERP가 아니라, 소규모 사업자의 재고관리 업무에 집중한 제품입니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">Excel이나 CSV로 데이터를 내보낼 수 있나요?</span></summary>
+            <div class="faq-answer">재고 관련 데이터를 Excel·CSV 형태로 활용할 수 있도록 제공하는 방향으로 구성되어 있습니다. 실제 판매 버전의 제공 범위는 출시 안내에서 최종 확인할 수 있습니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">데이터 백업은 가능한가요?</span></summary>
+            <div class="faq-answer">데이터 보관 기능을 통해 백업을 관리할 수 있으며, 판매 버전에서는 사용자 지정 위치를 활용한 백업 흐름을 제공합니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">구매와 라이선스 발급은 어떻게 진행되나요?</span></summary>
+            <div class="faq-answer">자사몰 결제 기능 오픈 후에는 결제 확인을 서버에서 검증한 뒤 ORDENTORY 라이선스가 발급되는 흐름으로 제공할 예정입니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">문의는 어디로 하면 되나요?</span></summary>
+            <div class="faq-answer">제품 및 구매 문의는 admin@ordentory.kr, 고객지원은 support@ordentory.kr로 연락할 수 있습니다.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container reveal">
+        <h2>재고관리를<br>더 단순하게.</h2>
+        <p>ORDENTORY Inventory의 실제 흐름을 확인해보세요.</p>
+        <div class="final-actions">
+          <a class="button button-primary" href="#demo">제품 데모 보기</a>
+          <a class="button button-secondary" href="mailto:admin@ordentory.kr">제품 문의</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img class="footer-logo" src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+          <p>상품과 재고, 입출고, 공급처와 발주 업무를 하나의 흐름으로 관리하는 재고관리 소프트웨어.</p>
+        </div>
+        <div>
+          <div class="footer-title">제품</div>
+          <div class="footer-links">
+            <a href="#product">제품 소개</a>
+            <a href="#workflow">사용 흐름</a>
+            <a href="#features">주요 기능</a>
+            <a href="#pricing">가격 / 구매</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">사업자 정보</div>
+          <div class="footer-info">
+            <span>상호: 오덴토리 · 대표자: 이보승</span><br>
+            <span>사업자등록번호: 286-34-01739</span><br>
+            <span>사업장: 인천광역시 부평구 동수북로 172, 4층 가2호(부평동)</span><br>
+            <span>고객지원: support@ordentory.kr</span><br>
+            <span>사업문의: admin@ordentory.kr</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ORDENTORY. All rights reserved.</span>
+        <span>이용약관 · 개인정보처리방침 · 환불정책은 자사몰 구매 오픈 시 함께 제공합니다.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
