@@ -258,7 +258,7 @@ img, video { display: block; max-width: 100%; }
   font-size: 13px;
   font-weight: 700;
 }
-.hero-points span::before { content: "✓"; margin-right: 7px; color: var(--blue); }
+.hero-points > span::before { content: "✓"; margin-right: 7px; color: var(--blue); }
 
 /* product frame */
 .product-stage { position: relative; z-index: 2; margin-top: 72px; }
@@ -1573,7 +1573,7 @@ img, video { display: block; max-width: 100%; }
           <a class="button button-primary" href="#product">ORDENTORY 살펴보기</a>
           <a class="button button-secondary" href="#demo">제품 데모 보기</a>
         </div>
-        <div class="hero-points" aria-label="핵심 범위">
+        <div class="hero-points" aria-label="핵심 범위" data-allow-word-break>
           <span>상품 · SKU</span>
           <span>재고 · 입출고</span>
           <span>공급처 · 발주</span>
