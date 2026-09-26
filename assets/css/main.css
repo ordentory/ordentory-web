@@ -31,6 +31,12 @@ html, body, button, input, textarea, select, a, p, span, strong, b, em, small, l
   overflow-wrap: normal;
   hyphens: none;
 }
+
+/* Hard guarantee: Korean words may wrap only between whitespace-delimited words. */
+.word-token {
+  white-space: nowrap;
+}
+
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
