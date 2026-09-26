@@ -359,11 +359,6 @@ img, video { display: block; max-width: 100%; }
   grid-template-columns: .92fr 1.08fr;
   gap: 56px;
 }
-.story-block-purchase .story-copy h3 {
-  font-size: clamp(30px, 3.5vw, 46px);
-  line-height: 1.12;
-  word-break: keep-all;
-}
 .story-number {
   color: var(--blue);
   font-size: 12px;
@@ -373,9 +368,10 @@ img, video { display: block; max-width: 100%; }
 .story-copy h3 {
   margin: 16px 0 18px;
   color: var(--ink-strong);
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.08;
+  font-size: clamp(30px, 3.5vw, 46px);
+  line-height: 1.12;
   letter-spacing: -.045em;
+  word-break: keep-all;
 }
 .story-copy p {
   margin: 0;
