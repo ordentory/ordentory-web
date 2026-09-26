@@ -37,6 +37,35 @@ html, body, button, input, textarea, select, a, p, span, strong, b, em, small, l
   white-space: nowrap;
 }
 
+
+/* Global Korean line-breaking rule: never split a word between syllables. */
+body, body * {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
+  line-break: strict;
+  hyphens: none !important;
+}
+.section-title,
+.section-copy,
+.story-copy h3,
+.story-copy p,
+.story-list li,
+.audience-item,
+.audience-item strong,
+.audience-item span,
+.feature-row,
+.feature-row h3,
+.feature-row p,
+.faq details,
+.faq summary,
+.faq p,
+.final-cta,
+.final-cta h2,
+.final-cta p {
+  text-wrap: pretty;
+}
+
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
