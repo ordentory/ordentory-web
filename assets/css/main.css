@@ -355,6 +355,15 @@ img, video { display: block; max-width: 100%; }
 }
 .story-block.reverse { grid-template-columns: 1.22fr .78fr; }
 .story-block.reverse .story-copy { order: 2; }
+.story-block-purchase {
+  grid-template-columns: .92fr 1.08fr;
+  gap: 56px;
+}
+.story-block-purchase .story-copy h3 {
+  font-size: clamp(30px, 3.5vw, 46px);
+  line-height: 1.12;
+  word-break: keep-all;
+}
 .story-number {
   color: var(--blue);
   font-size: 12px;
