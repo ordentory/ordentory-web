@@ -330,6 +330,62 @@ img, video { display: block; max-width: 100%; }
   font-weight: 800;
 }
 
+
+/* Actual ORDENTORY product screenshots */
+.screenshot-frame {
+  position: relative;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #dce3ed;
+  border-radius: 18px;
+  background: #f7f8fa;
+  box-shadow: var(--shadow-sm);
+}
+.screenshot-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .3s ease;
+}
+.screenshot-frame:hover img { transform: scale(1.008); }
+.screenshot-frame-hero {
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+.screenshot-frame-portrait {
+  width: min(100%, 620px);
+  max-height: 620px;
+  justify-self: end;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #eef2f7;
+}
+.screenshot-frame-portrait img {
+  width: auto;
+  max-width: 100%;
+  max-height: 620px;
+  object-fit: contain;
+}
+.screenshot-frame-landscape {
+  width: 100%;
+}
+.demo-screenshot {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  border-color: #334159;
+  box-shadow: 0 22px 65px rgba(0,0,0,.25);
+}
+.demo-screenshot.portrait-demo {
+  width: min(520px, 100%);
+}
+.demo-screenshot.portrait-demo img {
+  max-height: 560px;
+  object-fit: contain;
+  background: #eef2f7;
+}
+
 /* positioning statement */
 .positioning {
   overflow: hidden;
@@ -537,8 +593,8 @@ img, video { display: block; max-width: 100%; }
 }
 .demo-tab.active { border-color: #668feb; color: #fff; background: #1d376c; }
 .demo-caption { color: #8d9bb1; font-size: 11px; }
-.demo-stage { min-height: 500px; padding: 32px; background: linear-gradient(180deg,#101a2d,#0d1424); }
-.demo-scene { display: none; animation: sceneIn .35s ease; }
+.demo-stage { min-height: 500px; padding: 32px; display: flex; align-items: center; background: linear-gradient(180deg,#101a2d,#0d1424); }
+.demo-scene { display: none; width: 100%; animation: sceneIn .35s ease; }
 .demo-scene.active { display: block; }
 .demo-scene .ui-preview { max-width: 920px; margin: 0 auto; color: var(--ink); background: #f7f8fa; }
 @keyframes sceneIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
