@@ -25,6 +25,12 @@
 }
 
 * { box-sizing: border-box; }
+
+html, body, button, input, textarea, select, a, p, span, strong, b, em, small, label, li, dt, dd, th, td, h1, h2, h3, h4, h5, h6 {
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+}
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
