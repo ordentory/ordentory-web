@@ -37,18 +37,43 @@ if ("IntersectionObserver" in window) {
 
 const tabs = Array.from(document.querySelectorAll(".demo-tab"));
 const scenes = Array.from(document.querySelectorAll(".demo-scene"));
+const demoShell = document.querySelector(".demo-shell");
+const restartDemoButton = document.querySelector(".demo-restart");
+const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 let activeScene = 0;
 let timer;
 
-function showScene(index) {
+function restartSceneAnimation(scene) {
+  if (!scene) return;
+  scene.classList.remove("active");
+  void scene.offsetWidth;
+  scene.classList.add("active");
+}
+
+function restartDemoProgress() {
+  if (!demoShell) return;
+  demoShell.classList.remove("is-running");
+  void demoShell.offsetWidth;
+  if (!reduceMotion) demoShell.classList.add("is-running");
+}
+
+function showScene(index, restartAnimation = true) {
   activeScene = index;
-  tabs.forEach((tab, i) => tab.classList.toggle("active", i === index));
+  tabs.forEach((tab, i) => {
+    const selected = i === index;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-selected", String(selected));
+  });
   scenes.forEach((scene, i) => scene.classList.toggle("active", i === index));
+
+  if (restartAnimation) restartSceneAnimation(scenes[index]);
+  restartDemoProgress();
 }
 
 function startDemo() {
   clearInterval(timer);
-  timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 3200);
+  if (reduceMotion || !tabs.length || !scenes.length) return;
+  timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 5000);
 }
 
 tabs.forEach((tab, index) => {
@@ -58,7 +83,15 @@ tabs.forEach((tab, index) => {
   });
 });
 
-if (tabs.length && scenes.length) startDemo();
+restartDemoButton?.addEventListener("click", () => {
+  showScene(0);
+  startDemo();
+});
+
+if (tabs.length && scenes.length) {
+  showScene(0);
+  startDemo();
+}
 
 
 // Prevent Korean words from breaking between syllables.
