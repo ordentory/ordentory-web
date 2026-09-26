@@ -856,20 +856,7 @@ img, video { display: block; max-width: 100%; }
 .faq-answer { max-width: 760px; padding: 0 4px 28px; color: var(--muted); font-size: 14px; line-height: 1.8; }
 
 
-/* Targeted wrap restoration: audience + FAQ */
-.audience-item > div {
-  min-width: 0;
-  width: 100%;
-}
-.audience-item strong,
-.audience-item > div > span {
-  display: block;
-  width: 100%;
-  white-space: normal !important;
-  word-break: keep-all !important;
-  overflow-wrap: normal !important;
-  text-wrap: wrap;
-}
+/* FAQ targeted wrap restoration */
 .faq-list summary {
   width: 100%;
 }
@@ -1256,7 +1243,7 @@ img, video { display: block; max-width: 100%; }
       </div>
     </section>
 
-    <section class="section workflow" id="workflow">
+    <section class="section workflow" id="workflow" data-allow-word-break>
       <div class="container">
         <div class="reveal">
           <p class="section-label">Workflow</p>
@@ -1348,7 +1335,7 @@ img, video { display: block; max-width: 100%; }
       </div>
     </section>
 
-    <section class="section audience">
+    <section class="section audience" data-allow-word-break>
       <div class="container audience-layout">
         <div class="reveal">
           <p class="section-label">For Small Business</p>
