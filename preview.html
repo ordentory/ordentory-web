@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>ORDENTORY | 재고관리를 더 단순하게</title>
+  <meta name="description" content="상품, SKU, 재고, 입출고, 공급처와 발주를 하나의 흐름으로 관리하는 Windows 재고관리 소프트웨어 ORDENTORY">
+  <style>
+:root {
+  --ink: #172033;
+  --ink-strong: #0e162a;
+  --muted: #64748b;
+  --muted-light: #94a3b8;
+  --line: #e2e8f0;
+  --line-soft: #edf0f4;
+  --surface: #ffffff;
+  --surface-soft: #f7f8fa;
+  --surface-blue: #f5f8ff;
+  --navy: #111827;
+  --navy-soft: #263244;
+  --blue: #125aef;
+  --blue-strong: #0b4bd4;
+  --blue-soft: #eaf1ff;
+  --success: #166534;
+  --success-soft: #dcfce7;
+  --warning: #b54708;
+  --warning-soft: #fff7ed;
+  --shadow-sm: 0 10px 30px rgba(15, 23, 42, .07);
+  --shadow-lg: 0 32px 80px rgba(15, 23, 42, .14);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --max: 1200px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--surface);
+  font-family: Pretendard, "Noto Sans KR", "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body.nav-open { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+img, video { display: block; max-width: 100%; }
+.container { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+.section { padding: 132px 0; }
+.section-tight { padding: 92px 0; }
+.section-label {
+  margin: 0 0 18px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.section-title {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: 1.08;
+  letter-spacing: -.055em;
+}
+.section-copy {
+  max-width: 700px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.75;
+}
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+.button:hover { transform: translateY(-1px); }
+.button-primary { color: #fff; background: var(--ink-strong); }
+.button-primary:hover { background: var(--navy-soft); }
+.button-secondary { border-color: #d7dee9; color: #334155; background: #fff; }
+.button-secondary:hover { border-color: #b8c4d3; }
+.button-light { color: var(--ink-strong); background: #fff; }
+.button-disabled {
+  cursor: default;
+  color: #94a3b8;
+  background: #e2e8f0;
+  transform: none !important;
+}
+.text-link { color: var(--blue); font-size: 14px; font-weight: 800; }
+
+/* header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(226,232,240,.72);
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(18px);
+}
+.header-inner {
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.brand {
+  color: var(--ink-strong);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.site-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.site-nav a {
+  color: #475569;
+  font-size: 14px;
+  font-weight: 700;
+}
+.site-nav a:hover { color: var(--ink-strong); }
+.header-cta { margin-left: 8px; }
+.menu-button {
+  display: none;
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: #fff;
+}
+
+/* hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 108px 0 96px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(18,90,239,.10), transparent 34%),
+    linear-gradient(180deg, #fff 0%, #f8fbff 72%, #fff 100%);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(23,32,51,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(23,32,51,.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 75%);
+}
+.hero-content { position: relative; z-index: 2; text-align: center; }
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 26px;
+  border: 1px solid #d9e4fb;
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--blue-strong);
+  background: rgba(255,255,255,.82);
+  font-size: 12px;
+  font-weight: 800;
+}
+.hero-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.hero h1 {
+  max-width: 940px;
+  margin: 0 auto;
+  color: var(--ink-strong);
+  font-size: clamp(54px, 7vw, 92px);
+  line-height: .98;
+  letter-spacing: -.07em;
+}
+.hero h1 span { color: var(--blue); }
+.hero-description {
+  max-width: 720px;
+  margin: 30px auto 0;
+  color: #536176;
+  font-size: 20px;
+  line-height: 1.75;
+}
+.hero-actions {
+  margin-top: 34px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hero-points {
+  margin: 24px auto 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+.hero-points span::before { content: "✓"; margin-right: 7px; color: var(--blue); }
+
+/* product frame */
+.product-stage { position: relative; z-index: 2; margin-top: 72px; }
+.product-stage::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -22px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(15,23,42,.17);
+  filter: blur(44px);
+}
+.app-window {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr);
+  border: 1px solid #dce3ed;
+  border-radius: 20px;
+  background: #f7f8fa;
+  box-shadow: var(--shadow-lg);
+}
+.app-sidebar {
+  padding: 24px 15px;
+  color: #fff;
+  background: #111827;
+}
+.app-brand { margin: 4px 8px 28px; }
+.app-brand strong { display: block; font-size: 18px; letter-spacing: .06em; }
+.app-brand span { display: block; margin-top: 5px; color: #94a3b8; font-size: 11px; font-weight: 700; }
+.app-nav { display: grid; gap: 5px; }
+.app-nav span {
+  border-radius: 8px;
+  padding: 10px 11px;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 650;
+}
+.app-nav .active { color: #fff; background: #263244; }
+.app-content { padding: 30px 34px 36px; }
+.app-topbar {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.app-eyebrow { color: #64748b; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+.app-topbar h3 { margin: 6px 0 4px; font-size: 25px; }
+.app-topbar p { margin: 0; color: #64748b; font-size: 12px; }
+.app-button {
+  border-radius: 8px;
+  padding: 9px 13px;
+  color: #fff;
+  background: #172033;
+  font-size: 11px;
+  font-weight: 800;
+}
+.app-summary {
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.app-metric {
+  min-height: 88px;
+  padding: 16px 17px;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  background: #fff;
+}
+.app-metric span { display: block; color: #64748b; font-size: 11px; font-weight: 700; }
+.app-metric strong { display: block; margin-top: 14px; font-size: 23px; }
+.app-panel {
+  overflow: hidden;
+  border: 1px solid #dfe5ed;
+  border-radius: 12px;
+  background: #fff;
+}
+.app-panel-head {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #edf0f4;
+}
+.app-panel-head strong { font-size: 12px; }
+.app-panel-head span { color: var(--blue); font-size: 10px; font-weight: 800; }
+.app-table-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr .7fr .7fr;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 16px;
+  border-top: 1px solid #edf0f4;
+  font-size: 11px;
+}
+.app-table-row:first-of-type { border-top: 0; }
+.app-table-row.header {
+  color: #7b8798;
+  background: #f7f9fb;
+  font-size: 9px;
+  font-weight: 800;
+}
+.app-table-row strong { font-size: 11px; }
+.low { color: var(--warning); font-weight: 900; }
+.badge {
+  width: max-content;
+  border-radius: 999px;
+  padding: 4px 7px;
+  color: var(--success);
+  background: var(--success-soft);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* positioning statement */
+.positioning {
+  overflow: hidden;
+  background: var(--ink-strong);
+}
+.positioning .container { position: relative; }
+.positioning .section-label { color: #8fb5ff; }
+.positioning .section-title { max-width: 1040px; color: #fff; }
+.positioning .section-title span { color: #8fb5ff; }
+.positioning .section-copy { color: #aeb9ca; }
+
+/* product story */
+.story { background: #fff; }
+.story-intro { margin-bottom: 84px; }
+.story-block {
+  min-height: 640px;
+  display: grid;
+  grid-template-columns: .78fr 1.22fr;
+  align-items: center;
+  gap: 72px;
+  padding: 78px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.story-block.reverse { grid-template-columns: 1.22fr .78fr; }
+.story-block.reverse .story-copy { order: 2; }
+.story-number {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.story-copy h3 {
+  margin: 16px 0 18px;
+  color: var(--ink-strong);
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+.story-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+.story-list { margin: 24px 0 0; padding: 0; list-style: none; }
+.story-list li { margin: 9px 0; color: #475569; font-size: 14px; font-weight: 700; }
+.story-list li::before { content: "—"; margin-right: 10px; color: var(--blue); }
+.ui-preview {
+  overflow: hidden;
+  border: 1px solid #dfe5ed;
+  border-radius: 18px;
+  background: #f7f8fa;
+  box-shadow: var(--shadow-sm);
+}
+.ui-titlebar {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e5eaf0;
+  background: #fff;
+}
+.ui-titlebar i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+.ui-body { padding: 22px; }
+.ui-headline {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.ui-headline small { display: block; color: #64748b; font-size: 9px; font-weight: 800; letter-spacing: .09em; }
+.ui-headline strong { display: block; margin-top: 5px; font-size: 18px; }
+.ui-action { border-radius: 8px; padding: 8px 11px; color: #fff; background: #172033; font-size: 9px; font-weight: 800; }
+.form-section {
+  margin-top: 11px;
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  background: #fff;
+}
+.form-heading { margin-bottom: 12px; display: flex; justify-content: space-between; gap: 10px; }
+.form-heading strong { font-size: 11px; }
+.form-heading span { color: #7b8798; font-size: 9px; }
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mini-field span { display: block; margin-bottom: 6px; color: #475569; font-size: 9px; font-weight: 750; }
+.fake-input {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cfd7e3;
+  border-radius: 7px;
+  padding: 0 9px;
+  color: #64748b;
+  background: #fff;
+  font-size: 9px;
+}
+.ledger-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 13px; }
+.ledger-summary div { padding: 13px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; }
+.ledger-summary span { display: block; color: #64748b; font-size: 9px; }
+.ledger-summary strong { display: block; margin-top: 8px; font-size: 17px; }
+.ledger-table { overflow: hidden; border: 1px solid #dfe5ed; border-radius: 10px; background: #fff; }
+.ledger-row { display: grid; grid-template-columns: 1fr 1.4fr .8fr .8fr; gap: 8px; padding: 11px 12px; border-top: 1px solid #edf0f4; font-size: 9px; }
+.ledger-row:first-child { border-top: 0; color: #7b8798; background: #f4f6f9; font-weight: 800; }
+.purchase-flow { display: grid; gap: 10px; }
+.purchase-row {
+  display: grid;
+  grid-template-columns: 1.3fr .8fr .8fr .7fr;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 10px;
+}
+.status-pill { width: max-content; border-radius: 999px; padding: 4px 7px; background: var(--blue-soft); color: var(--blue-strong); font-size: 8px; font-weight: 900; }
+
+/* workflow */
+.workflow { background: var(--surface-soft); }
+.workflow-line {
+  position: relative;
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+}
+.workflow-line::before {
+  content: "";
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 19px;
+  height: 1px;
+  background: #cdd6e3;
+}
+.workflow-step { position: relative; padding: 0 12px; text-align: center; }
+.workflow-dot {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 50%;
+  color: var(--ink);
+  background: #fff;
+  font-size: 11px;
+  font-weight: 900;
+}
+.workflow-step strong { display: block; font-size: 14px; }
+.workflow-step span { display: block; margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.workflow-note {
+  max-width: 820px;
+  margin: 48px auto 0;
+  border-left: 3px solid var(--blue);
+  padding: 4px 0 4px 20px;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* demo */
+.demo { color: #fff; background: #0d1424; }
+.demo .section-label { color: #8fb5ff; }
+.demo .section-title { color: #fff; }
+.demo .section-copy { color: #aeb9ca; }
+.demo-shell {
+  margin-top: 56px;
+  overflow: hidden;
+  border: 1px solid #29354a;
+  border-radius: 20px;
+  background: #111b2e;
+  box-shadow: 0 30px 90px rgba(0,0,0,.28);
+}
+.demo-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 18px;
+  border-bottom: 1px solid #29354a;
+}
+.demo-tabs { display: flex; gap: 7px; }
+.demo-tab {
+  border: 1px solid #35435a;
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: #93a4bc;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+}
+.demo-tab.active { border-color: #668feb; color: #fff; background: #1d376c; }
+.demo-caption { color: #8d9bb1; font-size: 11px; }
+.demo-stage { min-height: 500px; padding: 32px; background: linear-gradient(180deg,#101a2d,#0d1424); }
+.demo-scene { display: none; animation: sceneIn .35s ease; }
+.demo-scene.active { display: block; }
+.demo-scene .ui-preview { max-width: 920px; margin: 0 auto; color: var(--ink); background: #f7f8fa; }
+@keyframes sceneIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* features */
+.features-grid { margin-top: 64px; border-top: 1px solid var(--line); }
+.feature-row {
+  min-height: 180px;
+  display: grid;
+  grid-template-columns: 100px .55fr 1fr;
+  gap: 34px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.feature-index { color: var(--blue); font-size: 13px; font-weight: 900; }
+.feature-row h3 { margin: 0; font-size: 26px; letter-spacing: -.035em; }
+.feature-row p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
+
+/* audience */
+.audience { background: var(--surface-blue); }
+.audience-layout { display: grid; grid-template-columns: 1fr .82fr; gap: 90px; align-items: start; }
+.audience-list { margin: 18px 0 0; border-top: 1px solid #dbe4f2; }
+.audience-item { padding: 22px 0; display: grid; grid-template-columns: 34px 1fr; gap: 14px; border-bottom: 1px solid #dbe4f2; }
+.audience-check { color: var(--blue); font-size: 18px; font-weight: 900; }
+.audience-item strong { display: block; font-size: 16px; }
+.audience-item span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+/* pricing */
+.pricing-wrap {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  border-radius: 24px;
+  background: var(--ink-strong);
+}
+.pricing-copy { padding: 72px; color: #fff; }
+.pricing-copy .section-label { color: #8fb5ff; }
+.pricing-copy h2 { margin: 0; font-size: clamp(38px, 4.7vw, 62px); line-height: 1.05; letter-spacing: -.05em; }
+.pricing-copy p { max-width: 540px; margin: 22px 0 0; color: #aeb9ca; font-size: 16px; line-height: 1.75; }
+.price-box {
+  margin: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 18px;
+  padding: 38px;
+  color: var(--ink);
+  background: #fff;
+}
+.price-box small { color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
+.price-box h3 { margin: 12px 0 6px; font-size: 28px; }
+.price-box .price-pending { margin: 16px 0 24px; font-size: 24px; font-weight: 900; }
+.price-list { margin: 0 0 26px; padding: 0; list-style: none; }
+.price-list li { margin: 10px 0; color: #475569; font-size: 13px; }
+.price-list li::before { content: "✓"; margin-right: 8px; color: var(--blue); font-weight: 900; }
+
+/* faq */
+.faq-list { max-width: 900px; margin: 56px auto 0; border-top: 1px solid var(--line); }
+.faq-list details { border-bottom: 1px solid var(--line); }
+.faq-list summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 26px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--ink-strong);
+  font-size: 17px;
+  font-weight: 800;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: "+"; color: var(--muted); font-size: 23px; font-weight: 400; }
+.faq-list details[open] summary::after { content: "−"; }
+.faq-answer { max-width: 760px; padding: 0 4px 28px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+
+/* final cta / footer */
+.final-cta { padding: 118px 0; text-align: center; }
+.final-cta h2 { margin: 0; color: var(--ink-strong); font-size: clamp(44px, 6vw, 76px); line-height: 1.03; letter-spacing: -.06em; }
+.final-cta p { margin: 20px auto 0; color: var(--muted); font-size: 17px; }
+.final-actions { margin-top: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.site-footer { padding: 52px 0 34px; color: #aeb9ca; background: #0d1424; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr .8fr 1fr; gap: 64px; }
+.footer-brand strong { display: block; color: #fff; font-size: 19px; letter-spacing: .08em; }
+.footer-brand p { max-width: 330px; margin: 15px 0 0; color: #8390a4; font-size: 12px; line-height: 1.7; }
+.footer-title { margin-bottom: 13px; color: #fff; font-size: 12px; font-weight: 800; }
+.footer-links { display: grid; gap: 10px; }
+.footer-links a, .footer-info span { color: #8f9caf; font-size: 11px; line-height: 1.6; }
+.footer-bottom {
+  margin-top: 42px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #202b3d;
+  color: #66758b;
+  font-size: 10px;
+}
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 980px) {
+  .site-nav, .header-cta { display: none; }
+  .menu-button { display: block; }
+  .site-nav.mobile-open {
+    position: fixed;
+    inset: 74px 0 auto 0;
+    display: grid;
+    gap: 0;
+    padding: 14px 24px 22px;
+    border-bottom: 1px solid var(--line);
+    background: #fff;
+    box-shadow: 0 18px 36px rgba(15,23,42,.08);
+  }
+  .site-nav.mobile-open a { padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+  .app-window { min-height: 560px; grid-template-columns: 162px minmax(0,1fr); }
+  .app-content { padding: 26px 24px; }
+  .story-block, .story-block.reverse { min-height: auto; grid-template-columns: 1fr; gap: 42px; }
+  .story-block.reverse .story-copy { order: initial; }
+  .audience-layout { grid-template-columns: 1fr; gap: 46px; }
+  .pricing-wrap { grid-template-columns: 1fr; }
+  .price-box { margin-top: 0; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .container, .header-inner { width: min(100% - 32px, var(--max)); }
+  .section { padding: 92px 0; }
+  .section-tight { padding: 68px 0; }
+  .hero { padding: 76px 0 72px; }
+  .hero h1 { font-size: clamp(48px, 15vw, 66px); }
+  .hero-description { font-size: 17px; }
+  .product-stage { margin-top: 52px; }
+  .app-window { min-height: 500px; display: block; border-radius: 14px; }
+  .app-sidebar { display: none; }
+  .app-content { padding: 22px 16px; }
+  .app-topbar { display: block; }
+  .app-button { display: none; }
+  .app-summary { grid-template-columns: 1fr 1fr; }
+  .app-summary .app-metric:last-child { grid-column: 1 / -1; }
+  .app-table-row { grid-template-columns: 1.4fr .8fr .7fr; }
+  .app-table-row > :nth-child(2) { display: none; }
+  .story-intro { margin-bottom: 34px; }
+  .story-block { padding: 54px 0; }
+  .mini-grid { grid-template-columns: 1fr; }
+  .ledger-summary { grid-template-columns: 1fr 1fr; }
+  .ledger-summary div:last-child { grid-column: 1 / -1; }
+  .ledger-row { grid-template-columns: 1fr 1.2fr .7fr; }
+  .ledger-row > :nth-child(4) { display: none; }
+  .purchase-row { grid-template-columns: 1.2fr .8fr .8fr; }
+  .purchase-row > :nth-child(4) { display: none; }
+  .workflow-line { grid-template-columns: 1fr 1fr; gap: 28px 0; }
+  .workflow-line::before { display: none; }
+  .demo-stage { min-height: 410px; padding: 18px; }
+  .demo-caption { display: none; }
+  .demo-tabs { overflow-x: auto; }
+  .feature-row { min-height: 0; grid-template-columns: 54px 1fr; gap: 10px 18px; padding: 28px 0; }
+  .feature-row p { grid-column: 2; }
+  .pricing-copy { padding: 44px 30px; }
+  .price-box { margin: 16px; padding: 28px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 34px; }
+  .footer-brand { grid-column: auto; }
+  .footer-bottom { display: grid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="ORDENTORY 홈">ORDENTORY</a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a href="#product">제품 소개</a>
+        <a href="#workflow">사용 흐름</a>
+        <a href="#demo">데모</a>
+        <a href="#features">기능</a>
+        <a href="#pricing">가격</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="button button-primary header-cta" href="#pricing">구매 안내</a>
+      <button class="menu-button" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-kicker">ORDENTORY INVENTORY · WINDOWS</div>
+        <h1>재고관리를<br><span>더 단순하게.</span></h1>
+        <p class="hero-description">
+          상품과 SKU부터 현재재고, 입출고, 공급처, 발주와 실제 입고까지.
+          흩어진 재고 업무를 하나의 흐름으로 관리하세요.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#product">ORDENTORY 살펴보기</a>
+          <a class="button button-secondary" href="#demo">제품 데모 보기</a>
+        </div>
+        <div class="hero-points" aria-label="핵심 범위">
+          <span>상품 · SKU</span>
+          <span>재고 · 입출고</span>
+          <span>공급처 · 발주</span>
+          <span>Excel · CSV · 백업</span>
+        </div>
+
+        <div class="product-stage reveal" aria-label="ORDENTORY 프로그램 화면 미리보기">
+          <div class="app-window">
+            <aside class="app-sidebar">
+              <div class="app-brand">
+                <strong>ORDENTORY</strong>
+                <span>Inventory</span>
+              </div>
+              <div class="app-nav">
+                <span class="active">홈</span>
+                <span>상품</span>
+                <span>재고</span>
+                <span>입출고</span>
+                <span>공급처</span>
+                <span>발주 · 입고예정</span>
+                <span>가져오기</span>
+              </div>
+            </aside>
+            <div class="app-content">
+              <div class="app-topbar">
+                <div>
+                  <div class="app-eyebrow">INVENTORY DASHBOARD</div>
+                  <h3>재고 현황</h3>
+                  <p>오늘 확인해야 할 재고와 발주 상태를 한눈에 확인합니다.</p>
+                </div>
+                <span class="app-button">상품 등록</span>
+              </div>
+              <div class="app-summary">
+                <div class="app-metric"><span>관리 SKU</span><strong>128</strong></div>
+                <div class="app-metric"><span>안전재고 이하</span><strong class="low">12</strong></div>
+                <div class="app-metric"><span>입고 예정</span><strong>4</strong></div>
+              </div>
+              <div class="app-panel">
+                <div class="app-panel-head"><strong>안전재고 확인</strong><span>전체 재고 보기 →</span></div>
+                <div class="app-table-row header"><span>상품 / SKU</span><span>공급처</span><span>현재고</span><span>상태</span></div>
+                <div class="app-table-row"><strong>코튼 티셔츠 / TS-WHITE-M</strong><span>오덴텍스타일</span><span class="low">4</span><span class="badge">발주 필요</span></div>
+                <div class="app-table-row"><strong>에코 파우치 / POUCH-BEIGE</strong><span>패브릭랩</span><span>18</span><span class="badge">정상</span></div>
+                <div class="app-table-row"><strong>스탠다드 머그 / MUG-WHITE</strong><span>세라믹웍스</span><span class="low">3</span><span class="badge">발주 필요</span></div>
+                <div class="app-table-row"><strong>데일리 노트 / NOTE-A5</strong><span>페이퍼팩토리</span><span>42</span><span class="badge">정상</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section positioning">
+      <div class="container reveal">
+        <p class="section-label">Why ORDENTORY</p>
+        <h2 class="section-title">
+          엑셀은 복잡해졌지만,<br>
+          <span>ERP까지는 필요하지 않을 때.</span>
+        </h2>
+        <p class="section-copy">
+          ORDENTORY는 소규모 사업자의 재고 흐름에 집중합니다.
+          필요한 기능은 연결하고, 불필요한 복잡함은 줄였습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section story" id="product">
+      <div class="container">
+        <div class="story-intro reveal">
+          <p class="section-label">Product Experience</p>
+          <h2 class="section-title">업무 순서 그대로,<br>화면도 이어집니다.</h2>
+          <p class="section-copy">
+            기능을 따로따로 배우는 대신, 상품 등록부터 입고 반영까지 실제 업무 흐름을 따라가도록 설계했습니다.
+          </p>
+        </div>
+
+        <article class="story-block reveal">
+          <div class="story-copy">
+            <span class="story-number">01 · PRODUCT / SKU</span>
+            <h3>상품은 한 번 등록하고,<br>SKU 단위로 관리합니다.</h3>
+            <p>상품의 공통 정보와 실제 재고를 관리하는 SKU·옵션 정보를 분리해 구조적으로 관리합니다.</p>
+            <ul class="story-list">
+              <li>상품명 · 상품코드 · 카테고리</li>
+              <li>SKU 코드 · 바코드 · 옵션</li>
+              <li>안전재고 · 초기재고 · 공급처 연결</li>
+            </ul>
+          </div>
+          <div class="ui-preview" aria-label="상품 등록 UI 예시">
+            <div class="ui-titlebar"><i></i><i></i><i></i></div>
+            <div class="ui-body">
+              <div class="ui-headline">
+                <div><small>PRODUCT → SKU / OPTION</small><strong>상품 등록</strong></div>
+                <span class="ui-action">저장</span>
+              </div>
+              <div class="form-section">
+                <div class="form-heading"><strong>1. Product</strong><span>상품의 공통 기본정보</span></div>
+                <div class="mini-grid">
+                  <div class="mini-field"><span>상품명</span><div class="fake-input">코튼 티셔츠</div></div>
+                  <div class="mini-field"><span>상품코드</span><div class="fake-input">TS</div></div>
+                  <div class="mini-field"><span>카테고리</span><div class="fake-input">의류</div></div>
+                  <div class="mini-field"><span>설명</span><div class="fake-input">베이직 코튼 티셔츠</div></div>
+                </div>
+              </div>
+              <div class="form-section">
+                <div class="form-heading"><strong>2. SKU / Option</strong><span>실제 재고를 관리할 SKU</span></div>
+                <div class="mini-grid">
+                  <div class="mini-field"><span>SKU 코드</span><div class="fake-input">TS-WHITE-M</div></div>
+                  <div class="mini-field"><span>바코드</span><div class="fake-input">8801234567890</div></div>
+                  <div class="mini-field"><span>안전재고</span><div class="fake-input">10</div></div>
+                  <div class="mini-field"><span>초기재고</span><div class="fake-input">24</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="story-block reverse reveal">
+          <div class="ui-preview" aria-label="재고 원장 UI 예시">
+            <div class="ui-titlebar"><i></i><i></i><i></i></div>
+            <div class="ui-body">
+              <div class="ui-headline">
+                <div><small>INVENTORY LEDGER</small><strong>입출고 원장</strong></div>
+                <span class="ui-action">입출고 등록</span>
+              </div>
+              <div class="ledger-summary">
+                <div><span>현재고</span><strong>24</strong></div>
+                <div><span>이번 달 입고</span><strong>+48</strong></div>
+                <div><span>이번 달 출고</span><strong>-31</strong></div>
+              </div>
+              <div class="ledger-table">
+                <div class="ledger-row"><span>일자</span><span>SKU</span><span>유형</span><span>수량</span></div>
+                <div class="ledger-row"><span>09.26</span><strong>TS-WHITE-M</strong><span>입고</span><span>+20</span></div>
+                <div class="ledger-row"><span>09.25</span><strong>MUG-WHITE</strong><span>출고</span><span>-6</span></div>
+                <div class="ledger-row"><span>09.24</span><strong>POUCH-BEIGE</strong><span>입고</span><span>+12</span></div>
+                <div class="ledger-row"><span>09.23</span><strong>NOTE-A5</strong><span>출고</span><span>-10</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="story-copy">
+            <span class="story-number">02 · STOCK / LEDGER</span>
+            <h3>현재고만 보지 않고,<br>변화가 기록으로 남습니다.</h3>
+            <p>입고와 출고, 초기재고와 재고조정을 원장으로 남겨 현재 수량이 어떻게 만들어졌는지 확인할 수 있습니다.</p>
+            <ul class="story-list">
+              <li>현재고와 안전재고 비교</li>
+              <li>입고 · 출고 · 조정 이력</li>
+              <li>검색 · 필터 · 기간별 확인</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="story-block reveal">
+          <div class="story-copy">
+            <span class="story-number">03 · PURCHASE / RECEIPT</span>
+            <h3>부족한 재고를 발주하고,<br>실제 입고까지 연결합니다.</h3>
+            <p>안전재고 이하 SKU를 확인하고 공급처 기준으로 발주한 뒤, 실제 입고 처리 시점에 재고를 반영합니다.</p>
+            <ul class="story-list">
+              <li>안전재고 기반 발주 판단</li>
+              <li>공급처 · 발주 · 입고예정 연결</li>
+              <li>실제 입고 처리 후 재고 증가</li>
+            </ul>
+          </div>
+          <div class="ui-preview" aria-label="발주 및 입고예정 UI 예시">
+            <div class="ui-titlebar"><i></i><i></i><i></i></div>
+            <div class="ui-body">
+              <div class="ui-headline">
+                <div><small>PURCHASE / EXPECTED RECEIPT</small><strong>발주 · 입고예정</strong></div>
+                <span class="ui-action">발주서 생성</span>
+              </div>
+              <div class="purchase-flow">
+                <div class="purchase-row"><strong>TS-WHITE-M</strong><span>오덴텍스타일</span><span>20개</span><span class="status-pill">발주완료</span></div>
+                <div class="purchase-row"><strong>MUG-WHITE</strong><span>세라믹웍스</span><span>30개</span><span class="status-pill">입고예정</span></div>
+                <div class="purchase-row"><strong>NOTE-A5</strong><span>페이퍼팩토리</span><span>50개</span><span class="status-pill">발주추천</span></div>
+                <div class="purchase-row"><strong>POUCH-BEIGE</strong><span>패브릭랩</span><span>24개</span><span class="status-pill">입고완료</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section workflow" id="workflow">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Workflow</p>
+          <h2 class="section-title">재고가 움직이는 순서를<br>그대로 관리합니다.</h2>
+        </div>
+        <div class="workflow-line reveal">
+          <div class="workflow-step"><div class="workflow-dot">01</div><strong>상품 등록</strong><span>Product · SKU<br>기본정보 구성</span></div>
+          <div class="workflow-step"><div class="workflow-dot">02</div><strong>현재재고</strong><span>SKU 단위<br>수량 확인</span></div>
+          <div class="workflow-step"><div class="workflow-dot">03</div><strong>재고 부족</strong><span>안전재고 이하<br>대상 확인</span></div>
+          <div class="workflow-step"><div class="workflow-dot">04</div><strong>발주</strong><span>공급처 기준<br>발주 생성</span></div>
+          <div class="workflow-step"><div class="workflow-dot">05</div><strong>입고예정</strong><span>도착 전<br>상태 관리</span></div>
+          <div class="workflow-step"><div class="workflow-dot">06</div><strong>실제 입고</strong><span>처리 시점에<br>재고 반영</span></div>
+        </div>
+        <div class="workflow-note reveal">
+          <strong>ORDENTORY의 원칙:</strong> 발주 상태가 바뀌었다고 재고가 증가하지 않습니다.
+          실제 입고 처리 시점에 입고 원장이 생성되고 현재재고에 반영됩니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo" id="demo">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Product Demo</p>
+          <h2 class="section-title">설명보다,<br>실제 흐름을 먼저 보여드립니다.</h2>
+          <p class="section-copy">
+            정식 데모 영상이 들어갈 위치입니다. 현재는 실제 프로그램 구조를 기반으로 한 자동 데모로 제품 흐름을 미리 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="demo-shell reveal">
+          <div class="demo-toolbar">
+            <div class="demo-tabs" role="tablist" aria-label="제품 데모 장면">
+              <button class="demo-tab active" type="button">상품 등록</button>
+              <button class="demo-tab" type="button">재고 확인</button>
+              <button class="demo-tab" type="button">발주 · 입고</button>
+            </div>
+            <span class="demo-caption">자동 데모 · 정식 영상으로 교체 예정</span>
+          </div>
+          <div class="demo-stage">
+            <div class="demo-scene active">
+              <div class="ui-preview">
+                <div class="ui-titlebar"><i></i><i></i><i></i></div>
+                <div class="ui-body">
+                  <div class="ui-headline"><div><small>PRODUCT → SKU / OPTION</small><strong>상품 등록</strong></div><span class="ui-action">저장</span></div>
+                  <div class="form-section">
+                    <div class="form-heading"><strong>Product</strong><span>상품의 공통 기본정보</span></div>
+                    <div class="mini-grid">
+                      <div class="mini-field"><span>상품명</span><div class="fake-input">코튼 티셔츠</div></div>
+                      <div class="mini-field"><span>상품코드</span><div class="fake-input">TS</div></div>
+                      <div class="mini-field"><span>카테고리</span><div class="fake-input">의류</div></div>
+                      <div class="mini-field"><span>SKU 코드</span><div class="fake-input">TS-WHITE-M</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-scene">
+              <div class="ui-preview">
+                <div class="ui-titlebar"><i></i><i></i><i></i></div>
+                <div class="ui-body">
+                  <div class="ui-headline"><div><small>STOCK</small><strong>재고 현황</strong></div><span class="ui-action">재고 거래</span></div>
+                  <div class="ledger-summary">
+                    <div><span>전체 SKU</span><strong>128</strong></div>
+                    <div><span>안전재고 이하</span><strong>12</strong></div>
+                    <div><span>입고예정</span><strong>4</strong></div>
+                  </div>
+                  <div class="ledger-table">
+                    <div class="ledger-row"><span>SKU</span><span>상품명</span><span>현재고</span><span>안전재고</span></div>
+                    <div class="ledger-row"><span>TS-WHITE-M</span><strong>코튼 티셔츠</strong><span class="low">4</span><span>10</span></div>
+                    <div class="ledger-row"><span>MUG-WHITE</span><strong>스탠다드 머그</strong><span class="low">3</span><span>12</span></div>
+                    <div class="ledger-row"><span>NOTE-A5</span><strong>데일리 노트</strong><span>42</span><span>20</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-scene">
+              <div class="ui-preview">
+                <div class="ui-titlebar"><i></i><i></i><i></i></div>
+                <div class="ui-body">
+                  <div class="ui-headline"><div><small>PURCHASE</small><strong>발주 · 입고예정</strong></div><span class="ui-action">입고 처리</span></div>
+                  <div class="purchase-flow">
+                    <div class="purchase-row"><strong>TS-WHITE-M</strong><span>오덴텍스타일</span><span>20개</span><span class="status-pill">발주완료</span></div>
+                    <div class="purchase-row"><strong>MUG-WHITE</strong><span>세라믹웍스</span><span>30개</span><span class="status-pill">입고예정</span></div>
+                    <div class="purchase-row"><strong>POUCH-BEIGE</strong><span>패브릭랩</span><span>24개</span><span class="status-pill">입고완료</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">Core Features</p>
+          <h2 class="section-title">재고관리에서<br>자주 쓰는 것에 집중했습니다.</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-row reveal">
+            <span class="feature-index">01</span>
+            <h3>상품 · SKU</h3>
+            <p>상품, 옵션, SKU 코드, 바코드, 카테고리와 안전재고를 구조적으로 관리합니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">02</span>
+            <h3>재고 · 입출고</h3>
+            <p>현재재고와 입고·출고·조정 원장을 함께 확인해 수량 변화의 근거를 남깁니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">03</span>
+            <h3>공급처 · 발주</h3>
+            <p>SKU별 공급처와 매입정보를 연결하고 안전재고 기준으로 발주와 입고예정을 관리합니다.</p>
+          </div>
+          <div class="feature-row reveal">
+            <span class="feature-index">04</span>
+            <h3>데이터 · 백업</h3>
+            <p>재고 데이터를 Excel·CSV로 활용하고 지정 위치에 백업해 데스크톱 데이터를 안전하게 관리합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section audience">
+      <div class="container audience-layout">
+        <div class="reveal">
+          <p class="section-label">For Small Business</p>
+          <h2 class="section-title">
+            엑셀보다 체계적이고,<br>
+            ERP보다 가볍게.
+          </h2>
+          <p class="section-copy">
+            ORDENTORY는 모든 경영업무를 담으려 하지 않습니다.
+            상품과 재고, 입출고, 공급처와 발주가 복잡해지기 시작한 사업자의 재고 업무에 집중합니다.
+          </p>
+        </div>
+        <div class="audience-list reveal">
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>SKU가 늘어나기 시작한 판매자</strong><span>엑셀 행과 시트가 늘어날수록 관리가 어려워졌다면.</span></div></div>
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>현재고와 입출고 이력을 함께 보고 싶은 사업자</strong><span>숫자 하나가 아니라 재고가 변한 이유까지 확인하고 싶다면.</span></div></div>
+          <div class="audience-item"><span class="audience-check">✓</span><div><strong>공급처와 발주까지 연결하고 싶은 운영팀</strong><span>재고 부족 확인부터 실제 입고까지 한 흐름으로 관리하고 싶다면.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="pricing-wrap reveal">
+          <div class="pricing-copy">
+            <p class="section-label">Pricing & Purchase</p>
+            <h2>필요한 재고관리부터<br>ORDENTORY로.</h2>
+            <p>
+              자사몰 직접 구매와 자동 라이선스 발급을 준비하고 있습니다.
+              가격 및 구매 정책 확정 후 이 영역에서 바로 구매할 수 있도록 연결됩니다.
+            </p>
+          </div>
+          <div class="price-box">
+            <small>ORDENTORY INVENTORY</small>
+            <h3>Windows 재고관리 프로그램</h3>
+            <div class="price-pending">출시 가격 준비 중</div>
+            <ul class="price-list">
+              <li>상품 · SKU · 옵션 관리</li>
+              <li>재고 · 입출고 원장</li>
+              <li>공급처 · 발주 · 입고예정</li>
+              <li>Excel · CSV 내보내기 및 데이터 백업</li>
+            </ul>
+            <span class="button button-disabled" aria-disabled="true">자사몰 구매 준비 중</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight" id="faq">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-label">FAQ</p>
+          <h2 class="section-title">구매 전에<br>자주 묻는 질문.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary>ORDENTORY는 어떤 프로그램인가요?</summary>
+            <div class="faq-answer">상품과 SKU, 현재재고, 입출고, 공급처, 발주와 입고예정을 관리하는 Windows용 데스크톱 재고관리 소프트웨어입니다.</div>
+          </details>
+          <details>
+            <summary>ERP를 대체하는 프로그램인가요?</summary>
+            <div class="faq-answer">ORDENTORY는 회계·인사·생산 등 모든 경영영역을 포함하는 ERP가 아니라, 소규모 사업자의 재고관리 업무에 집중한 제품입니다.</div>
+          </details>
+          <details>
+            <summary>Excel이나 CSV로 데이터를 내보낼 수 있나요?</summary>
+            <div class="faq-answer">재고 관련 데이터를 Excel·CSV 형태로 활용할 수 있도록 제공하는 방향으로 구성되어 있습니다. 실제 판매 버전의 제공 범위는 출시 안내에서 최종 확인할 수 있습니다.</div>
+          </details>
+          <details>
+            <summary>데이터 백업은 가능한가요?</summary>
+            <div class="faq-answer">데이터 보관 기능을 통해 백업을 관리할 수 있으며, 판매 버전에서는 사용자 지정 위치를 활용한 백업 흐름을 제공합니다.</div>
+          </details>
+          <details>
+            <summary>구매와 라이선스 발급은 어떻게 진행되나요?</summary>
+            <div class="faq-answer">자사몰 결제 기능 오픈 후에는 결제 확인을 서버에서 검증한 뒤 ORDENTORY 라이선스가 발급되는 흐름으로 제공할 예정입니다.</div>
+          </details>
+          <details>
+            <summary>문의는 어디로 하면 되나요?</summary>
+            <div class="faq-answer">제품 및 구매 문의는 admin@ordentory.kr, 고객지원은 support@ordentory.kr로 연락할 수 있습니다.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container reveal">
+        <h2>재고관리를<br>더 단순하게.</h2>
+        <p>ORDENTORY Inventory의 실제 흐름을 확인해보세요.</p>
+        <div class="final-actions">
+          <a class="button button-primary" href="#demo">제품 데모 보기</a>
+          <a class="button button-secondary" href="mailto:admin@ordentory.kr">제품 문의</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>ORDENTORY</strong>
+          <p>상품과 재고, 입출고, 공급처와 발주 업무를 하나의 흐름으로 관리하는 재고관리 소프트웨어.</p>
+        </div>
+        <div>
+          <div class="footer-title">제품</div>
+          <div class="footer-links">
+            <a href="#product">제품 소개</a>
+            <a href="#workflow">사용 흐름</a>
+            <a href="#features">주요 기능</a>
+            <a href="#pricing">가격 / 구매</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">사업자 정보</div>
+          <div class="footer-info">
+            <span>상호: 오덴토리 · 대표자: 이보승</span><br>
+            <span>사업자등록번호: 286-34-01739</span><br>
+            <span>사업장: 인천광역시 부평구 동수북로 172, 4층 가2호(부평동)</span><br>
+            <span>고객지원: support@ordentory.kr</span><br>
+            <span>사업문의: admin@ordentory.kr</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ORDENTORY. All rights reserved.</span>
+        <span>이용약관 · 개인정보처리방침 · 환불정책은 자사몰 구매 오픈 시 함께 제공합니다.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+const menuButton = document.querySelector(".menu-button");
+const nav = document.querySelector(".site-nav");
+
+if (menuButton && nav) {
+  menuButton.addEventListener("click", () => {
+    const open = nav.classList.toggle("mobile-open");
+    document.body.classList.toggle("nav-open", open);
+    menuButton.setAttribute("aria-expanded", String(open));
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("mobile-open");
+      document.body.classList.remove("nav-open");
+      menuButton.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+const revealItems = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.14 }
+  );
+  revealItems.forEach((item) => observer.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add("visible"));
+}
+
+const tabs = Array.from(document.querySelectorAll(".demo-tab"));
+const scenes = Array.from(document.querySelectorAll(".demo-scene"));
+let activeScene = 0;
+let timer;
+
+function showScene(index) {
+  activeScene = index;
+  tabs.forEach((tab, i) => tab.classList.toggle("active", i === index));
+  scenes.forEach((scene, i) => scene.classList.toggle("active", i === index));
+}
+
+function startDemo() {
+  clearInterval(timer);
+  timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 3200);
+}
+
+tabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => {
+    showScene(index);
+    startDemo();
+  });
+});
+
+if (tabs.length && scenes.length) startDemo();
+
+</script>
+</body>
+</html>
