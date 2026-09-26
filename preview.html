@@ -40,6 +40,41 @@ html, body, button, input, textarea, select, a, p, span, strong, b, em, small, l
   overflow-wrap: normal;
   hyphens: none;
 }
+
+/* Hard guarantee: Korean words may wrap only between whitespace-delimited words. */
+.word-token {
+  white-space: nowrap;
+}
+
+
+/* Global Korean line-breaking rule: never split a word between syllables. */
+body, body * {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
+  line-break: strict;
+  hyphens: none !important;
+}
+.section-title,
+.section-copy,
+.story-copy h3,
+.story-copy p,
+.story-list li,
+.audience-item,
+.audience-item strong,
+.audience-item span,
+.feature-row,
+.feature-row h3,
+.feature-row p,
+.faq details,
+.faq summary,
+.faq p,
+.final-cta,
+.final-cta h2,
+.final-cta p {
+  text-wrap: pretty;
+}
+
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
@@ -1480,6 +1515,53 @@ tabs.forEach((tab, index) => {
 });
 
 if (tabs.length && scenes.length) startDemo();
+
+
+// Prevent Korean words from breaking between syllables.
+// CSS word-break: keep-all is retained as the first layer; this wraps
+// each whitespace-delimited token containing Hangul as a non-breaking unit.
+(function enforceKoreanWordIntegrity() {
+  const roots = document.querySelectorAll('.site-header, main, .site-footer');
+
+  const shouldSkip = (parent) => {
+    if (!parent || parent.nodeType !== 1) return true;
+    return Boolean(parent.closest('script, style, textarea, select, option, svg, [data-allow-word-break]')) ||
+      parent.classList.contains('word-token');
+  };
+
+  roots.forEach((root) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+
+    while ((node = walker.nextNode())) {
+      if (!node.nodeValue || !node.nodeValue.trim()) continue;
+      if (shouldSkip(node.parentElement)) continue;
+      if (!/[가-힣]/.test(node.nodeValue)) continue;
+      nodes.push(node);
+    }
+
+    nodes.forEach((textNode) => {
+      const parts = textNode.nodeValue.split(/(\s+)/);
+      const fragment = document.createDocumentFragment();
+
+      parts.forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part) || !/[가-힣]/.test(part)) {
+          fragment.appendChild(document.createTextNode(part));
+          return;
+        }
+
+        const span = document.createElement('span');
+        span.className = 'word-token';
+        span.textContent = part;
+        fragment.appendChild(span);
+      });
+
+      textNode.replaceWith(fragment);
+    });
+  });
+})();
 
 </script>
 </body>
