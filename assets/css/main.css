@@ -249,7 +249,7 @@ img, video { display: block; max-width: 100%; }
   font-size: 13px;
   font-weight: 700;
 }
-.hero-points span::before { content: "✓"; margin-right: 7px; color: var(--blue); }
+.hero-points > span::before { content: "✓"; margin-right: 7px; color: var(--blue); }
 
 /* product frame */
 .product-stage { position: relative; z-index: 2; margin-top: 72px; }
