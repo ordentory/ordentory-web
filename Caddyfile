@@ -1,0 +1,18 @@
+:{$PORT} {
+    handle /v1/admin-web/* {
+        reverse_proxy https://api.ordentory.kr {
+            header_up Host api.ordentory.kr
+        }
+    }
+
+    handle_path /admin/* {
+        root * ./admin
+        try_files {path} /index.html
+        file_server
+    }
+
+    handle {
+        root * .
+        file_server
+    }
+}
