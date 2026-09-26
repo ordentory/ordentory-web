@@ -51,15 +51,9 @@ body, body * {
 .story-copy h3,
 .story-copy p,
 .story-list li,
-.audience-item,
-.audience-item strong,
-.audience-item span,
 .feature-row,
 .feature-row h3,
 .feature-row p,
-.faq details,
-.faq summary,
-.faq p,
 .final-cta,
 .final-cta h2,
 .final-cta p {
@@ -851,6 +845,37 @@ img, video { display: block; max-width: 100%; }
 .faq-list summary::after { content: "+"; color: var(--muted); font-size: 23px; font-weight: 400; }
 .faq-list details[open] summary::after { content: "−"; }
 .faq-answer { max-width: 760px; padding: 0 4px 28px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+
+
+/* Targeted wrap restoration: audience + FAQ */
+.audience-item > div {
+  min-width: 0;
+  width: 100%;
+}
+.audience-item strong,
+.audience-item > div > span {
+  display: block;
+  width: 100%;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  text-wrap: wrap;
+}
+.faq-list summary {
+  width: 100%;
+}
+.faq-question {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  text-wrap: wrap;
+}
+.faq-list summary::after {
+  flex: 0 0 auto;
+}
 
 /* final cta / footer */
 .final-cta { padding: 118px 0; text-align: center; }
