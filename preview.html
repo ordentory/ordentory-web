@@ -1537,7 +1537,7 @@ if (tabs.length && scenes.length) startDemo();
 
   const shouldSkip = (parent) => {
     if (!parent || parent.nodeType !== 1) return true;
-    return Boolean(parent.closest('script, style, textarea, select, option, svg, [data-allow-word-break]')) ||
+    return Boolean(parent.closest('script, style, textarea, select, option, svg, [data-allow-word-break], .mkt-app, .mkt-ui')) ||
       parent.classList.contains('word-token');
   };
 
