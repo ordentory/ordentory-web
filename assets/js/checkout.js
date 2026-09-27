@@ -29,6 +29,11 @@ async function preparePayment(){
     emailInput.reportValidity();
     return;
   }
+  const policyConsent=document.getElementById("checkout-policy-consent");
+  if(!policyConsent?.checked){
+    checkoutError.textContent="이용약관, 개인정보처리방침, 환불 안내를 확인해 주세요.";
+    return;
+  }
   prepareButton.disabled=true;
   prepareButton.textContent="결제 준비 중…";
   try{
