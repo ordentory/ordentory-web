@@ -1294,6 +1294,16 @@ img, video { display: block; max-width: 100%; }
 .price-box small { color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
 .price-box h3 { margin: 12px 0 6px; font-size: 28px; }
 .price-box .price-pending { margin: 16px 0 24px; font-size: 24px; font-weight: 900; }
+.pricing-policy { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.pricing-policy span { padding: 8px 11px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #d8e2f1; background: rgba(255,255,255,.06); font-size: 12px; font-weight: 800; }
+.launch-badge { align-self: flex-start; margin-bottom: 16px; padding: 7px 10px; border-radius: 999px; color: #1d4ed8; background: #eff6ff; font-size: 11px; font-weight: 900; }
+.price-area { display: grid; gap: 5px; margin: 18px 0 24px; }
+.price-regular { color: #94a3b8; font-size: 14px; font-weight: 700; text-decoration: line-through; }
+.price-launch { color: var(--ink-strong); font-size: 40px; line-height: 1.05; letter-spacing: -.04em; }
+.price-license { margin-top: 4px; color: #64748b; font-size: 11px; line-height: 1.5; }
+.trial-link { display: inline-block; margin-top: 14px; color: var(--blue); font-size: 13px; font-weight: 900; text-decoration: none; }
+.trial-link:hover { text-decoration: underline; }
+.price-note { margin: 18px 0 0; color: #64748b; font-size: 11px; line-height: 1.65; }
 .price-list { margin: 0 0 26px; padding: 0; list-style: none; }
 .price-list li { margin: 10px 0; color: #475569; font-size: 13px; }
 .price-list li::before { content: "✓"; margin-right: 8px; color: var(--blue); font-weight: 900; }
