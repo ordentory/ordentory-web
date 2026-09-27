@@ -11,6 +11,11 @@ async function issueTrial(){
     email.reportValidity();
     return;
   }
+  const policyConsent=document.getElementById("trial-policy-consent");
+  if(!policyConsent?.checked){
+    errorBox.textContent="개인정보처리방침을 확인하고 이메일 처리에 동의해 주세요.";
+    return;
+  }
   issue.disabled=true;
   issue.textContent="Trial 발급 중…";
   try{
