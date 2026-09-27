@@ -29,6 +29,10 @@
         <label class="checkout-label" for="trial-email">Trial을 받을 이메일</label>
         <input id="trial-email" class="checkout-input" type="email" autocomplete="email" placeholder="buyer@example.com" required>
         <p class="checkout-help">한 이메일당 무료체험은 1회 발급됩니다. 설치 후 라이선스 메뉴에 Trial 코드를 입력하면 최초 활성화 시점부터 7일이 시작됩니다.</p>
+        <label class="policy-consent">
+          <input id="trial-policy-consent" type="checkbox">
+          <span><a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인하고 Trial 발급을 위한 이메일 처리에 동의합니다.</span>
+        </label>
         <button id="issue-trial" class="button button-primary checkout-button" type="button">7일 무료체험 시작</button>
         <p id="trial-error" class="checkout-error" role="alert"></p>
       </div>
