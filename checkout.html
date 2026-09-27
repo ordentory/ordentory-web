@@ -37,6 +37,10 @@
         <label class="checkout-label" for="buyer-email">라이선스를 받을 이메일</label>
         <input id="buyer-email" class="checkout-input" type="email" autocomplete="email" placeholder="buyer@example.com" required>
         <p class="checkout-help">결제 완료 후 이 이메일을 기준으로 ORDENTORY Inventory 라이선스가 발급됩니다.</p>
+        <label class="policy-consent">
+          <input id="checkout-policy-consent" type="checkbox">
+          <span><a href="/terms.html" target="_blank" rel="noopener">이용약관</a>, <a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>, <a href="/refund.html" target="_blank" rel="noopener">환불 안내</a>를 확인했습니다.</span>
+        </label>
         <button id="prepare-payment" class="button button-primary checkout-button" type="button">결제 준비</button>
         <p id="checkout-error" class="checkout-error" role="alert"></p>
       </div>
