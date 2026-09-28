@@ -1294,8 +1294,22 @@ img, video { display: block; max-width: 100%; }
 .price-box small { color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
 .price-box h3 { margin: 12px 0 6px; font-size: 28px; }
 .price-box .price-pending { margin: 16px 0 24px; font-size: 24px; font-weight: 900; }
-.pricing-policy { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-.pricing-policy span { padding: 8px 11px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #d8e2f1; background: rgba(255,255,255,.06); font-size: 12px; font-weight: 800; }
+.pricing-policy { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.pricing-policy > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 9px 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  color: #d8e2f1;
+  background: rgba(255,255,255,.06);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
 .launch-badge { align-self: flex-start; margin-bottom: 16px; padding: 7px 10px; border-radius: 999px; color: #1d4ed8; background: #eff6ff; font-size: 11px; font-weight: 900; }
 .price-area { display: grid; gap: 5px; margin: 18px 0 24px; }
 .price-regular { color: #94a3b8; font-size: 14px; font-weight: 700; text-decoration: line-through; }
