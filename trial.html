@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ORDENTORY Inventory 7일 무료체험</title>
+  <meta name="description" content="ORDENTORY Inventory 7일 무료체험 신청">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/checkout.css">
+</head>
+<body class="checkout-body">
+  <header class="checkout-header">
+    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+    <a href="/" class="checkout-back">홈으로</a>
+  </header>
+
+  <main class="checkout-main">
+    <section class="checkout-intro">
+      <p class="section-label">7-DAY FREE TRIAL</p>
+      <h1>7일 동안 직접 사용해보세요.</h1>
+      <p>정식판과 같은 Inventory 업무 흐름을 1대의 Windows PC에서 확인할 수 있습니다.</p>
+      <div class="checkout-points">
+        <span>7일 무료</span><span>1 PC</span><span>최초 활성화부터 시작</span>
+      </div>
+    </section>
+
+    <section class="checkout-card">
+      <div id="trial-form">
+        <label class="checkout-label" for="trial-email">Trial을 받을 이메일</label>
+        <input id="trial-email" class="checkout-input" type="email" autocomplete="email" placeholder="buyer@example.com" required>
+        <p class="checkout-help">한 이메일당 무료체험은 1회 발급됩니다. 설치 후 라이선스 메뉴에 Trial 코드를 입력하면 최초 활성화 시점부터 7일이 시작됩니다.</p>
+        <label class="policy-consent">
+          <input id="trial-policy-consent" type="checkbox">
+          <span><a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 확인하고 Trial 발급을 위한 이메일 처리에 동의합니다.</span>
+        </label>
+        <button id="issue-trial" class="button button-primary checkout-button" type="button">7일 무료체험 시작</button>
+        <p id="trial-error" class="checkout-error" role="alert"></p>
+      </div>
+
+      <div id="trial-result" hidden>
+        <div class="result-icon success">✓</div>
+        <p class="section-label">TRIAL ISSUED</p>
+        <h2 class="trial-result-title">무료체험이 준비되었습니다.</h2>
+        <p class="checkout-help">아래 Trial 코드를 복사한 뒤 ORDENTORY에서 활성화하세요.</p>
+        <div class="license-result">
+          <span>7-Day Trial License</span>
+          <strong id="trial-code"></strong>
+          <button id="copy-trial" type="button">Trial 코드 복사</button>
+        </div>
+        <div class="result-actions">
+          <a id="trial-installer" class="button button-primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 받기</a>
+          <a class="button button-secondary" href="/">홈으로</a>
+        </div>
+        <p class="checkout-help">Trial은 1대의 PC에서 사용할 수 있습니다. 이미 Trial을 발급받은 이메일은 다시 발급되지 않습니다.</p>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/trial.js"></script>
+</body>
+</html>
