@@ -1737,6 +1737,19 @@ img, video { display: block; max-width: 100%; }
   .module-roadmap strong { font-size:17px; }
 }
 
+/* Word-integrity spans are typographic only; do not inherit generic colored-span
+   or separator decorations (which wrongly tinted the complete hero headline). */
+.word-token {
+  display:inline !important;
+  color:inherit !important;
+  background:transparent !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  box-shadow:none !important;
+  white-space:nowrap;
+}
+
 </style>
 </head>
 <body>
