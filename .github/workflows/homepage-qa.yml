@@ -1,0 +1,23 @@
+name: ORDENTORY Homepage QA
+
+on:
+  push:
+    branches:
+      - feature/homepage-modular-v100-20261005
+  pull_request:
+    branches:
+      - feat/homepage-v1
+
+permissions:
+  contents: read
+
+jobs:
+  verify-homepage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check modular v1.0.0 homepage and standalone preview
+        run: node scripts/validate-homepage.mjs
