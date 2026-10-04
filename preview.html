@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <title>ORDENTORY | 재고관리를 더 단순하게</title>
-  <meta name="description" content="상품, SKU, 재고, 입출고, 공급처와 발주를 하나의 흐름으로 관리하는 Windows 재고관리 소프트웨어 ORDENTORY">
+  <title>ORDENTORY | Inventory부터 시작하는 Windows 업무관리</title>
+  <meta name="description" content="ORDENTORY는 필요한 업무를 모듈로 확장하는 Windows 소프트웨어입니다. 첫 번째 모듈 Inventory에서 상품·SKU, 재고, 입출고, 공급처, 발주와 부분입고를 관리하세요.">
   <style>
 :root {
   --ink: #172033;
@@ -1580,6 +1580,9 @@ img, video { display: block; max-width: 100%; }
 .mkt-metrics .mkt-money { font-size:16px; white-space:nowrap; }
 .mock-source-note { margin:14px auto 0; max-width:760px; text-align:center; font-size:12px; line-height:1.7; color:#718096; }
 .mock-option-note { margin:8px 0 0; color:#64748b; font-size:9px; }
+.supplier-meta { display:flex; flex-wrap:wrap; gap:5px 13px; margin-top:8px; color:#64748b; font-size:9px; line-height:1.55; }
+.channel-registration-note { background:#fafcff; }
+.channel-registration-note p { margin:0; line-height:1.6; }
 .modules-section { background:#f7f8fb; border-top:1px solid #e7ecf3; border-bottom:1px solid #e7ecf3; }
 .modules-intro { max-width:820px; }
 .modules-intro .section-copy { max-width:780px; }
@@ -1829,7 +1832,12 @@ img, video { display: block; max-width: 100%; }
               </div>
               <div class="reg-section compact">
                 <div class="reg-title"><strong>3. Supplier</strong><span>SKU 기준 공급처 및 매입정보</span></div>
-                <div class="supplier-line"><span>공급처 · 대표 공급처</span><strong>한빛어패럴</strong></div><p class="mock-option-note">4. Channel Listing: 판매채널 연동 베타에서 별도 설정</p>
+                <div class="supplier-line"><span>공급처</span><strong>한빛어패럴</strong></div>
+                <div class="supplier-meta"><span>공급처 상품코드 · TS-WHT-M</span><span>최근 매입단가 · 8,500원</span><span>대표 공급처로 지정</span></div>
+              </div>
+              <div class="reg-section compact channel-registration-note">
+                <div class="reg-title"><strong>4. Channel Listing</strong><span>판매채널 매핑 (베타)</span></div>
+                <p class="mock-option-note">상품 등록 후 채널 연동 메뉴에서 네이버·쿠팡 상품 및 옵션을 SKU와 연결합니다.</p>
               </div>
             </div>
           </div>
@@ -1842,9 +1850,9 @@ img, video { display: block; max-width: 100%; }
               <div class="mock-actions"><b>기간별 요약</b><span>Excel 저장</span><span>CSV 저장</span></div>
             </div>
             <div class="ledger-stats">
-              <div><span>표시 거래</span><strong>15</strong></div>
+              <div><span>표시 거래</span><strong>4</strong></div>
               <div><span>입고</span><strong class="plus">+15</strong></div>
-              <div><span>출고 / 조정</span><strong class="minus">-21</strong></div>
+              <div><span>출고 / 조정</span><strong class="minus">-10</strong></div>
             </div>
             <div class="mock-search">상품, SKU, 사유, 메모, 공급처 검색</div>
             <div class="ledger-grid ledger-head"><span>업무일자</span><span>유형</span><span>상품 / SKU</span><span>변동</span><span>재고</span><span>사유 / 공급처</span><span>상태 / 작업</span></div>
@@ -2248,7 +2256,7 @@ img, video { display: block; max-width: 100%; }
               <li>서명된 자동 업데이트</li>
             </ul>
             <span class="button button-disabled" aria-disabled="true">자사몰 결제 오픈 준비 중</span>
-            <a class="trial-link" href="/trial.html">7일 무료체험 먼저 사용해보기 →</a>
+            <a class="trial-link" href="trial.html">7일 무료체험 먼저 사용해보기 →</a>
             <p class="price-note">2대 PC의 데이터는 각 PC에 로컬 저장되며 기본 라이선스에는 PC 간 자동 동기화가 포함되지 않습니다.</p>
           </div>
         </div>
@@ -2264,11 +2272,11 @@ img, video { display: block; max-width: 100%; }
         <div class="faq-list reveal">
           <details>
             <summary><span class="faq-question">ORDENTORY는 어떤 프로그램인가요?</span></summary>
-            <div class="faq-answer">상품과 SKU, 현재재고, 입출고, 공급처, 발주와 입고예정을 관리하는 Windows용 데스크톱 재고관리 소프트웨어입니다.</div>
+            <div class="faq-answer">ORDENTORY는 필요한 업무를 모듈별로 확장하는 Windows 데스크톱 소프트웨어입니다. 현재 제공되는 첫 모듈 Inventory에서 상품·SKU, 재고, 입출고, 공급처, 발주와 부분입고를 관리할 수 있습니다.</div>
           </details>
           <details>
             <summary><span class="faq-question">ERP를 대체하는 프로그램인가요?</span></summary>
-            <div class="faq-answer">ORDENTORY는 회계·인사·생산 등 모든 경영영역을 포함하는 ERP가 아니라, 소규모 사업자의 재고관리 업무에 집중한 제품입니다.</div>
+            <div class="faq-answer">현재 판매 중인 Inventory 모듈은 회계·인사·생산 등 모든 경영영역을 포함하는 ERP가 아니라, 소규모 사업자의 재고관리 업무에 집중한 제품입니다. 이후 다른 업무 모듈은 별도로 추가될 수 있습니다.</div>
           </details>
           <details>
             <summary><span class="faq-question">Excel이나 CSV로 데이터를 내보낼 수 있나요?</span></summary>
@@ -2307,7 +2315,7 @@ img, video { display: block; max-width: 100%; }
         <h2>재고관리를<br>더 단순하게.</h2>
         <p>ORDENTORY Inventory의 실제 흐름을 확인해보세요.</p>
         <div class="final-actions">
-          <a class="button button-primary" href="/trial.html">7일 무료체험</a>
+          <a class="button button-primary" href="trial.html">7일 무료체험</a>
           <a class="button button-secondary" href="#demo">제품 데모 보기</a>
           <a class="button button-secondary" href="mailto:admin@ordentory.kr">제품 문의</a>
         </div>
@@ -2320,7 +2328,7 @@ img, video { display: block; max-width: 100%; }
       <div class="footer-grid">
         <div class="footer-brand">
           <img class="footer-logo" src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
-          <p>상품과 재고, 입출고, 공급처와 발주 업무를 하나의 흐름으로 관리하는 재고관리 소프트웨어.</p>
+          <p>필요한 업무를 모듈로 확장하는 Windows 소프트웨어 ORDENTORY. 현재 첫 번째 모듈 Inventory를 제공합니다.</p>
         </div>
         <div>
           <div class="footer-title">제품 · 모듈</div>
@@ -2346,7 +2354,7 @@ img, video { display: block; max-width: 100%; }
       </div>
       <div class="footer-bottom">
         <span>© 2026 ORDENTORY. All rights reserved.</span>
-        <span class="footer-policy-links"><a href="/terms.html">이용약관</a> · <a href="/privacy.html">개인정보처리방침</a> · <a href="/refund.html">환불 안내</a></span>
+        <span class="footer-policy-links"><a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="refund.html">환불 안내</a></span>
       </div>
     </div>
   </footer>
