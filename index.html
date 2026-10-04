@@ -13,7 +13,8 @@
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="ORDENTORY 홈"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
       <nav class="site-nav" aria-label="주요 메뉴">
-        <a href="#product">제품 소개</a>
+        <a href="#modules">제품 모듈</a>
+        <a href="#product">Inventory 소개</a>
         <a href="#workflow">사용 흐름</a>
         <a href="#demo">데모</a>
         <a href="#features">기능</a>
@@ -28,10 +29,10 @@
   <main id="top">
     <section class="hero">
       <div class="container hero-content">
-        <div class="hero-kicker">ORDENTORY INVENTORY · WINDOWS</div>
+        <div class="hero-kicker">ORDENTORY / MODULE 01 · INVENTORY · WINDOWS</div>
         <h1>재고관리를<br><span>더 단순하게.</span></h1>
         <p class="hero-description">
-          상품과 SKU부터 현재재고, 입출고, 공급처, 발주와 실제 입고까지.
+          첫 번째 모듈 Inventory에서 상품과 SKU부터 현재재고, 입출고, 공급처, 발주와 실제 입고까지.
           흩어진 재고 업무를 하나의 흐름으로 관리하세요.
         </p>
         <div class="hero-actions">
@@ -49,15 +50,19 @@
           <div class="mkt-app hero-mkt-app">
             <aside class="mkt-sidebar">
               <div class="mkt-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></div>
-              <span class="mkt-edition">INVENTORY</span>
-              <nav class="mkt-side-nav" aria-label="프로그램 메뉴 예시">
+              <span class="mkt-edition">Inventory</span>
+              <nav class="mkt-side-nav" aria-label="Inventory v1.0.0 메뉴 재구성">
                 <span class="active">홈</span>
                 <span>상품</span>
                 <span>재고</span>
                 <span>입출고</span>
                 <span>공급처</span>
                 <span>발주 · 입고예정</span>
+                <span>가져오기</span>
               </nav>
+              <div class="mkt-side-utilities" aria-label="공통 프로그램 메뉴">
+                <span>데이터 보관</span><span>프로그램 업데이트</span><span>라이선스</span><span>프로그램 정보</span><span>도움말</span>
+              </div>
             </aside>
             <div class="mkt-main">
               <div class="mkt-page-head">
@@ -68,11 +73,15 @@
                 </div>
                 <span class="mkt-ghost-button">새로고침</span>
               </div>
-              <div class="mkt-metrics mkt-metrics-four">
+              <div class="mkt-workflow-guide"><strong>처음이라면 이 순서로 시작하세요</strong><span>상품 등록 → SKU 확인 → 초기재고 등록 → 입출고 기록</span></div>
+              <div class="mkt-metrics mkt-metrics-seven">
                 <div><span>사용중 상품</span><strong>4</strong><small>SKU 6개</small></div>
-                <div><span>전체 재고</span><strong>81</strong><small>SKU 합계</small></div>
-                <div class="attention"><span>안전재고 이하</span><strong>2</strong><small>품목 2개</small></div>
-                <div><span>입고예정</span><strong>20</strong><small>미입고 수량</small></div>
+                <div><span>전체 현재고</span><strong>81</strong><small>SKU 합계</small></div>
+                <div class="attention"><span>안전재고 이하</span><strong>2</strong><small>품절 0개</small></div>
+                <div><span>초기재고 미입력</span><strong>0</strong><small>확인 필요</small></div>
+                <div><span>오늘 입고</span><strong>+15</strong><small>수량 기준</small></div>
+                <div><span>오늘 출고</span><strong>-8</strong><small>수량 기준</small></div>
+                <div><span>참고 재고금액</span><strong class="mkt-money">426,500원</strong><small>기본 매입단가 기준 · 회계상 평가액 아님</small></div>
               </div>
               <div class="mkt-dashboard-grid">
                 <section class="mkt-panel">
@@ -102,6 +111,7 @@
             </div>
           </div>
         </div>
+        <p class="mock-source-note">Inventory v1.0.0의 실제 UI 구조를 HTML/CSS로 재구성한 예시 화면입니다. 상품과 수량은 샘플 데이터입니다.</p>
       </div>
     </section>
 
