@@ -123,7 +123,7 @@
           <span>ERP까지는 필요하지 않을 때.</span>
         </h2>
         <p class="section-copy">
-          ORDENTORY는 소규모 사업자의 재고 흐름에 집중합니다.
+          첫 번째 모듈인 Inventory는 소규모 사업자의 재고 흐름에 집중합니다.
           필요한 기능은 연결하고, 불필요한 복잡함은 줄였습니다.
         </p>
       </div>
@@ -156,7 +156,7 @@
             </div>
             <div class="registration-card">
               <div class="reg-head">
-                <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><strong>상품 등록</strong></div>
+                <div><small>PRODUCT → SKU / OPTION → CHANNEL LISTING</small><strong>상품 등록</strong></div>
                 <span class="mock-close">×</span>
               </div>
               <div class="reg-section">
@@ -180,8 +180,8 @@
                 </div>
               </div>
               <div class="reg-section compact">
-                <div class="reg-title"><strong>3. Supplier</strong><span>SKU 기준 공급처 연결</span></div>
-                <div class="supplier-line"><span>대표 공급처</span><strong>한빛어패럴</strong></div>
+                <div class="reg-title"><strong>3. Supplier</strong><span>SKU 기준 공급처 및 매입정보</span></div>
+                <div class="supplier-line"><span>공급처 · 대표 공급처</span><strong>한빛어패럴</strong></div><p class="mock-option-note">4. Channel Listing: 판매채널 연동 베타에서 별도 설정</p>
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@
               <div><span>출고 / 조정</span><strong class="minus">-21</strong></div>
             </div>
             <div class="mock-search">상품, SKU, 사유, 메모, 공급처 검색</div>
-            <div class="ledger-grid ledger-head"><span>일자</span><span>유형</span><span>상품 / SKU</span><span>변동</span><span>재고</span></div>
+            <div class="ledger-grid ledger-head"><span>업무일자</span><span>유형</span><span>상품 / SKU</span><span>변동</span><span>재고</span></div>
             <div class="ledger-grid"><span>2026-09-25</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L · 화이트 / L</small></div><b class="plus">+5</b><em>9 → 14</em></div>
             <div class="ledger-grid"><span>2026-09-22</span><span class="type in">입고</span><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-M · 화이트 / M</small></div><b class="plus">+10</b><em>17 → 27</em></div>
             <div class="ledger-grid"><span>2026-09-22</span><span class="type adjust">조정</span><div><strong>A5 데일리 노트</strong><small>NOTE-A5-IVORY · 아이보리</small></div><b class="minus">-2</b><em>18 → 16</em></div>
@@ -239,10 +239,10 @@
               <div class="purchase-rec-row"><div><strong>스테인리스 텀블러</strong><small>TUM-500-SILVER · 실버 / 500mL</small></div><b>5</b><span>10</span><span>0</span><em class="attention">6</em></div>
             </section>
             <section class="po-card">
-              <div class="po-head"><div><strong>한빛어패럴</strong><small>발주번호 PO-002 · 입고예정 2026-09-30</small></div><span class="status-pill">입고예정</span></div>
+              <div class="po-head"><div><strong>한빛어패럴</strong><small>발주번호 PO-002 · 입고예정 2026-09-30</small></div><span class="status-pill">발주완료 · 입고예정</span></div>
               <div class="po-grid po-grid-head"><span>상품 / SKU</span><span>발주수량</span><span>누적입고</span><span>미입고</span><span>이번 입고</span></div>
-              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M</small></div><span>20</span><span>0</span><b>20</b><em>20</em></div>
-              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><span>20</span><span>5</span><b>15</b><em>15</em></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-BLACK-M</small></div><span>20</span><span>0</span><b>20</b><em>0</em></div>
+              <div class="po-grid"><div><strong>베이직 반팔 티셔츠</strong><small>TS-WHITE-L</small></div><span>20</span><span>5</span><b>15</b><em>5</em></div>
               <div class="receipt-flow"><span>발주완료</span><i>→</i><span>입고예정</span><i>→</i><strong>실제 입고처리</strong><i>→</i><span>재고 반영</span></div>
             </section>
           </div>
@@ -388,7 +388,7 @@
                   </div>
                   <div class="demo-content">
                     <div class="demo-content-head">
-                      <div><small>PRODUCT → SKU / OPTION → SUPPLIER</small><h3>상품 등록</h3></div>
+                      <div><small>PRODUCT → SKU / OPTION → CHANNEL LISTING</small><h3>상품 등록</h3></div>
                       <span class="demo-status neutral">신규 상품</span>
                     </div>
                     <div class="demo-form-grid">
@@ -479,7 +479,7 @@
                 <div class="demo-app-body demo-receipt-layout">
                   <div class="demo-po-head">
                     <div><small>PURCHASE ORDER</small><h3>한빛어패럴 · PO-002</h3><p>베이직 반팔 티셔츠 · TS-BLACK-M</p></div>
-                    <span class="demo-status info">입고예정</span>
+                    <span class="demo-status info">발주완료 · 입고예정</span>
                   </div>
                   <div class="demo-po-metrics">
                     <div class="demo-step-1"><span>발주수량</span><strong>20</strong></div>
@@ -553,8 +553,8 @@
             ERP보다 가볍게.
           </h2>
           <p class="section-copy">
-            ORDENTORY는 모든 경영업무를 담으려 하지 않습니다.
-            상품과 재고, 입출고, 공급처와 발주가 복잡해지기 시작한 사업자의 재고 업무에 집중합니다.
+            ORDENTORY는 필요한 업무부터 모듈로 확장하는 Windows 프로그램입니다.
+            첫 번째 모듈 Inventory는 상품과 재고, 입출고, 공급처와 발주가 복잡해지기 시작한 사업자를 위한 제품입니다.
           </p>
         </div>
         <div class="audience-list reveal">
