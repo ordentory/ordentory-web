@@ -1,0 +1,4 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ORDENTORY | 결제 미완료</title><style>body{font-family:Arial,"Noto Sans KR",sans-serif;max-width:650px;margin:60px auto;padding:0 20px;line-height:1.7}</style></head><body><h1>결제 인증이 완료되지 않았습니다</h1><p id="message"></p><p>결제 내역이 불확실하다면 중복 결제하지 마시고 <a href="mailto:support@ordentory.kr">고객지원</a>에 문의해 주세요.</p><p><a href="/checkout.html">결제 페이지로 돌아가기</a></p><script>
+const params=new URLSearchParams(location.search);const code=params.get("code");const orderId=params.get("orderId");history.replaceState(null,"",location.pathname);
+document.getElementById("message").textContent="결제 인증 실패"+(code?" (오류코드: "+code.slice(0,80)+")":"")+(orderId?" / 주문번호: "+orderId.slice(0,64):"")+". 결제 성공으로 처리하거나 라이선스를 발급하지 않습니다.";
+</script></body></html>
