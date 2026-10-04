@@ -1,0 +1,8 @@
+{
+  "name": "ordentory-toss-qa-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {"start": "node qa-server.mjs"},
+  "engines": {"node": ">=20"}
+}
