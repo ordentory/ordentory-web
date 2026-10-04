@@ -57,6 +57,16 @@ const server = http.createServer((req, res) => {
       console.log("PASS responsive "+name+" "+width+"px, no page errors/overflow");
       await page.close();
     }
+    // Behavioral check: demo progress/timer runs only while its section is on screen.
+    const autoplay=await browser.newPage({viewport:{width:1280,height:800}, reducedMotion:"no-preference"});
+    autoplay.on("pageerror",e=>failures.push("autoplay: "+e.message));
+    await autoplay.goto(base+"/",{waitUntil:"load"});
+    await autoplay.locator("#demo").scrollIntoViewIfNeeded();
+    await autoplay.waitForFunction(()=>document.querySelector(".demo-shell")?.classList.contains("is-running"),null,{timeout:3000});
+    await autoplay.locator(".hero h1").scrollIntoViewIfNeeded();
+    await autoplay.waitForFunction(()=>!document.querySelector(".demo-shell")?.classList.contains("is-running"),null,{timeout:3000});
+    console.log("PASS demo starts on screen and pauses offscreen");
+    await autoplay.close();
     const preview=await browser.newPage();
     preview.on("pageerror",e=>failures.push("preview: "+e.message));
     await preview.goto(base+"/preview.html",{waitUntil:"load"});
