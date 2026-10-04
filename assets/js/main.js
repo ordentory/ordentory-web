@@ -42,6 +42,7 @@ const restartDemoButton = document.querySelector(".demo-restart");
 const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 let activeScene = 0;
 let timer;
+let demoInView = false;
 
 function restartSceneAnimation(scene) {
   if (!scene) return;
@@ -72,9 +73,21 @@ function showScene(index, restartAnimation = true) {
 
 function startDemo() {
   clearInterval(timer);
-  if (reduceMotion || !tabs.length || !scenes.length) return;
+  if (reduceMotion || document.hidden || !demoInView || !tabs.length || !scenes.length) return;
   timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 5000);
 }
+
+// Avoid changing the demo while customers are reading another section or tab.
+if (demoShell && "IntersectionObserver" in window) {
+  const demoVisibility = new IntersectionObserver((entries) => {
+    demoInView = entries.some((entry) => entry.isIntersecting);
+    startDemo();
+  }, { threshold: 0.15 });
+  demoVisibility.observe(demoShell);
+} else {
+  demoInView = true;
+}
+document.addEventListener("visibilitychange", startDemo);
 
 tabs.forEach((tab, index) => {
   tab.addEventListener("click", () => {
