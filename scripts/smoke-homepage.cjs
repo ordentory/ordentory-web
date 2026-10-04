@@ -43,6 +43,12 @@ const server = http.createServer((req, res) => {
         const sidebarColor=await page.locator(".mkt-sidebar").evaluate(el=>getComputedStyle(el).backgroundColor);
         assert.equal(sidebarColor,"rgb(255, 255, 255)",name+": actual v1.0.0 light sidebar");
       }
+      const firstLineColor=await page.locator(".hero h1 > .word-token").first().evaluate(el=>getComputedStyle(el).color);
+      const accentedLineColor=await page.locator(".hero h1 > span:not(.word-token)").first().evaluate(el=>getComputedStyle(el).color);
+      assert.equal(firstLineColor,"rgb(14, 22, 42)",name+": first hero line uses navy, not inherited blue");
+      assert.equal(accentedLineColor,"rgb(18, 90, 239)",name+": second hero line uses product blue");
+      const tokenSpacing=await page.locator(".hero-trust-line .word-token").first().evaluate(el=>getComputedStyle(el).paddingLeft);
+      assert.equal(tokenSpacing,"0px",name+": Korean word-token wrappers have no stray separator padding");
       const metricFontSize=await page.locator(".mkt-metrics-seven > div > span").first().evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
       assert.ok(metricFontSize>=10,name+": readable metric labels "+metricFontSize+"px");
       const moduleBackground=await page.locator(".module-current").evaluate(el=>getComputedStyle(el).backgroundColor);
