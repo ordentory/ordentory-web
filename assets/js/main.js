@@ -55,7 +55,7 @@ function restartDemoProgress() {
   if (!demoShell) return;
   demoShell.classList.remove("is-running");
   void demoShell.offsetWidth;
-  if (!reduceMotion) demoShell.classList.add("is-running");
+  if (!reduceMotion && demoInView && !document.hidden) demoShell.classList.add("is-running");
 }
 
 function showScene(index, restartAnimation = true) {
@@ -73,7 +73,9 @@ function showScene(index, restartAnimation = true) {
 
 function startDemo() {
   clearInterval(timer);
-  if (reduceMotion || document.hidden || !demoInView || !tabs.length || !scenes.length) return;
+  const running = !reduceMotion && !document.hidden && demoInView && tabs.length > 0 && scenes.length > 0;
+  demoShell?.classList.toggle("is-running", running);
+  if (!running) return;
   timer = setInterval(() => showScene((activeScene + 1) % scenes.length), 5000);
 }
 
