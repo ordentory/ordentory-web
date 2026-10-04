@@ -21,3 +21,17 @@ jobs:
           node-version: '22'
       - name: Check modular v1.0.0 homepage and standalone preview
         run: node scripts/validate-homepage.mjs
+      - name: Prepare browser QA
+        run: |
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Smoke test desktop, tablet and mobile layouts
+        run: node scripts/smoke-homepage.cjs
+      - name: Save browser screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ordentory-homepage-browser-screenshots
+          path: artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
