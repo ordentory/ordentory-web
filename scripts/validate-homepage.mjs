@@ -23,6 +23,12 @@ check("Only Inventory is marketed as current",html.includes('data-module="invent
 check("Planned modules have no asserted release or bundled entitlements",html.includes("세부 기능·가격·출시 일정은 확정되지 않았습니다."));
 check("Demo pauses outside visible tab/viewport",js.includes("document.hidden")&&js.includes("demoInView")&&js.includes("visibilitychange"));
 check("Marketing mock sample disclaimer",html.includes("상품과 수량은 샘플 데이터입니다."));
+check("Product-focused hero",html.includes("발주부터 현재고까지.")&&html.includes('href="#demo">제품 데모 보기 →')&&html.includes('href="trial.html">7일 무료체험'));
+check("Module roadmap follows product demonstration rather than competing with hero",html.indexOf('id="demo"')<html.indexOf('id="modules"')&&html.indexOf('id="modules"')<html.indexOf('id="pricing"'));
+check("Final Desktop Brand System uses the light sidebar",css.includes('.mkt-sidebar {\n  display:flex;\n  flex-direction:column;')&&css.includes('background:#fff;')&&css.includes('background:#eaf1ff;'));
+check("All seven v1.0.0 metrics are still shown without invented negative zero",!html.includes('<strong>-0</strong>')&&html.includes('class="mkt-metrics mkt-metrics-seven"'));
+check("Planned modules remain informational only",!html.includes('module-current-visual')&&html.includes('class="module-roadmap"')&&html.includes("아직 출시되지 않았습니다."));
+
 for(const match of html.matchAll(/href="#([^"]+)"/g)){
   const id=match[1];
   check("Anchor #" + id,html.includes('id="'+id+'"'));
