@@ -35,6 +35,19 @@ const server = http.createServer((req, res) => {
       assert.equal(await page.locator('#modules [data-module-status="current"]').count(),1,name+": only Inventory current");
       assert.equal(await page.locator('#modules [data-module-status="planned"]').count(),3,name+": future module status");
       assert.equal(await page.locator(".button-disabled[aria-disabled=true]").count(),1,name+": live purchase disabled");
+      const catalog=await page.locator("#modules").boundingBox();
+      const demo=await page.locator("#demo").boundingBox();
+      const pricing=await page.locator("#pricing").boundingBox();
+      assert.ok(catalog&&demo&&pricing&&demo.y<catalog.y&&catalog.y<pricing.y,name+": Inventory-first page flow");
+      if(width>720){
+        const sidebarColor=await page.locator(".mkt-sidebar").evaluate(el=>getComputedStyle(el).backgroundColor);
+        assert.equal(sidebarColor,"rgb(255, 255, 255)",name+": actual v1.0.0 light sidebar");
+      }
+      const metricFontSize=await page.locator(".mkt-metrics-seven > div > span").first().evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+      assert.ok(metricFontSize>=10,name+": readable metric labels "+metricFontSize+"px");
+      const moduleBackground=await page.locator(".module-current").evaluate(el=>getComputedStyle(el).backgroundColor);
+      assert.equal(moduleBackground,"rgb(255, 255, 255)",name+": future catalogue does not dominate hero");
+
       let overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
       assert.ok(overflow<=2,name+": horizontal overflow "+overflow+"px");
       if(width<=980){
@@ -52,7 +65,13 @@ const server = http.createServer((req, res) => {
       assert.equal(await page.locator(".demo-scene.active").count(),1,name+": one active demo");
       if(width===1440 || width===390) {
         fs.mkdirSync(path.join(root,"artifacts"),{recursive:true});
-        await page.screenshot({path:path.join(root,"artifacts","homepage-"+name+".png")});
+        // Hero review should capture the top of the page, not the demo after the click test.
+        await page.evaluate(()=>{
+          document.documentElement.style.scrollBehavior="auto";
+          window.scrollTo({top:0,behavior:"instant"});
+        });
+        await page.screenshot({path:path.join(root,"artifacts","homepage-"+name+"-hero.png")});
+        await page.screenshot({path:path.join(root,"artifacts","homepage-"+name+"-full.png"),fullPage:true});
       }
       console.log("PASS responsive "+name+" "+width+"px, no page errors/overflow");
       await page.close();
