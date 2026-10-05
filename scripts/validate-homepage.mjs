@@ -11,6 +11,8 @@ const checkoutJS = read("assets/js/checkout.js");
 const paymentSuccess = read("payment-success.html");
 const paymentFail = read("payment-fail.html");
 const paymentSuccessJS = read("assets/js/payment-success.js");
+const trial = read("trial.html");
+const trialJS = read("assets/js/trial.js");
 const expectedPreview = html
   .replace('<link rel="stylesheet" href="assets/css/main.css">', '<style>\n' + css + '\n</style>')
   .replace('<script src="assets/js/main.js"></script>', '<script>\n' + js + '\n</script>');
@@ -37,6 +39,11 @@ check("Payment success page includes activation and email guidance",paymentSucce
 check("Payment confirmation sanitizes paymentKey from browser URL",paymentSuccessJS.includes("PENDING_PREFIX")&&paymentSuccessJS.includes("history.replaceState")&&paymentSuccessJS.includes("sessionStorage"));
 check("Payment confirmation validates issued license and installer",paymentSuccessJS.includes("validLicenseCode")&&paymentSuccessJS.includes("validInstallerURL")&&paymentSuccessJS.includes("deviceLimit")&&paymentSuccessJS.includes("perpetual"));
 check("Payment failure page warns against uncertain duplicate payment",paymentFail.includes("실제 결제 여부가 불확실하면 바로 다시 결제하지 마세요.")&&paymentFail.includes('id="fail-order-id"')&&paymentFail.includes('id="fail-code"'));
+check("Trial page makes commercial conditions explicit",["최초 활성화부터 7일","Windows PC 1대","결제수단 없음 · 자동 결제 없음","한 이메일당 1회","데이터는 해당 PC에 로컬 저장"].every(x=>trial.includes(x)));
+check("Trial result shows verified email and activation guidance",trial.includes('id="trial-result-email"')&&trial.includes("설치 후 이렇게 시작하세요.")&&trial.includes("정식 라이선스로 전환해도 기존 로컬 데이터는 그대로 유지됩니다."));
+check("Trial validates server-issued entitlement before success",trialJS.includes("validateIssuedTrial")&&trialJS.includes("Number(result.trialDays)!==7")&&trialJS.includes("Number(result.deviceLimit)!==1")&&trialJS.includes('result.emailDelivery!=="queued"'));
+check("Trial only accepts official installer endpoint",trialJS.includes("validOfficialInstaller")&&trialJS.includes('u.hostname==="api.ordentory.kr"')&&trialJS.includes('u.pathname==="/v1/store/installer"'));
+check("Trial requires verified email challenge response",trialJS.includes("challengePattern")&&trialJS.includes("result.verificationSent!==true"));
 check("Desktop sidebar labels",["홈","상품","재고","입출고","공급처","발주 · 입고예정","가져오기","데이터 보관","프로그램 업데이트","라이선스","프로그램 정보","도움말"].every(x=>html.includes(">"+x+"</span>")));
 check("Seven Desktop dashboard metric labels",["사용중 상품","전체 현재고","안전재고 이하","초기재고 미입력","오늘 입고","오늘 출고","참고 재고금액"].every(x=>html.includes(">"+x+"</span>")));
 check("Product registration stage names",["1. Product","2. SKU / Option","3. Supplier","4. Channel Listing"].every(x=>html.includes(x)));
