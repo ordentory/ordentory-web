@@ -16,6 +16,7 @@ const trialJS = read("assets/js/trial.js");
 const terms = read("terms.html");
 const privacy = read("privacy.html");
 const refund = read("refund.html");
+const manual = read("manual.html");
 const expectedPreview = html
   .replace('<link rel="stylesheet" href="assets/css/main.css">', '<style>\n' + css + '\n</style>')
   .replace('<script src="assets/js/main.js"></script>', '<script>\n' + js + '\n</script>');
@@ -23,8 +24,8 @@ const check=(name,condition)=>{assert.ok(condition,name);process.stdout.write("P
 check("Standalone preview matches live HTML/CSS/JS",preview===expectedPreview);
 check("Commercial Inventory version is v1.0.0",html.includes("ORDENTORY INVENTORY v1.0.0")&&!/v1\.0\.[1-9]/.test(html+read("checkout.html")));
 check("Inventory-only price and VAT",html.includes("169,000원")&&html.includes("199,000원")&&html.includes("VAT 포함 · Inventory 모듈 기준"));
-check("Purchase button remains disabled",html.includes('class="button button-disabled price-purchase-disabled" aria-disabled="true"'));
-check("Live Trial is the primary pricing CTA before checkout launch",html.indexOf('class="button button-primary price-trial-cta"')<html.indexOf('class="button button-disabled price-purchase-disabled"')&&html.includes("7일 무료체험 시작"));
+check("Storefront purchase CTA reaches checkout",html.includes('class="button button-primary price-purchase-cta" href="checkout.html"')&&!html.includes("자사몰 결제 오픈 준비 중"));
+check("Trial and purchase CTAs are both available in pricing",html.includes('href="trial.html">7일 무료체험 시작')&&html.includes('href="checkout.html">정식 라이선스 구매'));
 check("Trial issuance guidance is visible",html.includes("이메일 인증 후 체험 라이선스와 설치 안내를 바로 받아볼 수 있습니다."));
 check("Launch offer is capped at first 30 completed licenses",html.includes("최초 30개 정식 라이선스 결제 완료까지 출시가 적용")&&html.includes("선착순 30 라이선스"));
 check("Commercial license policy is explicit",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료 업데이트","공유·양도할 수 없습니다."].every(x=>html.includes(x)));
@@ -40,6 +41,11 @@ check("Terms pin commercial license and update policy",["영구 사용권","1개
 check("Refund policy preserves statutory withdrawal rights",["7일","제공이 개시","7일 무료체험","3개월","30일","3영업일"].every(x=>refund.includes(x)));
 check("Privacy policy includes statutory retention and overseas processors",["6개월","5년","3년","Railway Corporation","Plus Five Five, Inc. (Resend)","미국","privacy@railway.com","privacy@resend.com"].every(x=>privacy.includes(x)));
 check("2026 mail-order filing exemption is disclosed without a fake registration number",html.includes("통신판매업 신고: 신고 면제 대상")&&html.includes("직전년도 통신판매 거래 50회 미만")&&terms.includes("통신판매업 신고: 신고 면제 대상")&&!html.includes("LAUNCH BLOCKER: 정식 공개 전 통신판매업 신고번호"));
+check("Main, Trial and Checkout are directly connected",html.includes('href="trial.html"')&&html.includes('href="checkout.html"')&&trial.includes('href="checkout.html"')&&checkout.includes('href="/trial.html"'));
+check("Checkout links support and every final policy",checkout.includes("mailto:support@ordentory.kr")&&["/terms.html","/privacy.html","/refund.html"].every(x=>checkout.includes('href="'+x+'"')));
+check("Payment success links support and every final policy",paymentSuccess.includes("mailto:support@ordentory.kr")&&["/terms.html","/privacy.html","/refund.html"].every(x=>paymentSuccess.includes('href="'+x+'"')));
+check("Payment failure links checkout, support and every final policy",paymentFail.includes('href="/checkout.html"')&&paymentFail.includes("mailto:support@ordentory.kr")&&["/terms.html","/privacy.html","/refund.html"].every(x=>paymentFail.includes('href="'+x+'"')));
+check("Manual links Trial, Checkout and final policies",["trial.html","checkout.html","terms.html","privacy.html","refund.html"].every(x=>manual.includes('href="'+x+'"'))&&manual.includes("support@ordentory.kr"));
 check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
 check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
 check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
