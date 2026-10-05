@@ -113,7 +113,7 @@ async function preparePayment(){
     return;
   }
   if(!deliveryConsent?.checked){
-    checkoutError.textContent="구매 이메일로 라이선스와 설치 안내가 발송되는 내용을 확인해 주세요.";
+    checkoutError.textContent="결제 후 즉시 디지털 제공이 시작되고 청약철회가 제한될 수 있다는 안내를 확인해 주세요.";
     return;
   }
   if(!currentOffer){
