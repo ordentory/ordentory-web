@@ -61,9 +61,9 @@ function startExpiryCountdown(expiresAt){
   const tick=()=>{
     const remaining=Math.max(0,Math.ceil((end-Date.now())/1000));
     if(remaining<=0){
-      node.textContent="만료됨";
+      node.textContent="주문 유효시간 만료";
       requestButton.disabled=true;
-      requestButton.textContent="주문 만료 · 다시 준비";
+      requestButton.textContent="주문 유효시간 만료 · 다시 준비";
       stopExpiryCountdown();
       return;
     }
