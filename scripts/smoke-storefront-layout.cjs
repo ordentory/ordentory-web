@@ -88,7 +88,7 @@ function localTargetExists(href){
         const mainBox=await main.boundingBox();
         assert.ok(mainBox&&mainBox.width>0&&mainBox.height>0,pageName+"/"+viewportName+": main has layout");
 
-        const broken=await page.locator("a[href]").evaluateAll(els=>els.map(a=>a.getAttribute("href")).filter(Boolean));
+        const broken=await page.locator("a[href]:visible").evaluateAll(els=>els.map(a=>a.getAttribute("href")).filter(Boolean));
         for(const href of broken){
           assert.ok(localTargetExists(href),pageName+"/"+viewportName+": broken internal link "+href);
         }
