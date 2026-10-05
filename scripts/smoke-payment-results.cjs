@@ -49,6 +49,8 @@ const server=http.createServer((req,res)=>{
     await page.reload({waitUntil:"load"});
     await page.locator("#result-success").waitFor({state:"visible"});
     assert.equal(confirmCalls,1,"refresh uses cached confirmed result, no duplicate confirm");
+    fs.mkdirSync(path.join(root,"artifacts"),{recursive:true});
+    await page.screenshot({path:path.join(root,"artifacts","payment-success-desktop.png"),fullPage:true});
     assert.deepEqual(pageErrors,[],"success page has no runtime errors");
     console.log("PASS payment success confirm -> sanitize URL -> refresh cache");
     await page.close();
@@ -92,6 +94,7 @@ const server=http.createServer((req,res)=>{
     assert.ok(!fail.url().includes("message="),"failure query details removed after rendering");
     const failOverflow=await fail.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(failOverflow<=2,"mobile fail horizontal overflow "+failOverflow+"px");
+    await fail.screenshot({path:path.join(root,"artifacts","payment-fail-mobile.png"),fullPage:true});
     console.log("PASS payment fail safe rendering and mobile layout");
     await fail.close();
 
