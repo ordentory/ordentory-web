@@ -33,6 +33,11 @@ function renderSummary(){
 }
 function renderLicenses(){
   const items=state.overview?.licenses||[];
+  ["feature-license","support-license"].forEach(id=>{
+    const select=el(id);
+    if(!select)return;
+    select.innerHTML='<option value="">선택 안 함</option>'+items.map(x=>`<option value="${esc(x.id)}">ORDENTORY Inventory · ${esc(x.code)}</option>`).join("");
+  });
   el("licenses-list").innerHTML=items.length?items.map(x=>`<article class="portal-item"><div class="portal-item-head"><div><div class="portal-item-title">ORDENTORY Inventory</div><div class="portal-item-meta"><span>${esc(x.code)}</span><span>${esc(x.issueSource)}</span><span>발급 ${date(x.createdAt)}</span></div></div>${badge(x.status)}</div><div class="portal-item-meta"><span>모듈: ${esc((x.modules||[]).join(", ")||"-")}</span><span>PC ${x.activeDevices}/${x.deviceLimit}</span><span>${x.perpetual?"영구 사용권":"기간형"}</span></div></article>`).join(""):'<div class="portal-empty">연결된 라이선스가 없습니다. 구매에 사용한 이메일과 현재 계정 이메일이 같은지 확인해 주세요.</div>';
 }
 function renderDevices(){
