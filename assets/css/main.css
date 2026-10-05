@@ -1319,11 +1319,13 @@ img, video { display: block; max-width: 100%; }
 .price-license { margin-top: 4px; color: #64748b; font-size: 11px; line-height: 1.5; }
 .trial-link { display: inline-block; margin-top: 14px; color: var(--blue); font-size: 13px; font-weight: 900; text-decoration: none; }
 .trial-link:hover { text-decoration: underline; }
-.price-trial-cta {
+.price-trial-cta,
+.price-purchase-cta {
   width: 100%;
-  margin-top: 2px;
   text-align: center;
 }
+.price-trial-cta { margin-top: 2px; }
+.price-purchase-cta { margin-top: 14px; }
 .price-trial-note {
   display: block;
   margin-top: 10px;
