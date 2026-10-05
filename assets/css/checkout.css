@@ -221,3 +221,47 @@
   .activation-steps article:last-child{border-bottom:0}
   .result-footer-actions{gap:13px}
 }
+
+
+/* Final 7-day Trial experience. */
+.trial-main{max-width:860px}
+.trial-conditions{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px;
+  margin:28px 0 0;
+  overflow:hidden;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  background:#e2e8f0
+}
+.trial-conditions>div{display:grid;gap:6px;padding:16px 14px;background:#fff;text-align:center}
+.trial-conditions span{color:#64748b;font-size:10px;font-weight:800}
+.trial-conditions strong{font-size:12px;line-height:1.45}
+.trial-checkout-card{margin-top:20px}
+.trial-policy-box{margin-top:20px}
+.trial-result-lead{margin:8px auto 0;max-width:560px;color:#64748b;font-size:13px;line-height:1.7}
+.trial-result-summary{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;
+  margin-top:26px;
+  overflow:hidden;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  background:#e2e8f0;
+  text-align:left
+}
+.trial-result-summary>div{display:grid;gap:6px;padding:15px;background:#fff}
+.trial-result-summary span{color:#64748b;font-size:10px;font-weight:800}
+.trial-result-summary strong{overflow-wrap:anywhere;font-size:12px;line-height:1.55}
+.trial-license-result{margin-top:18px}
+.trial-activation-guide{margin-top:30px}
+.trial-data-notice{margin-top:18px}
+@media(max-width:760px){
+  .trial-conditions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .trial-conditions{grid-template-columns:1fr}
+  .trial-result-summary{grid-template-columns:1fr}
+}
