@@ -54,7 +54,10 @@ function localTargetExists(href){
     ["manual","/manual.html"],
     ["terms","/terms.html"],
     ["privacy","/privacy.html"],
-    ["refund","/refund.html"]
+    ["refund","/refund.html"],
+    ["login","/login.html"],
+    ["signup","/signup.html"],
+    ["feedback","/feedback.html"]
   ];
   const viewports=[
     ["desktop",1440,900],
