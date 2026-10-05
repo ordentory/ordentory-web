@@ -97,7 +97,7 @@ const server = http.createServer((req, res) => {
     await preview.goto(base+"/preview.html",{waitUntil:"load"});
     assert.equal(await preview.locator("#modules [data-module]").count(),4,"standalone preview includes module catalog");
     assert.equal(await preview.locator(".mkt-metrics-seven > div").count(),7,"standalone preview includes v1.0.0 mock");
-    assert.equal(await preview.locator('.trial-link').getAttribute("href"),"trial.html","preview trial hyperlink resolves in branch");
+    assert.equal(await preview.locator('.price-trial-cta').getAttribute("href"),"trial.html","preview trial hyperlink resolves in branch");
     await preview.close();
     assert.deepEqual(failures,[],"browser runtime errors");
     console.log("PASS standalone preview, module interactions and disabled live checkout");
