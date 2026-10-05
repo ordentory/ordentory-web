@@ -48,11 +48,11 @@
   <script>
     (() => {
       const params = new URLSearchParams(location.search);
-      const message = String(params.get("message") || "").trim();
-      const code = String(params.get("code") || "").trim();
-      const orderId = String(params.get("orderId") || "").trim();
+      const rawCode = String(params.get("code") || "").trim().toUpperCase();
+      const rawOrderId = String(params.get("orderId") || "").trim().toUpperCase();
+      const code = /^[A-Z0-9_:-]{1,64}$/.test(rawCode) ? rawCode : "";
+      const orderId = /^ORD-[A-Z0-9]{6,64}$/.test(rawOrderId) ? rawOrderId : "";
 
-      if (message) document.getElementById("fail-message").textContent = message;
       if (code) document.getElementById("fail-code").textContent = code;
       if (orderId) document.getElementById("fail-order-id").textContent = orderId;
 
