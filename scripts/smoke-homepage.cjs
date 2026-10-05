@@ -34,7 +34,8 @@ const server = http.createServer((req, res) => {
       assert.equal(await page.locator("#modules [data-module]").count(),4,name+": all modules");
       assert.equal(await page.locator('#modules [data-module-status="current"]').count(),1,name+": only Inventory current");
       assert.equal(await page.locator('#modules [data-module-status="planned"]').count(),3,name+": future module status");
-      assert.equal(await page.locator(".button-disabled[aria-disabled=true]").count(),1,name+": live purchase disabled");
+      assert.equal(await page.locator('.price-purchase-cta[href="checkout.html"]').count(),1,name+": purchase CTA reaches checkout");
+      assert.equal(await page.locator('.price-trial-cta[href="trial.html"]').count(),1,name+": Trial CTA remains available");
       const catalog=await page.locator("#modules").boundingBox();
       const demo=await page.locator("#demo").boundingBox();
       const pricing=await page.locator("#pricing").boundingBox();
@@ -98,9 +99,10 @@ const server = http.createServer((req, res) => {
     assert.equal(await preview.locator("#modules [data-module]").count(),4,"standalone preview includes module catalog");
     assert.equal(await preview.locator(".mkt-metrics-seven > div").count(),7,"standalone preview includes v1.0.0 mock");
     assert.equal(await preview.locator('.price-trial-cta').getAttribute("href"),"trial.html","preview trial hyperlink resolves in branch");
+    assert.equal(await preview.locator('.price-purchase-cta').getAttribute("href"),"checkout.html","preview purchase hyperlink resolves in branch");
     await preview.close();
     assert.deepEqual(failures,[],"browser runtime errors");
-    console.log("PASS standalone preview, module interactions and disabled live checkout");
+    console.log("PASS standalone preview, module interactions and launch-ready checkout navigation");
     console.log("BROWSER QA ALL PASS");
   } finally {
     await browser.close();
