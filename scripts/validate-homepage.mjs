@@ -13,6 +13,9 @@ const paymentFail = read("payment-fail.html");
 const paymentSuccessJS = read("assets/js/payment-success.js");
 const trial = read("trial.html");
 const trialJS = read("assets/js/trial.js");
+const terms = read("terms.html");
+const privacy = read("privacy.html");
+const refund = read("refund.html");
 const expectedPreview = html
   .replace('<link rel="stylesheet" href="assets/css/main.css">', '<style>\n' + css + '\n</style>')
   .replace('<script src="assets/js/main.js"></script>', '<script>\n' + js + '\n</script>');
@@ -31,6 +34,12 @@ check("Purchase delivery contents are explicit",html.includes("정식 라이선�
 check("Pre-purchase policy links are present",["terms.html","refund.html","privacy.html","manual.html"].every(x=>html.includes('href="'+x+'"')));
 check("Checkout loads server offer before enabling purchase",checkoutJS.includes('STORE_API+"/offer"')&&checkout.includes('id="offer-current-price"')&&checkout.includes('id="prepare-payment"'));
 check("Checkout has both policy and digital-delivery confirmations",checkout.includes('id="checkout-policy-consent"')&&checkout.includes('id="checkout-delivery-consent"'));
+check("Checkout explicitly confirms immediate digital supply and withdrawal limitation",checkout.includes("디지털 소프트웨어의 제공이 시작")&&checkout.includes("청약철회가 제한될 수")&&checkout.includes("/trial.html"));
+check("Final legal pages use confirmed support details",["070-7594-2101","평일 18:30~21:00","support@ordentory.kr"].every(x=>terms.includes(x)&&refund.includes(x))&&privacy.includes("070-7594-2101"));
+check("Terms pin commercial license and update policy",["영구 사용권","1개 사업체","최대 2대","v1.x","v2.x","공유·양도·재판매"].every(x=>terms.includes(x)));
+check("Refund policy preserves statutory withdrawal rights",["7일","제공이 개시","7일 무료체험","3개월","30일","3영업일"].every(x=>refund.includes(x)));
+check("Privacy policy includes statutory retention and overseas processors",["6개월","5년","3년","Railway Corporation","Plus Five Five, Inc. (Resend)","미국","privacy@railway.com","privacy@resend.com"].every(x=>privacy.includes(x)));
+check("Public-launch mail-order registration remains an explicit private-branch blocker",html.includes("LAUNCH BLOCKER: 정식 공개 전 통신판매업 신고번호"));
 check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
 check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
 check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
