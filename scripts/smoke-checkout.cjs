@@ -48,6 +48,13 @@ window.TossPayments=function(){
       await page.route("https://js.tosspayments.com/v2/standard",route=>
         route.fulfill({status:200,contentType:"application/javascript",body:tossMock})
       );
+      await page.route("https://api.ordentory.kr/v1/customer/auth/session",route=>
+        route.fulfill({
+          status:200,
+          headers:{"access-control-allow-origin":base,"access-control-allow-credentials":"true","content-type":"application/json"},
+          body:JSON.stringify({customerId:"11111111-1111-4111-8111-111111111111",email:"buyer@example.com",fullName:"구매자",phone:"01012345678",expiresAt:new Date(Date.now()+3600000).toISOString()})
+        })
+      );
       await page.route("https://api.ordentory.kr/v1/store/offer",route=>
         route.fulfill({
           status:200,contentType:"application/json",
@@ -58,18 +65,18 @@ window.TossPayments=function(){
           })
         })
       );
-      await page.route("https://api.ordentory.kr/v1/store/checkouts",async route=>{
+      await page.route("https://api.ordentory.kr/v1/customer/store/checkouts",async route=>{
         const req=route.request();
         assert.equal(req.method(),"POST",name+": checkout must use POST");
         const payload=req.postDataJSON();
-        assert.equal(payload.buyerEmail,"buyer@example.com",name+": normalized buyer email");
+        assert.equal(payload.billingPreference,"AUTO",name+": default billing preference");
         const expiresAt=new Date(Date.now()+30*60*1000).toISOString();
         await route.fulfill({
           status:201,contentType:"application/json",
           body:JSON.stringify({
             orderId:"ORD-QATEST123",orderName:"ORDENTORY Inventory",
-            buyerEmail:"buyer@example.com",productCode:"inventory",
-            clientKey:"test_ck_mock",customerKey:"ANONYMOUS",
+            buyerEmail:"buyer@example.com",billingPreference:"AUTO",productCode:"inventory",
+            clientKey:"test_ck_mock",customerKey:"11111111-1111-4111-8111-111111111111",
             currency:"KRW",amount:169000,launchOffer:true,
             successUrl:base+"/payment-success.html",
             failUrl:base+"/payment-fail.html",expiresAt
@@ -83,7 +90,8 @@ window.TossPayments=function(){
       assert.ok((await page.locator("#offer-regular-price").textContent()).includes("199,000"),name+": regular price shown");
       assert.ok((await page.locator("#offer-status").textContent()).includes("17개"),name+": launch remaining shown");
 
-      await page.locator("#buyer-email").fill("BUYER@example.com");
+      assert.equal(await page.locator("#buyer-email").inputValue(),"buyer@example.com",name+": buyer email comes from account session");
+      assert.equal(await page.locator("#buyer-email").isEditable(),false,name+": account email is readonly");
       await page.locator("#checkout-policy-consent").check();
       await page.locator("#checkout-delivery-consent").check();
       await page.locator("#prepare-payment").click();
@@ -112,6 +120,13 @@ window.TossPayments=function(){
     const unavailable=await browser.newPage({viewport:{width:1280,height:800}});
     await unavailable.route("https://js.tosspayments.com/v2/standard",route=>
       route.fulfill({status:200,contentType:"application/javascript",body:tossMock})
+    );
+    await unavailable.route("https://api.ordentory.kr/v1/customer/auth/session",route=>
+      route.fulfill({
+        status:200,
+        headers:{"access-control-allow-origin":base,"access-control-allow-credentials":"true","content-type":"application/json"},
+        body:JSON.stringify({customerId:"11111111-1111-4111-8111-111111111111",email:"buyer@example.com",fullName:"구매자",phone:"01012345678",expiresAt:new Date(Date.now()+3600000).toISOString()})
+      })
     );
     await unavailable.route("https://api.ordentory.kr/v1/store/offer",route=>
       route.fulfill({status:503,contentType:"application/json",body:JSON.stringify({error:{message:"자사몰 결제 기능을 준비 중입니다."}})})
