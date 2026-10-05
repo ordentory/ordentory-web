@@ -1,10 +1,10 @@
-name: ORDENTORY Prelaunch Holding QA
+name: ORDENTORY Prelaunch One-page QA
 
 on:
   push:
     branches:
       - main
-      - ops/prelaunch-holding-20261005
+      - ops/prelaunch-onepage-20261005
   pull_request:
     branches:
       - main
@@ -13,19 +13,27 @@ permissions:
   contents: read
 
 jobs:
-  verify-holding-page:
+  verify-prelaunch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify public holding page
+      - name: Verify one-page prelaunch site
         shell: bash
         run: |
           set -euo pipefail
-          grep -q "정식 오픈 준비 중입니다." index.html
+          grep -q "정식 오픈 준비 중" index.html
+          grep -q "복잡한 재고관리를" index.html
+          grep -q "Windows용 재고관리 프로그램" index.html
+          grep -q "assets/images/product/hero-home.webp" index.html
+          grep -q "Inventory에서 시작해" index.html
+          grep -q "support@ordentory.kr" index.html
           grep -q 'name="robots" content="noindex,nofollow,noarchive"' index.html
           ! grep -q "169,000원" index.html
           ! grep -q 'href="trial.html"' index.html
           ! grep -q 'href="checkout.html"' index.html
+          ! grep -q "선착순 30" index.html
+          test -f assets/images/product/hero-home.webp
+          test -f assets/images/brand/ordentory-logo.webp
           test "$(tr -d '\r\n' < CNAME)" = "ordentory.kr"
       - name: Verify hidden storefront routes redirect home
         shell: bash
