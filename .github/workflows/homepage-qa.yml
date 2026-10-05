@@ -9,6 +9,7 @@ on:
       - feature/installer-manual-portal-20261005
   pull_request:
     branches:
+      - prelaunch/storefront-development-20261005
       - main
       - feat/homepage-v1
       - feature/homepage-modular-v100-20261005
