@@ -1,46 +1,44 @@
-name: ORDENTORY Homepage QA
+name: ORDENTORY Prelaunch Holding QA
 
 on:
   push:
     branches:
-      - feature/homepage-modular-v100-20261005
-      - feature/trial-otp-email-20261005
-      - feature/installer-manual-portal-20261005
+      - main
+      - ops/prelaunch-holding-20261005
   pull_request:
     branches:
       - main
-      - feat/homepage-v1
-      - feature/homepage-modular-v100-20261005
-      - feature/trial-otp-email-20261005
 
 permissions:
   contents: read
 
 jobs:
-  verify-homepage:
+  verify-holding-page:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Check modular v1.0.0 homepage and standalone preview
-        run: node scripts/validate-homepage.mjs
-      - name: Verify official manual portal and PDF approval gate
-        run: node scripts/validate-manual-portal.mjs
-      - name: Prepare browser QA
+      - name: Verify public holding page
+        shell: bash
         run: |
-          npm install --no-save playwright@1.58.2
-          npx playwright install --with-deps chromium
-      - name: Smoke test desktop, tablet and mobile layouts
-        run: node scripts/smoke-homepage.cjs
-      - name: Trial application OTP workflow (mock API, no real emails)
-        run: node scripts/smoke-trial.cjs
-      - name: Save browser screenshots for review
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ordentory-homepage-browser-screenshots
-          path: artifacts/
-          if-no-files-found: ignore
-          retention-days: 7
+          set -euo pipefail
+          grep -q "정식 오픈 준비 중입니다." index.html
+          grep -q 'name="robots" content="noindex,nofollow,noarchive"' index.html
+          ! grep -q "169,000원" index.html
+          ! grep -q 'href="trial.html"' index.html
+          ! grep -q 'href="checkout.html"' index.html
+          test "$(tr -d '\r\n' < CNAME)" = "ordentory.kr"
+      - name: Verify hidden storefront routes redirect home
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in checkout.html manual.html payment-fail.html payment-success.html preview.html privacy.html refund.html terms.html trial.html 404.html; do
+            grep -q 'name="robots" content="noindex,nofollow,noarchive"' "$f"
+            grep -q 'http-equiv="refresh" content="0;url=/"' "$f"
+            grep -q 'location.replace("/")' "$f"
+          done
+      - name: Verify crawler block
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '^User-agent: \*$' robots.txt
+          grep -q '^Disallow: /$' robots.txt
