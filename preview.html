@@ -1328,11 +1328,13 @@ img, video { display: block; max-width: 100%; }
 .price-license { margin-top: 4px; color: #64748b; font-size: 11px; line-height: 1.5; }
 .trial-link { display: inline-block; margin-top: 14px; color: var(--blue); font-size: 13px; font-weight: 900; text-decoration: none; }
 .trial-link:hover { text-decoration: underline; }
-.price-trial-cta {
+.price-trial-cta,
+.price-purchase-cta {
   width: 100%;
-  margin-top: 2px;
   text-align: center;
 }
+.price-trial-cta { margin-top: 2px; }
+.price-purchase-cta { margin-top: 14px; }
 .price-trial-note {
   display: block;
   margin-top: 10px;
@@ -2492,7 +2494,7 @@ img, video { display: block; max-width: 100%; }
               <li>사용자 지정 폴더 정기 자동백업 · 복원</li>
               <li>서명된 자동 업데이트 · v1.x 무료 업데이트</li>
             </ul>
-            <a class="button button-primary price-trial-cta" href="trial.html">7일 무료체험 시작</a>
+            <a class="button button-secondary price-trial-cta" href="trial.html">7일 무료체험 시작</a>
             <span class="price-trial-note">이메일 인증 후 체험 라이선스와 설치 안내를 바로 받아볼 수 있습니다.</span>
             <a class="button button-primary price-purchase-cta" href="checkout.html">정식 라이선스 구매</a>
             <p class="price-delivery">결제 완료 즉시 구매 이메일로 정식 라이선스 코드, 프로그램 다운로드 링크, 사용자 매뉴얼을 자동 안내합니다.</p>
