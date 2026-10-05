@@ -44,6 +44,8 @@ jobs:
         run: node scripts/smoke-payment-results.cjs
       - name: Trial application OTP workflow (mock API, no real emails)
         run: node scripts/smoke-trial.cjs
+      - name: Storefront negative-path and exception QA
+        run: node scripts/smoke-storefront-exceptions.cjs
       - name: Save browser screenshots for review
         if: always()
         uses: actions/upload-artifact@v4
