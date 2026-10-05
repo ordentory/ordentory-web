@@ -57,6 +57,7 @@ function localTargetExists(href){
     ["refund","/refund.html"],
     ["login","/login.html"],
     ["signup","/signup.html"],
+    ["forgot-password","/forgot-password.html"],
     ["feedback","/feedback.html"]
   ];
   const viewports=[
