@@ -86,9 +86,9 @@ const server=http.createServer((req,res)=>{
 
     const fail=await browser.newPage({viewport:{width:390,height:844}});
     const injected="<img id=xss src=x onerror=alert(1)>";
-    await fail.goto(base+"/payment-fail.html?code=USER_CANCEL&orderId=ORD-FAIL-1234&message="+encodeURIComponent(injected),{waitUntil:"load"});
+    await fail.goto(base+"/payment-fail.html?code=USER_CANCEL&orderId=ORD-FAIL1234&message="+encodeURIComponent(injected),{waitUntil:"load"});
     assert.equal(await fail.locator("#fail-code").textContent(),"USER_CANCEL");
-    assert.equal(await fail.locator("#fail-order-id").textContent(),"ORD-FAIL-1234");
+    assert.equal(await fail.locator("#fail-order-id").textContent(),"ORD-FAIL1234");
     assert.equal(await fail.locator("#fail-message").textContent(),"결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.");
     assert.ok(!(await fail.locator("body").textContent()).includes(injected),"untrusted failure message is not reflected");
     assert.equal(await fail.locator("#xss").count(),0,"failure message cannot create HTML");
