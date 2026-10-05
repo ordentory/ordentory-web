@@ -3,49 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ORDENTORY 결제 완료</title>
+  <meta name="robots" content="noindex,nofollow">
+  <title>ORDENTORY | 구매 완료</title>
+  <meta name="description" content="ORDENTORY Inventory 구매 완료 및 라이선스 발급 안내">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 <body class="checkout-body">
   <header class="checkout-header">
-    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+    <a href="/" class="checkout-brand" aria-label="ORDENTORY 홈">
+      <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+    </a>
+    <span class="checkout-back result-header-status">결제 결과</span>
   </header>
-  <main class="result-main">
-    <section class="result-card">
+
+  <main class="result-main result-main-wide">
+    <section class="result-card result-card-commercial">
       <div id="result-loading">
-        <div class="result-icon">···</div>
+        <div class="result-icon result-icon-loading" aria-hidden="true">···</div>
+        <p class="section-label">PAYMENT VERIFICATION</p>
         <h1>결제를 확인하고 있습니다.</h1>
-        <p>창을 닫지 마세요. 결제 승인과 라이선스 발급을 안전하게 처리하고 있습니다.</p>
+        <p>결제 승인과 정식 라이선스 발급을 처리하고 있습니다. 이 화면을 잠시 유지해 주세요.</p>
       </div>
+
       <div id="result-success" hidden>
-        <div class="result-icon success">✓</div>
+        <div class="result-icon success" aria-hidden="true">✓</div>
         <p class="section-label">PAYMENT COMPLETE</p>
-        <h1>ORDENTORY 구매가 완료되었습니다.</h1>
-        <p>아래 라이선스 코드는 설치 후 최초 활성화에 사용합니다.</p>
-        <div class="license-result">
+        <h1>구매가 완료되었습니다.</h1>
+        <p class="result-lead">결제 승인과 ORDENTORY Inventory 정식 라이선스 발급이 완료되었습니다.</p>
+
+        <div class="result-order-summary" aria-label="구매 정보">
+          <div><span>주문번호</span><strong id="result-order-id"></strong></div>
+          <div><span>구매 이메일</span><strong id="result-buyer-email"></strong></div>
+          <div><span>결제금액</span><strong id="result-amount"></strong></div>
+          <div><span>라이선스</span><strong>영구 사용권 · 최대 2PC</strong></div>
+        </div>
+
+        <div class="license-result result-license">
           <span>ORDENTORY Inventory License</span>
           <strong id="license-code"></strong>
           <button id="copy-license" type="button">라이선스 코드 복사</button>
         </div>
-        <div class="result-actions">
-          <a id="installer-link" class="button button-primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 받기</a>
-          <a class="button button-secondary" href="manual.html">설치·매뉴얼 안내</a>
-          <a class="button button-secondary" href="/">홈으로</a>
+
+        <div class="result-mail-notice">
+          <strong>구매 완료 메일도 자동 발송됩니다.</strong>
+          <p id="result-mail-text">구매 이메일로 라이선스 코드, 서명된 설치파일 다운로드 링크, 사용자 매뉴얼과 활성화 방법을 안내합니다. 메일 도착이 늦어도 아래 버튼에서 바로 설치를 진행할 수 있습니다.</p>
         </div>
-        <p class="checkout-help">설치 후 [라이선스]에서 위 정식 구매용 코드와 구매 당시 등록한 이메일을 입력한 뒤, 수신된 6자리 이메일 인증번호로 PC를 활성화하세요. 최초 활성화에는 인터넷 연결이 필요합니다. 설치 후 [도움말]에서 포함된 공식 PDF 매뉴얼을 열 수 있습니다.</p>
+
+        <div class="result-actions result-actions-primary">
+          <a id="installer-link" class="button button-primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 받기</a>
+          <a class="button button-secondary" href="manual.html">설치·사용자 매뉴얼</a>
+        </div>
+
+        <section class="activation-guide" aria-label="라이선스 활성화 방법">
+          <h2>설치 후 이렇게 활성화하세요.</h2>
+          <div class="activation-steps">
+            <article>
+              <span>01</span>
+              <strong>ORDENTORY 설치</strong>
+              <p>위 설치파일을 받아 Windows PC에 설치합니다.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>라이선스 정보 입력</strong>
+              <p>[라이선스]에서 구매 이메일과 위 정식 라이선스 코드를 입력합니다.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>이메일 인증</strong>
+              <p>수신된 6자리 인증번호를 입력하면 해당 PC가 활성화됩니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <div class="result-caution">
+          <strong>PC 활성화 안내</strong>
+          <p>1개 사업체에서 최대 2대의 PC까지 사용할 수 있습니다. 정상적인 PC 이전은 기존 PC에서 먼저 장치를 해제한 뒤 새 PC를 활성화하세요. 최초 활성화에는 인터넷 연결이 필요합니다.</p>
+        </div>
+
+        <div class="result-footer-actions">
+          <a href="/" class="checkout-text-link">ORDENTORY 홈으로</a>
+          <a href="mailto:support@ordentory.kr?subject=ORDENTORY%20구매%20문의" class="checkout-text-link">구매 관련 문의</a>
+        </div>
       </div>
+
       <div id="result-error" hidden>
-        <div class="result-icon error">!</div>
+        <div class="result-icon error" aria-hidden="true">!</div>
+        <p class="section-label">PAYMENT CHECK REQUIRED</p>
         <h1>결제 확인을 완료하지 못했습니다.</h1>
-        <p id="result-error-message">결제 내역은 임의로 다시 결제하지 말고 고객지원에 문의해 주세요.</p>
+        <p id="result-error-message" class="result-lead">결제 상태가 불확실하므로 다시 결제하지 말고 고객지원에 문의해 주세요.</p>
+
+        <div class="result-order-summary result-error-summary">
+          <div><span>주문번호</span><strong id="error-order-id">확인 중</strong></div>
+          <div><span>안내</span><strong>재결제 금지 · 결제 상태 먼저 확인</strong></div>
+        </div>
+
+        <div class="result-caution result-caution-warning">
+          <strong>카드사 또는 Toss 화면에서 승인 완료를 보셨다면 재결제하지 마세요.</strong>
+          <p>결제는 승인되었지만 라이선스 확인 화면만 완료되지 않았을 수 있습니다. 주문번호와 함께 고객지원으로 문의하면 결제 및 라이선스 상태를 확인할 수 있습니다.</p>
+        </div>
+
         <div class="result-actions">
-          <a class="button button-primary" href="mailto:support@ordentory.kr?subject=ORDENTORY%20결제%20확인%20문의">고객지원 문의</a>
+          <a id="result-support-link" class="button button-primary" href="mailto:support@ordentory.kr?subject=ORDENTORY%20결제%20확인%20문의">고객지원 문의</a>
           <a class="button button-secondary" href="/">홈으로</a>
         </div>
       </div>
     </section>
+
+    <p class="checkout-footnote">ORDENTORY는 결제 완료 후 서버에서 승인 내역을 확인한 뒤 정식 라이선스를 발급합니다.</p>
   </main>
+
   <script src="assets/js/payment-success.js"></script>
 </body>
 </html>

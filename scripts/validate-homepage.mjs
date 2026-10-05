@@ -8,6 +8,9 @@ const js = read("assets/js/main.js");
 const preview = read("preview.html");
 const checkout = read("checkout.html");
 const checkoutJS = read("assets/js/checkout.js");
+const paymentSuccess = read("payment-success.html");
+const paymentFail = read("payment-fail.html");
+const paymentSuccessJS = read("assets/js/payment-success.js");
 const expectedPreview = html
   .replace('<link rel="stylesheet" href="assets/css/main.css">', '<style>\n' + css + '\n</style>')
   .replace('<script src="assets/js/main.js"></script>', '<script>\n' + js + '\n</script>');
@@ -29,6 +32,11 @@ check("Checkout has both policy and digital-delivery confirmations",checkout.inc
 check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
 check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
 check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
+check("Payment success page shows commercial order summary",["result-order-id","result-buyer-email","result-amount","license-code","installer-link"].every(id=>paymentSuccess.includes('id="'+id+'"')));
+check("Payment success page includes activation and email guidance",paymentSuccess.includes("구매 완료 메일도 자동 발송됩니다.")&&paymentSuccess.includes("설치 후 이렇게 활성화하세요.")&&paymentSuccess.includes("최대 2대의 PC"));
+check("Payment confirmation sanitizes paymentKey from browser URL",paymentSuccessJS.includes("PENDING_PREFIX")&&paymentSuccessJS.includes("history.replaceState")&&paymentSuccessJS.includes("sessionStorage"));
+check("Payment confirmation validates issued license and installer",paymentSuccessJS.includes("validLicenseCode")&&paymentSuccessJS.includes("validInstallerURL")&&paymentSuccessJS.includes("deviceLimit")&&paymentSuccessJS.includes("perpetual"));
+check("Payment failure page warns against uncertain duplicate payment",paymentFail.includes("실제 결제 여부가 불확실하면 바로 다시 결제하지 마세요.")&&paymentFail.includes('id="fail-order-id"')&&paymentFail.includes('id="fail-code"'));
 check("Desktop sidebar labels",["홈","상품","재고","입출고","공급처","발주 · 입고예정","가져오기","데이터 보관","프로그램 업데이트","라이선스","프로그램 정보","도움말"].every(x=>html.includes(">"+x+"</span>")));
 check("Seven Desktop dashboard metric labels",["사용중 상품","전체 현재고","안전재고 이하","초기재고 미입력","오늘 입고","오늘 출고","참고 재고금액"].every(x=>html.includes(">"+x+"</span>")));
 check("Product registration stage names",["1. Product","2. SKU / Option","3. Supplier","4. Channel Listing"].every(x=>html.includes(x)));
