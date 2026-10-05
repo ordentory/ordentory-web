@@ -3,31 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ORDENTORY 결제 중단</title>
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/checkout.css">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="refresh" content="0;url=/">
+  <title>ORDENTORY | 정식 오픈 준비 중</title>
+  <script>location.replace("/");</script>
 </head>
-<body class="checkout-body">
-  <header class="checkout-header">
-    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
-  </header>
-  <main class="result-main">
-    <section class="result-card">
-      <div class="result-icon error">!</div>
-      <p class="section-label">PAYMENT NOT COMPLETED</p>
-      <h1>결제가 완료되지 않았습니다.</h1>
-      <p id="fail-message">결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.</p>
-      <div class="result-actions">
-        <a class="button button-primary" href="/checkout.html">다시 결제하기</a>
-        <a class="button button-secondary" href="/">홈으로</a>
-      </div>
-      <p class="checkout-help">결제 실패 페이지에서는 결제 승인을 요청하지 않습니다. 실제 결제 여부가 불확실하다면 재결제 전에 고객지원으로 문의해 주세요.</p>
-    </section>
-  </main>
-  <script>
-    const p=new URLSearchParams(location.search);
-    const msg=p.get("message");
-    if(msg) document.getElementById("fail-message").textContent=msg;
-  </script>
+<body>
+  <p><a href="/">ORDENTORY 정식 오픈 준비 페이지로 이동</a></p>
 </body>
 </html>
