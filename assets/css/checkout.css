@@ -75,3 +75,44 @@
   .checkout-step-head>span{width:32px;height:32px}
   .checkout-step-head h2{font-size:20px}
 }
+
+
+/* Purchase result handoff */
+.checkout-result-header-label{color:#64748b;font-size:12px;font-weight:850}
+.result-main-wide{max-width:820px}
+.result-card-purchase,.result-card-fail{text-align:center}
+.result-lead{max-width:620px;margin:0 auto;color:#64748b;line-height:1.75}
+.purchase-result-summary{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:28px 0 0;overflow:hidden;border:1px solid #e2e8f0;border-radius:14px;background:#e2e8f0;text-align:left}
+.purchase-result-summary>div{display:grid;gap:6px;padding:15px 16px;background:#fff}
+.purchase-result-summary span{color:#64748b;font-size:10px;font-weight:800}
+.purchase-result-summary strong{color:#273449;font-size:12px;overflow-wrap:anywhere}
+.license-result-primary{margin-top:18px;border-color:#bed3ff;background:#f7faff}
+.license-result-primary>span{color:#1d4ed8}
+.license-result-primary>strong{font-size:22px}
+.purchase-mail-notice{display:grid;gap:5px;margin-top:18px;border:1px solid #dbeafe;border-radius:13px;padding:15px 17px;background:#eff6ff;text-align:left}
+.purchase-mail-notice strong{color:#1e40af;font-size:12px}
+.purchase-mail-notice span{color:#526078;font-size:11px;line-height:1.65}
+.result-actions-primary{margin-top:22px}
+.activation-guide{margin-top:34px;border-top:1px solid #e2e8f0;padding-top:30px;text-align:left}
+.activation-guide h2{margin:0 0 16px;font-size:20px;letter-spacing:-.035em}
+.activation-guide ol{margin:0;padding:0;list-style:none}
+.activation-guide li{display:grid;grid-template-columns:38px 1fr;gap:13px;padding:14px 0;border-bottom:1px solid #edf1f5}
+.activation-guide li>span{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:#eaf1ff;color:#125aef;font-size:10px;font-weight:900}
+.activation-guide li strong{display:block;font-size:13px}
+.activation-guide li p{margin:5px 0 0;color:#64748b;font-size:11px;line-height:1.6}
+.activation-note{margin:14px 0 0;color:#64748b;font-size:11px;line-height:1.65}
+.result-support{margin-top:20px!important;text-align:center}
+.result-support a{color:#125aef;font-weight:850}
+.result-error-box{display:grid;gap:6px;margin:24px 0 0;border:1px solid #fed7d7;border-radius:13px;padding:16px;background:#fff7f7;text-align:left}
+.result-error-box strong{color:#991b1b;font-size:12px}
+.result-error-box span{color:#64748b;font-size:11px;line-height:1.65}
+.fail-order-box{display:grid;gap:6px;margin:22px auto 0;max-width:460px;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;background:#f8fafc;text-align:left}
+.fail-order-box span{color:#64748b;font-size:10px;font-weight:800}
+.fail-order-box strong{font-size:13px;overflow-wrap:anywhere}
+.result-actions-fail{margin-top:22px}
+@media(max-width:640px){
+  .purchase-result-summary{grid-template-columns:1fr}
+  .result-card-purchase,.result-card-fail{padding:34px 20px}
+  .license-result-primary>strong{font-size:18px}
+  .activation-guide li{grid-template-columns:34px 1fr;gap:10px}
+}
