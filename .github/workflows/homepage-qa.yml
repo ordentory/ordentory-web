@@ -30,6 +30,12 @@ jobs:
         run: node scripts/validate-homepage.mjs
       - name: Verify official manual portal and PDF approval gate
         run: node scripts/validate-manual-portal.mjs
+      - name: Validate customer account and My ORDENTORY source contract
+        run: |
+          node --check assets/js/account-auth.js
+          node --check assets/js/my-ordentory.js
+          node --check assets/js/public-feedback.js
+          node scripts/validate-customer-portal.mjs
       - name: Prepare browser QA
         run: |
           npm install --no-save playwright@1.58.2
