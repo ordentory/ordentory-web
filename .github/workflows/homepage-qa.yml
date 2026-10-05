@@ -36,6 +36,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Smoke test desktop, tablet and mobile layouts
         run: node scripts/smoke-homepage.cjs
+      - name: Direct-store checkout workflow (mock API and Toss)
+        run: node scripts/smoke-checkout.cjs
       - name: Trial application OTP workflow (mock API, no real emails)
         run: node scripts/smoke-trial.cjs
       - name: Save browser screenshots for review

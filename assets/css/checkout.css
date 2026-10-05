@@ -18,3 +18,60 @@
 .trial-email-notice{margin:20px 0;padding:15px 17px;border:1px solid #dbeafe;border-radius:10px;background:#eff6ff;color:#1e40af;text-align:left;font-size:13px;line-height:1.7;overflow-wrap:anywhere;}
 .trial-final-instructions{margin-top:18px;text-align:left;}
 @media(max-width:480px){.trial-progress{gap:3px}.trial-progress span{font-size:10px;padding:8px 2px}.trial-step-heading{font-size:22px}.trial-otp-actions{gap:12px}}
+
+
+/* Commercial direct-store checkout */
+.checkout-main-wide{max-width:1120px}
+.checkout-layout{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:24px;align-items:start;margin-top:42px}
+.checkout-product-panel,.checkout-purchase-card{margin-top:0}
+.checkout-product-panel{border:1px solid #e2e8f0;border-radius:22px;padding:32px;background:#fff;box-shadow:0 18px 50px rgba(15,23,42,.05)}
+.checkout-product-head small{color:#2563eb;font-size:11px;font-weight:900;letter-spacing:.1em}
+.checkout-product-head h2{margin:9px 0 9px;font-size:28px;letter-spacing:-.04em}
+.checkout-product-head p{margin:0;color:#64748b;font-size:13px;line-height:1.7}
+.checkout-live-price{display:grid;gap:5px;margin:26px 0 22px;padding:22px 0;border-top:1px solid #edf1f5;border-bottom:1px solid #edf1f5}
+.checkout-live-price-label{color:#64748b;font-size:11px;font-weight:800}
+.checkout-live-price strong{font-size:34px;line-height:1.1;letter-spacing:-.045em}
+.checkout-regular-price{min-height:18px;color:#94a3b8;font-size:12px;font-weight:700;text-decoration:line-through}
+.checkout-offer-status{display:inline-flex;justify-self:start;min-height:27px;align-items:center;border-radius:999px;padding:6px 9px;background:#f1f5f9;color:#64748b;font-size:10px;font-weight:850}
+.checkout-offer-status.launch{background:#eff6ff;color:#1d4ed8}
+.checkout-product-facts{margin:0}
+.checkout-product-facts div{display:grid;grid-template-columns:100px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid #edf1f5}
+.checkout-product-facts div:last-child{border-bottom:0}
+.checkout-product-facts dt{color:#64748b;font-size:11px;font-weight:800}
+.checkout-product-facts dd{margin:0;color:#334155;font-size:12px;font-weight:800;text-align:right}
+.checkout-delivery-box{margin-top:22px;border-radius:14px;padding:17px;background:#f8fafc}
+.checkout-delivery-box strong{display:block;font-size:12px}
+.checkout-delivery-box ul{margin:11px 0 0;padding:0;list-style:none}
+.checkout-delivery-box li{margin:7px 0;color:#526078;font-size:11px;line-height:1.55}
+.checkout-delivery-box li::before{content:"✓";margin-right:7px;color:#2563eb;font-weight:900}
+.checkout-product-note{margin:16px 0 0;color:#94a3b8;font-size:10px;line-height:1.65}
+.checkout-purchase-card{padding:34px}
+.checkout-step-head{display:grid;grid-template-columns:42px 1fr;gap:13px;align-items:start;margin-bottom:26px}
+.checkout-step-head>span{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#eaf1ff;color:#125aef;font-size:11px;font-weight:900}
+.checkout-step-head small{display:block;margin-bottom:5px;color:#125aef;font-size:9px;font-weight:900;letter-spacing:.11em}
+.checkout-step-head h2{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.035em}
+.checkout-confirm-list{display:grid;gap:8px;margin:20px 0 0;border:1px solid #e2e8f0;border-radius:12px;padding:15px 16px;background:#fbfcfe}
+.checkout-confirm-list strong{margin-bottom:2px;color:#334155;font-size:11px}
+.checkout-confirm-list span{color:#64748b;font-size:11px;line-height:1.55}
+.checkout-confirm-list span::before{content:"•";margin-right:7px;color:#94a3b8}
+.checkout-payment-note{display:grid;gap:6px;margin:18px 0 24px;border-radius:12px;padding:15px 16px;background:#f7faff;border:1px solid #dce8ff}
+.checkout-payment-note strong{color:#1e40af;font-size:12px}
+.checkout-payment-note span{color:#526078;font-size:11px;line-height:1.6}
+.checkout-summary div:nth-child(5),.checkout-summary div:nth-child(6){background:#fbfcfe}
+@media(max-width:900px){
+  .checkout-main-wide{max-width:820px}
+  .checkout-layout{grid-template-columns:1fr;gap:18px}
+  .checkout-product-panel{order:1}
+  .checkout-purchase-card{order:2}
+}
+@media(max-width:640px){
+  .checkout-layout{margin-top:30px}
+  .checkout-product-panel{padding:24px 20px}
+  .checkout-purchase-card{padding:24px 20px}
+  .checkout-product-head h2{font-size:24px}
+  .checkout-live-price strong{font-size:31px}
+  .checkout-product-facts div{grid-template-columns:90px 1fr}
+  .checkout-step-head{grid-template-columns:36px 1fr;gap:10px}
+  .checkout-step-head>span{width:32px;height:32px}
+  .checkout-step-head h2{font-size:20px}
+}
