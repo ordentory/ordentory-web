@@ -8,6 +8,7 @@ on:
       - feature/installer-manual-portal-20261005
   pull_request:
     branches:
+      - main
       - feat/homepage-v1
       - feature/homepage-modular-v100-20261005
       - feature/trial-otp-email-20261005
