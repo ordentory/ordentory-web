@@ -1,0 +1,79 @@
+:root{--account-bg:#f6f8fb;--account-card:#fff;--account-border:#e2e8f0;--account-text:#111827;--account-muted:#64748b;--account-blue:#125aef;--account-blue-soft:#edf4ff;--account-danger:#b91c1c;--account-success:#15803d}
+*{box-sizing:border-box}
+.account-body{min-height:100vh;margin:0;background:var(--account-bg);color:var(--account-text);font-family:Inter,Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.account-header{height:74px;display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 24px}
+.account-brand img{display:block;width:164px;height:auto}
+.account-header-actions{display:flex;align-items:center;gap:16px}
+.account-header-actions a{color:var(--account-muted);font-size:12px;font-weight:800;text-decoration:none}
+.account-main{max-width:1180px;margin:0 auto;padding:54px 24px 100px}
+.account-auth-main{max-width:580px}
+.account-eyebrow{margin:0 0 10px;color:var(--account-blue);font-size:11px;font-weight:900;letter-spacing:.08em}
+.account-title{margin:0;font-size:clamp(34px,6vw,54px);letter-spacing:-.055em;line-height:1.08}
+.account-lead{margin:15px 0 0;color:var(--account-muted);font-size:14px;line-height:1.75}
+.account-card{margin-top:30px;padding:30px;border:1px solid var(--account-border);border-radius:20px;background:var(--account-card);box-shadow:0 16px 50px rgba(15,23,42,.05)}
+.account-field{display:grid;gap:8px;margin-top:17px}
+.account-field:first-child{margin-top:0}
+.account-field label{font-size:12px;font-weight:850}
+.account-input,.account-select,.account-textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;background:#fff;padding:13px 14px;color:#0f172a;font:inherit}
+.account-textarea{min-height:120px;resize:vertical;line-height:1.55}
+.account-input:focus,.account-select:focus,.account-textarea:focus{outline:3px solid rgba(18,90,239,.1);border-color:var(--account-blue)}
+.account-help{margin:0;color:var(--account-muted);font-size:11px;line-height:1.55}
+.account-consent{display:flex;align-items:flex-start;gap:9px;margin-top:15px;color:var(--account-muted);font-size:11px;line-height:1.55}
+.account-consent input{margin-top:3px}
+.account-consent a{color:var(--account-blue);font-weight:800}
+.account-button{width:100%;margin-top:22px;border:0;border-radius:10px;padding:14px 17px;background:var(--account-blue);color:#fff;font-weight:900;cursor:pointer}
+.account-button.secondary{background:#fff;border:1px solid #cbd5e1;color:#334155}
+.account-button.danger{background:#fff;border:1px solid #fecaca;color:var(--account-danger)}
+.account-button:disabled{opacity:.55;cursor:not-allowed}
+.account-error{min-height:19px;margin:10px 0 0;color:var(--account-danger);font-size:11px;line-height:1.55}
+.account-success{margin:12px 0 0;color:var(--account-success);font-size:12px;font-weight:800;line-height:1.55}
+.account-switch{margin:22px 0 0;text-align:center;color:var(--account-muted);font-size:12px}
+.account-switch a{color:var(--account-blue);font-weight:900;text-decoration:none}
+.account-otp-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.account-otp-row .account-button{width:auto;margin:0;padding-inline:18px}
+.account-badge{display:inline-flex;align-items:center;min-height:25px;padding:5px 9px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:10px;font-weight:900}
+.account-badge.active,.account-badge.published,.account-badge.completed{background:#ecfdf5;color:#15803d}
+.account-badge.pending,.account-badge.submitted,.account-badge.reviewing{background:#fff7ed;color:#9a3412}
+.account-badge.planned,.account-badge.in_progress{background:#eff6ff;color:#1d4ed8}
+.portal-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end}
+.portal-head-actions{display:flex;gap:10px;flex-wrap:wrap}
+.portal-link-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--account-border);border-radius:10px;padding:10px 12px;background:#fff;color:#334155;font-size:11px;font-weight:850;text-decoration:none;cursor:pointer}
+.portal-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;margin-top:32px;align-items:start}
+.portal-nav{position:sticky;top:24px;display:grid;gap:5px;padding:12px;border:1px solid var(--account-border);border-radius:16px;background:#fff}
+.portal-nav button{border:0;border-radius:9px;padding:11px 12px;background:transparent;color:#526078;text-align:left;font-weight:800;cursor:pointer}
+.portal-nav button.active{background:var(--account-blue-soft);color:var(--account-blue)}
+.portal-panel{display:none}
+.portal-panel.active{display:block}
+.portal-section-card{border:1px solid var(--account-border);border-radius:18px;background:#fff;padding:24px}
+.portal-section-card+.portal-section-card{margin-top:16px}
+.portal-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.portal-section-head h2{margin:0;font-size:20px;letter-spacing:-.035em}
+.portal-section-head p{margin:5px 0 0;color:var(--account-muted);font-size:11px;line-height:1.6}
+.portal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.portal-stat{padding:18px;border:1px solid var(--account-border);border-radius:14px;background:#fbfcfe}
+.portal-stat span{display:block;color:var(--account-muted);font-size:10px;font-weight:850}
+.portal-stat strong{display:block;margin-top:8px;font-size:24px;letter-spacing:-.04em}
+.portal-list{display:grid;gap:10px}
+.portal-item{display:grid;gap:9px;padding:17px;border:1px solid var(--account-border);border-radius:13px;background:#fff}
+.portal-item-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.portal-item-title{font-size:13px;font-weight:900}
+.portal-item-meta{display:flex;flex-wrap:wrap;gap:10px;color:var(--account-muted);font-size:10px;line-height:1.5}
+.portal-item-actions{display:flex;flex-wrap:wrap;gap:8px}
+.portal-small-button{border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;background:#fff;color:#334155;font-size:10px;font-weight:850;cursor:pointer}
+.portal-small-button.danger{border-color:#fecaca;color:var(--account-danger)}
+.portal-empty{padding:30px 18px;border:1px dashed #cbd5e1;border-radius:13px;color:var(--account-muted);font-size:12px;text-align:center;line-height:1.7}
+.portal-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.portal-form-grid .full{grid-column:1/-1}
+.portal-note{margin:14px 0 0;padding:13px 14px;border-radius:10px;background:#f8fafc;color:var(--account-muted);font-size:10px;line-height:1.65}
+.portal-review-stars{font-size:13px;letter-spacing:.08em}
+.portal-public-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:26px}
+.public-review{padding:22px;border:1px solid var(--account-border);border-radius:16px;background:#fff}
+.public-review h3{margin:9px 0 8px;font-size:15px}
+.public-review p{margin:0;color:#526078;font-size:12px;line-height:1.7;white-space:pre-wrap}
+.public-review footer{margin-top:13px;color:#94a3b8;font-size:10px}
+.roadmap-column{display:grid;gap:11px}
+.roadmap-card{padding:18px;border:1px solid var(--account-border);border-radius:14px;background:#fff}
+.roadmap-card h3{margin:8px 0 7px;font-size:14px}
+.roadmap-card p{margin:0;color:#526078;font-size:11px;line-height:1.65;white-space:pre-wrap}
+@media(max-width:900px){.portal-layout{grid-template-columns:1fr}.portal-nav{position:static;grid-template-columns:repeat(4,minmax(0,1fr))}.portal-nav button{text-align:center;padding:9px 5px;font-size:10px}.portal-grid{grid-template-columns:1fr 1fr}.portal-public-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.account-header{height:64px;padding:0 16px}.account-brand img{width:145px}.account-main{padding:38px 16px 76px}.account-card{padding:22px 18px}.portal-head{display:grid}.portal-layout{margin-top:22px}.portal-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.portal-grid{grid-template-columns:1fr}.portal-form-grid{grid-template-columns:1fr}.portal-form-grid .full{grid-column:auto}.account-otp-row{grid-template-columns:1fr}.account-otp-row .account-button{width:100%;margin-top:0}.portal-public-grid{margin-top:18px}}
