@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
   <title>ORDENTORY Inventory 구매</title>
-  <meta name="description" content="ORDENTORY Inventory v1.0.0 정식 라이선스 구매">
+  <meta name="description" content="ORDENTORY Inventory 정식 라이선스 구매">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
   <script src="https://js.tosspayments.com/v2/standard"></script>
@@ -18,80 +19,78 @@
   </header>
 
   <main class="checkout-main checkout-main-wide">
-    <section class="checkout-intro">
+    <section class="checkout-intro checkout-intro-left">
       <p class="section-label">ORDENTORY INVENTORY v1.0.0</p>
       <h1>정식 라이선스 구매</h1>
       <p>월 구독 없이 한 번 구매하면 계속 사용하는 Windows 재고관리 프로그램입니다.</p>
-      <div class="checkout-points">
-        <span>영구 사용권</span>
-        <span>1사업체 · 최대 2PC</span>
-        <span>v1.x 무료 업데이트</span>
-      </div>
     </section>
 
     <div class="checkout-layout">
-      <aside class="checkout-product-panel" aria-label="구매 상품 안내">
+      <aside class="checkout-product-panel" aria-label="구매 상품 정보">
         <div class="checkout-product-head">
-          <small>구매 상품</small>
-          <h2>ORDENTORY Inventory</h2>
-          <p>상품·SKU, 재고, 입출고, 공급처, 발주와 부분입고를 관리하는 Windows 프로그램</p>
+          <span class="checkout-product-kicker">ORDENTORY INVENTORY</span>
+          <h2>Windows 재고관리 프로그램</h2>
+          <p>발주 · 입고 · 출고 · 현재고를 한 흐름으로 관리</p>
         </div>
 
         <div class="checkout-live-price" aria-live="polite">
-          <span class="checkout-live-price-label">현재 판매가</span>
-          <strong id="offer-current-price">판매가 확인 중…</strong>
-          <span id="offer-regular-price" class="checkout-regular-price"></span>
-          <span id="offer-status" class="checkout-offer-status">서버에서 현재 판매 조건을 확인하고 있습니다.</span>
+          <span class="checkout-live-label">현재 판매가</span>
+          <div class="checkout-live-price-line">
+            <span id="offer-regular-price" class="checkout-regular-price" hidden></span>
+            <strong id="offer-current-price">판매가 확인 중…</strong>
+          </div>
+          <span id="offer-status" class="checkout-offer-status">서버에서 현재 적용 가격을 확인하고 있습니다.</span>
         </div>
 
-        <dl class="checkout-product-facts">
-          <div><dt>사용권</dt><dd>영구 사용권</dd></div>
-          <div><dt>사용 범위</dt><dd>1사업체 · 최대 2PC</dd></div>
-          <div><dt>업데이트</dt><dd>Inventory v1.x 무료</dd></div>
-          <div><dt>데이터</dt><dd>각 PC 로컬 저장</dd></div>
-        </dl>
+        <ul class="checkout-entitlements">
+          <li><strong>영구 사용권</strong><span>월 구독료 없음</span></li>
+          <li><strong>1사업체 · 최대 2PC</strong><span>정상 이전 시 기존 PC 직접 해제</span></li>
+          <li><strong>v1.x 무료 업데이트</strong><span>향후 v2.x 등 메이저 버전은 별도 정책</span></li>
+          <li><strong>구매 즉시 이메일 발송</strong><span>라이선스 · 설치파일 · 매뉴얼 안내</span></li>
+        </ul>
 
-        <div class="checkout-delivery-box">
-          <strong>결제 완료 후 바로 제공</strong>
-          <ul>
-            <li>정식 라이선스 코드</li>
-            <li>서명된 설치파일 다운로드 링크</li>
-            <li>사용자 매뉴얼 및 활성화 안내</li>
-          </ul>
+        <div class="checkout-mini-notice">
+          <strong>구매 전에 확인</strong>
+          <p>2대 PC의 데이터는 각 PC 로컬 저장 방식이며 기본 라이선스에는 PC 간 자동 동기화가 포함되지 않습니다.</p>
         </div>
-        <p class="checkout-product-note">표시 가격은 현재 상태 기준입니다. 실제 결제금액은 결제 준비 시 서버가 다시 확인하고 주문에 고정합니다.</p>
       </aside>
 
-      <section class="checkout-card checkout-purchase-card" aria-label="ORDENTORY Inventory 구매">
+      <section class="checkout-card checkout-purchase-card" aria-label="ORDENTORY Inventory 결제">
         <div id="checkout-start">
           <div class="checkout-step-head">
             <span>01</span>
             <div>
-              <small>BUYER INFORMATION</small>
-              <h2>라이선스를 받을 이메일을 입력하세요.</h2>
+              <strong>구매 이메일 확인</strong>
+              <p>라이선스와 설치 안내를 받을 이메일을 입력하세요.</p>
             </div>
           </div>
 
           <label class="checkout-label" for="buyer-email">구매 이메일</label>
           <input id="buyer-email" class="checkout-input" type="email" autocomplete="email"
             maxlength="254" placeholder="buyer@example.com" required>
-          <p class="checkout-help">결제 완료 후 이 이메일을 기준으로 정식 라이선스와 설치 안내를 발송합니다. 프로그램 활성화에도 같은 이메일을 사용합니다.</p>
+          <p class="checkout-help">결제 완료 후 이 이메일을 기준으로 정식 라이선스가 발급됩니다. 프로그램 최초 활성화 시에도 같은 이메일을 사용합니다.</p>
 
-          <div class="checkout-confirm-list" aria-label="구매 전 확인">
-            <strong>구매 전 확인</strong>
-            <span>2대 PC의 업무 데이터는 자동 동기화되지 않습니다.</span>
-            <span>최초 라이선스 활성화와 이메일 인증에는 인터넷 연결이 필요합니다.</span>
-            <span>현재 구매 대상은 Inventory 모듈입니다.</span>
+          <div class="checkout-policy-box">
+            <strong>결제 전 확인사항</strong>
+            <ul>
+              <li>ORDENTORY Inventory 영구 사용권 1개 구매</li>
+              <li>1개 사업체에서 최대 2대의 PC까지 활성화</li>
+              <li>구매한 라이선스의 공유·양도 금지</li>
+              <li>결제 완료 후 라이선스 코드와 다운로드 링크 자동 발송</li>
+            </ul>
           </div>
 
-          <label class="policy-consent" for="checkout-policy-consent">
+          <label class="policy-consent checkout-policy-consent">
             <input id="checkout-policy-consent" type="checkbox">
-            <span><a href="/terms.html" target="_blank" rel="noopener">이용약관</a>, <a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>, <a href="/refund.html" target="_blank" rel="noopener">환불 안내</a>를 확인했습니다.</span>
+            <span>
+              <a href="/terms.html" target="_blank" rel="noopener">이용약관</a>,
+              <a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>,
+              <a href="/refund.html" target="_blank" rel="noopener">환불 안내</a>를 확인하고 구매 조건에 동의합니다.
+            </span>
           </label>
-
-          <label class="policy-consent" for="checkout-delivery-consent">
+          <label class="policy-consent checkout-policy-consent">
             <input id="checkout-delivery-consent" type="checkbox">
-            <span>결제 완료 후 디지털 소프트웨어 라이선스와 다운로드 링크가 구매 이메일로 즉시 제공되는 것을 확인했습니다.</span>
+            <span>결제 완료 후 위 구매 이메일로 정식 라이선스 코드, 서명된 설치파일 다운로드 링크, 사용자 매뉴얼 및 활성화 안내가 발송되는 것을 확인했습니다.</span>
           </label>
 
           <button id="prepare-payment" class="button button-primary checkout-button" type="button" disabled>판매가 확인 중…</button>
@@ -102,8 +101,8 @@
           <div class="checkout-step-head">
             <span>02</span>
             <div>
-              <small>PAYMENT</small>
-              <h2>결제 정보를 확인하세요.</h2>
+              <strong>결제수단 선택</strong>
+              <p>아래 주문정보와 최종 결제금액을 확인하세요.</p>
             </div>
           </div>
 
@@ -111,26 +110,42 @@
             <div><span>상품</span><strong>ORDENTORY Inventory v1.0.0</strong></div>
             <div><span>라이선스</span><strong>영구 · 1사업체 · 최대 2PC</strong></div>
             <div><span>구매 이메일</span><strong id="summary-email"></strong></div>
-            <div><span>결제금액</span><strong id="summary-price"></strong></div>
-            <div><span>가격 적용</span><strong id="summary-offer"></strong></div>
-            <div><span>주문 유효시간</span><strong id="summary-expiry">확인 중</strong></div>
+            <div><span>최종 결제금액</span><strong id="summary-price"></strong></div>
+            <div><span>주문 유효시간</span><strong id="summary-expiry">-</strong></div>
+          </div>
+          <p id="summary-offer" class="checkout-summary-offer"></p>
+
+          <div class="checkout-payment-widget">
+            <div id="payment-method"></div>
+            <div id="agreement"></div>
           </div>
 
-          <div class="checkout-payment-note">
-            <strong>결제 완료 후 라이선스가 자동 발급됩니다.</strong>
-            <span>결제가 완료되기 전에는 라이선스가 발급되지 않습니다. 결제창을 닫거나 실패한 경우에는 새 결제를 임의로 반복하기 전에 결제 상태를 확인해 주세요.</span>
-          </div>
-
-          <div id="payment-method"></div>
-          <div id="agreement"></div>
           <button id="request-payment" class="button button-primary checkout-button" type="button" disabled>결제하기</button>
-          <button id="change-email" class="checkout-text-button" type="button">구매 정보 다시 입력</button>
+          <button id="change-email" class="checkout-text-button" type="button">구매 이메일 다시 입력</button>
           <p id="payment-error" class="checkout-error" role="alert" aria-live="assertive"></p>
         </div>
       </section>
     </div>
 
-    <p class="checkout-footnote">결제는 Toss Payments를 통해 처리됩니다. 카드정보 등 결제수단 정보는 ORDENTORY가 직접 저장하지 않습니다.</p>
+    <section class="checkout-after-purchase" aria-label="결제 완료 후 진행">
+      <div>
+        <span>01</span>
+        <strong>결제 승인</strong>
+        <p>Toss Payments 승인 완료 후 주문을 확정합니다.</p>
+      </div>
+      <div>
+        <span>02</span>
+        <strong>라이선스 자동발급</strong>
+        <p>구매 이메일 기준으로 정식 라이선스를 생성합니다.</p>
+      </div>
+      <div>
+        <span>03</span>
+        <strong>메일 자동안내</strong>
+        <p>라이선스 코드, 설치파일, 사용자 매뉴얼을 안내합니다.</p>
+      </div>
+    </section>
+
+    <p class="checkout-footnote">결제는 Toss Payments를 통해 처리됩니다. 결제 완료 전에는 정식 라이선스가 발급되지 않습니다. 결제 여부가 불확실한 경우 재결제 전에 고객지원으로 문의해 주세요.</p>
   </main>
 
   <script src="assets/js/checkout.js"></script>
