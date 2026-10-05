@@ -1,5 +1,6 @@
 const STORE_API_ORIGIN="https://api.ordentory.kr";
 const STORE_API=STORE_API_ORIGIN+"/v1/store";
+const CUSTOMER_API=STORE_API_ORIGIN+"/v1/customer";
 
 const emailInput=document.getElementById("buyer-email");
 const prepareButton=document.getElementById("prepare-payment");
@@ -13,6 +14,7 @@ const currentPriceNode=document.getElementById("offer-current-price");
 const regularPriceNode=document.getElementById("offer-regular-price");
 const offerStatusNode=document.getElementById("offer-status");
 const summaryOfferNode=document.getElementById("summary-offer");
+const billingPreference=document.getElementById("billing-preference");
 
 let checkout=null;
 let widgets=null;
@@ -20,6 +22,7 @@ let paymentMethodWidget=null;
 let agreementWidget=null;
 let currentOffer=null;
 let expiryTimer=null;
+let customerSession=null;
 
 function money(value){
   return new Intl.NumberFormat("ko-KR",{style:"currency",currency:"KRW",maximumFractionDigits:0}).format(Number(value||0));
@@ -75,6 +78,20 @@ function startExpiryCountdown(expiresAt){
   expiryTimer=setInterval(tick,1000);
 }
 
+async function loadCustomerSession(){
+  try{
+    const response=await fetch(CUSTOMER_API+"/auth/session",{method:"GET",credentials:"include",cache:"no-store"});
+    const body=await response.json().catch(()=>({}));
+    if(!response.ok||!body?.email)throw new Error("login required");
+    customerSession=body;
+    emailInput.value=body.email;
+    return body;
+  }catch(_){
+    location.href="/login.html?next=/checkout.html";
+    throw new Error("login required");
+  }
+}
+
 async function loadOffer(){
   prepareButton.disabled=true;
   prepareButton.textContent="판매가 확인 중…";
@@ -101,9 +118,9 @@ async function loadOffer(){
 
 async function preparePayment(){
   checkoutError.textContent="";
-  const email=emailInput.value.trim().toLowerCase();
-  if(!email||!emailInput.checkValidity()){
-    emailInput.reportValidity();
+  const email=customerSession?.email?.trim().toLowerCase()||"";
+  if(!email){
+    location.href="/login.html?next=/checkout.html";
     return;
   }
   const policyConsent=document.getElementById("checkout-policy-consent");
@@ -124,15 +141,19 @@ async function preparePayment(){
   prepareButton.disabled=true;
   prepareButton.textContent="결제 준비 중…";
   try{
-    const response=await fetch(STORE_API+"/checkouts",{
+    const response=await fetch(CUSTOMER_API+"/store/checkouts",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({buyerEmail:email}),
-      credentials:"omit",
+      body:JSON.stringify({billingPreference:billingPreference?.value||"AUTO"}),
+      credentials:"include",
       cache:"no-store"
     });
     const body=await response.json().catch(()=>({}));
-    if(!response.ok) throw new Error(readMessage(body,"결제 주문을 준비하지 못했습니다."));
+    if(!response.ok){
+      if(body?.error?.code==="CUSTOMER_UNAUTHORIZED"||body?.error?.code==="CUSTOMER_LOGIN_REQUIRED"){location.href="/login.html?next=/checkout.html";return;}
+      if(body?.error?.code==="BILLING_PROFILE_REQUIRED"){throw new Error("전자세금계산서를 요청하려면 My ORDENTORY에서 사업자정보를 먼저 입력해 주세요.");}
+      throw new Error(readMessage(body,"결제 주문을 준비하지 못했습니다."));
+    }
     if(!body.orderId||!body.clientKey||!body.customerKey||!validPositiveInteger(body.amount)){
       throw new Error("결제 주문 응답이 올바르지 않습니다.");
     }
@@ -210,6 +231,6 @@ async function resetCheckout(){
 prepareButton.addEventListener("click",preparePayment);
 requestButton.addEventListener("click",requestPayment);
 changeEmail.addEventListener("click",resetCheckout);
-emailInput.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();preparePayment();}});
+billingPreference?.addEventListener("change",()=>{checkoutError.textContent="";});
 
-loadOffer();
+(async()=>{await loadCustomerSession();await loadOffer();})();

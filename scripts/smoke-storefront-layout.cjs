@@ -54,7 +54,11 @@ function localTargetExists(href){
     ["manual","/manual.html"],
     ["terms","/terms.html"],
     ["privacy","/privacy.html"],
-    ["refund","/refund.html"]
+    ["refund","/refund.html"],
+    ["login","/login.html"],
+    ["signup","/signup.html"],
+    ["forgot-password","/forgot-password.html"],
+    ["feedback","/feedback.html"]
   ];
   const viewports=[
     ["desktop",1440,900],
@@ -70,6 +74,14 @@ function localTargetExists(href){
         await page.route("**/*",async route=>{
           const u=new URL(route.request().url());
           if(u.origin===base){ await route.continue(); return; }
+          if(pageName==="checkout" && u.href==="https://api.ordentory.kr/v1/customer/auth/session"){
+            await route.fulfill({
+              status:200,
+              headers:{"access-control-allow-origin":base,"access-control-allow-credentials":"true","content-type":"application/json; charset=utf-8"},
+              body:JSON.stringify({customerId:"11111111-1111-4111-8111-111111111111",email:"buyer@example.com",fullName:"구매자",phone:"01012345678",expiresAt:new Date(Date.now()+3600000).toISOString()})
+            });
+            return;
+          }
           await route.abort();
         });
         await page.goto(base+urlPath,{waitUntil:"load"});

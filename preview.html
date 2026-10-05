@@ -1870,6 +1870,19 @@ img, video { display: block; max-width: 100%; }
   white-space:nowrap;
 }
 
+/* Verified customer reviews */
+.customer-proof{background:#f8fafc}
+.customer-proof-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px}
+.customer-proof-head .section-copy{max-width:560px}
+.customer-review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.customer-review-card{padding:24px;border:1px solid #e2e8f0;border-radius:16px;background:#fff}
+.customer-review-stars{color:#125aef;font-size:13px;letter-spacing:.08em}
+.customer-review-card h3{margin:11px 0 8px;font-size:15px;letter-spacing:-.02em}
+.customer-review-card p{margin:0;color:#526078;font-size:12px;line-height:1.7}
+.customer-review-card footer{margin-top:15px;color:#94a3b8;font-size:10px}
+@media(max-width:900px){.customer-review-grid{grid-template-columns:1fr 1fr}.customer-proof-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:640px){.customer-review-grid{grid-template-columns:1fr}.customer-review-card{padding:20px}}
+
 </style>
 </head>
 <body>
@@ -1883,7 +1896,9 @@ img, video { display: block; max-width: 100%; }
         <a href="#demo">데모</a>
         <a href="#features">기능</a>
         <a href="#pricing">가격</a>
+        <a href="feedback.html">고객 이야기</a>
         <a href="#faq">FAQ</a>
+        <a href="login.html">로그인</a>
       </nav>
       <a class="button button-primary header-cta" href="#pricing">구매 안내</a>
       <button class="menu-button" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
@@ -2541,6 +2556,20 @@ img, video { display: block; max-width: 100%; }
       </div>
     </section>
 
+    <section class="section customer-proof" id="customer-reviews" hidden>
+      <div class="container">
+        <div class="customer-proof-head reveal">
+          <div>
+            <p class="section-label">Verified Reviews</p>
+            <h2 class="section-title">실제 구매자가<br>남긴 이야기.</h2>
+            <p class="section-copy">결제 완료가 확인된 구매후기만 관리자 확인 후 공개합니다.</p>
+          </div>
+          <a class="button button-secondary" href="feedback.html">후기 · 개발현황 전체 보기</a>
+        </div>
+        <div id="home-review-list" class="customer-review-grid"></div>
+      </div>
+    </section>
+
     <section class="section-tight" id="faq">
       <div class="container">
         <div class="reveal">
@@ -2629,6 +2658,9 @@ img, video { display: block; max-width: 100%; }
             <a href="#features">주요 기능</a>
             <a href="#pricing">가격 / 구매</a>
             <a href="#faq">FAQ</a>
+            <a href="feedback.html">구매후기 · 개발현황</a>
+            <a href="login.html">로그인</a>
+            <a href="my.html">My ORDENTORY</a>
             <a href="manual.html">설치 및 매뉴얼</a>
           </div>
         </div>
@@ -2811,5 +2843,6 @@ if (tabs.length && scenes.length) {
 })();
 
 </script>
+  <script src="assets/js/home-feedback.js"></script>
 </body>
 </html>
