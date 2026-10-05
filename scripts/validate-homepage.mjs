@@ -6,6 +6,8 @@ const html = read("index.html");
 const css = read("assets/css/main.css");
 const js = read("assets/js/main.js");
 const preview = read("preview.html");
+const checkout = read("checkout.html");
+const checkoutJS = read("assets/js/checkout.js");
 const expectedPreview = html
   .replace('<link rel="stylesheet" href="assets/css/main.css">', '<style>\n' + css + '\n</style>')
   .replace('<script src="assets/js/main.js"></script>', '<script>\n' + js + '\n</script>');
@@ -22,6 +24,11 @@ check("Major-version upgrade policy is explicit",html.includes("v2.x")&&html.inc
 check("Device transfer and failure recovery are explained",html.includes("기존 PC를 먼저 해제")&&html.includes("고장·분실")&&html.includes("강제 해제"));
 check("Purchase delivery contents are explicit",html.includes("정식 라이선스 코드")&&html.includes("프로그램 다운로드 링크")&&html.includes("사용자 매뉴얼"));
 check("Pre-purchase policy links are present",["terms.html","refund.html","privacy.html","manual.html"].every(x=>html.includes('href="'+x+'"')));
+check("Checkout loads server offer before enabling purchase",checkoutJS.includes('STORE_API+"/offer"')&&checkout.includes('id="offer-current-price"')&&checkout.includes('id="prepare-payment"'));
+check("Checkout has both policy and digital-delivery confirmations",checkout.includes('id="checkout-policy-consent"')&&checkout.includes('id="checkout-delivery-consent"'));
+check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
+check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
+check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
 check("Desktop sidebar labels",["홈","상품","재고","입출고","공급처","발주 · 입고예정","가져오기","데이터 보관","프로그램 업데이트","라이선스","프로그램 정보","도움말"].every(x=>html.includes(">"+x+"</span>")));
 check("Seven Desktop dashboard metric labels",["사용중 상품","전체 현재고","안전재고 이하","초기재고 미입력","오늘 입고","오늘 출고","참고 재고금액"].every(x=>html.includes(">"+x+"</span>")));
 check("Product registration stage names",["1. Product","2. SKU / Option","3. Supplier","4. Channel Listing"].every(x=>html.includes(x)));
