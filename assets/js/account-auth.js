@@ -62,3 +62,36 @@ if(signupForm){
     finally{button.disabled=false;button.textContent="회원가입"}
   });
 }
+
+let resetChallenge="";
+const resetStart=document.getElementById("reset-start");
+if(resetStart){
+  resetStart.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const error=document.getElementById("auth-error");error.textContent="";
+    const button=document.getElementById("reset-start-button");button.disabled=true;button.textContent="요청 중…";
+    try{
+      const result=await api("/auth/password-reset/start",{method:"POST",body:JSON.stringify({email:document.getElementById("reset-email").value.trim()})});
+      resetChallenge=result.challengeId;
+      document.getElementById("reset-step-2").hidden=false;
+      document.getElementById("reset-email").readOnly=true;
+      document.getElementById("reset-status").textContent="가입된 계정이라면 인증번호가 발송됩니다. 5분 안에 입력해 주세요.";
+    }catch(err){error.textContent=err.message}
+    finally{button.disabled=false;button.textContent="인증번호 요청"}
+  });
+}
+const resetComplete=document.getElementById("reset-complete");
+if(resetComplete){
+  resetComplete.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const error=document.getElementById("auth-error");error.textContent="";
+    const p=document.getElementById("reset-password").value;
+    if(p!==document.getElementById("reset-password-confirm").value){error.textContent="새 비밀번호 확인이 일치하지 않습니다.";return}
+    const button=document.getElementById("reset-complete-button");button.disabled=true;button.textContent="변경 중…";
+    try{
+      await api("/auth/password-reset/complete",{method:"POST",body:JSON.stringify({challengeId:resetChallenge,email:document.getElementById("reset-email").value.trim(),code:document.getElementById("reset-otp").value.trim(),newPassword:p})});
+      document.getElementById("reset-area").hidden=true;document.getElementById("reset-done").hidden=false;
+    }catch(err){error.textContent=err.message}
+    finally{button.disabled=false;button.textContent="비밀번호 변경"}
+  });
+}
