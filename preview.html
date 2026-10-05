@@ -1332,6 +1332,92 @@ img, video { display: block; max-width: 100%; }
 .price-list { margin: 0 0 26px; padding: 0; list-style: none; }
 .price-list li { margin: 10px 0; color: #475569; font-size: 13px; }
 .price-list li::before { content: "✓"; margin-right: 8px; color: var(--blue); font-weight: 900; }
+.price-launch-rule { margin-top: 5px; color: #475569; font-size: 11px; font-weight: 750; line-height: 1.55; }
+.price-delivery {
+  margin: 18px 0 0;
+  border-top: 1px solid #e7edf5;
+  padding-top: 16px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.65;
+}
+.purchase-assurances {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+  overflow: hidden;
+}
+.purchase-assurances article {
+  min-height: 210px;
+  padding: 30px;
+  border-right: 1px solid var(--line);
+}
+.purchase-assurances article:last-child { border-right: 0; }
+.purchase-assurance-index {
+  display: block;
+  margin-bottom: 26px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.purchase-assurances h3 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 20px;
+  letter-spacing: -.025em;
+}
+.purchase-assurances p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+.purchase-before {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 38px 54px;
+  border-radius: 20px;
+  padding: 34px 36px;
+  background: var(--surface-soft);
+}
+.purchase-before .section-label { margin-bottom: 10px; }
+.purchase-before h3 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 24px;
+  letter-spacing: -.03em;
+}
+.purchase-before ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #475569;
+}
+.purchase-before li {
+  margin: 0 0 10px;
+  padding-left: 2px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.purchase-policy-links {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding-top: 2px;
+}
+.purchase-policy-links a {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 850;
+  text-decoration: none;
+}
+.purchase-policy-links a:hover { text-decoration: underline; }
 
 /* faq */
 .faq-list { max-width: 900px; margin: 56px auto 0; border-top: 1px solid var(--line); }
@@ -1441,6 +1527,11 @@ img, video { display: block; max-width: 100%; }
   .audience-layout { grid-template-columns: 1fr; gap: 46px; }
   .pricing-wrap { grid-template-columns: 1fr; }
   .price-box { margin-top: 0; }
+  .purchase-assurances { grid-template-columns: 1fr; }
+  .purchase-assurances article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .purchase-assurances article:last-child { border-bottom: 0; }
+  .purchase-before { grid-template-columns: 1fr; gap: 22px; }
+  .purchase-policy-links { grid-column: 1; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; }
 }
@@ -1515,6 +1606,9 @@ img, video { display: block; max-width: 100%; }
   .feature-row p { grid-column: 2; }
   .pricing-copy { padding: 44px 30px; }
   .price-box { margin: 16px; padding: 28px; }
+  .purchase-assurances article { padding: 24px 22px; }
+  .purchase-assurance-index { margin-bottom: 16px; }
+  .purchase-before { margin-top: 14px; padding: 26px 22px; }
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
   .footer-brand { grid-column: auto; }
   .footer-bottom { display: grid; }
@@ -2348,10 +2442,11 @@ img, video { display: block; max-width: 100%; }
               월 구독 없이 한 번 구매하면 계속 사용하는 Windows 재고관리 프로그램입니다.
               정식 라이선스는 1개 사업체에서 최대 2대의 PC까지 사용할 수 있습니다.
             </p>
-            <div class="pricing-policy">
+            <div class="pricing-policy" aria-label="ORDENTORY Inventory 라이선스 핵심 조건">
               <span>영구 사용권</span>
               <span>1사업체 · 최대 2PC</span>
-              <span>7일 무료 체험</span>
+              <span>v1.x 무료 업데이트</span>
+              <span>7일 무료체험</span>
             </div>
           </div>
           <div class="price-box">
@@ -2362,6 +2457,7 @@ img, video { display: block; max-width: 100%; }
               <span class="price-regular">정가 199,000원</span>
               <strong class="price-launch">169,000원</strong>
               <span class="price-license">영구 사용권 · VAT 포함 · Inventory 모듈 기준</span>
+              <span class="price-launch-rule">최초 30개 정식 라이선스 결제 완료까지 출시가 적용 · 이후 정가 적용</span>
             </div>
             <ul class="price-list">
               <li>상품 · SKU · 옵션 · 카테고리 관리</li>
@@ -2370,11 +2466,49 @@ img, video { display: block; max-width: 100%; }
               <li>공급처 · 발주 · 부분입고 · 입고예정</li>
               <li>기간별 입출고 요약 · Excel/CSV 내보내기</li>
               <li>사용자 지정 폴더 정기 자동백업 · 복원</li>
-              <li>서명된 자동 업데이트</li>
+              <li>서명된 자동 업데이트 · v1.x 무료 업데이트</li>
             </ul>
             <span class="button button-disabled" aria-disabled="true">자사몰 결제 오픈 준비 중</span>
             <a class="trial-link" href="trial.html">7일 무료체험 먼저 사용해보기 →</a>
+            <p class="price-delivery">결제 오픈 후에는 결제 완료 즉시 구매 이메일로 정식 라이선스 코드, 프로그램 다운로드 링크, 사용자 매뉴얼을 자동 안내합니다.</p>
             <p class="price-note">2대 PC의 데이터는 각 PC에 로컬 저장되며 기본 라이선스에는 PC 간 자동 동기화가 포함되지 않습니다.</p>
+          </div>
+        </div>
+
+        <div class="purchase-assurances reveal" aria-label="구매 및 라이선스 안내">
+          <article>
+            <span class="purchase-assurance-index">01</span>
+            <h3>구매 후 바로 시작</h3>
+            <p>결제 완료 후 정식 라이선스 코드와 설치파일 다운로드 링크, 사용자 매뉴얼을 구매 이메일로 자동 발송합니다.</p>
+          </article>
+          <article>
+            <span class="purchase-assurance-index">02</span>
+            <h3>1사업체 · 최대 2PC</h3>
+            <p>3번째 PC를 사용하려면 기존 PC를 먼저 해제합니다. 정상적인 PC 이전은 직접 해제할 수 있고, 고장·분실 시 고객지원을 통해 장치를 강제 해제할 수 있습니다.</p>
+          </article>
+          <article>
+            <span class="purchase-assurance-index">03</span>
+            <h3>v1.x 업데이트 포함</h3>
+            <p>구매한 Inventory의 v1.x 업데이트는 추가 비용 없이 제공합니다. 향후 v2.x 등 메이저 버전은 별도 유료 업그레이드가 될 수 있습니다.</p>
+          </article>
+        </div>
+
+        <div class="purchase-before reveal">
+          <div>
+            <p class="section-label">Before Purchase</p>
+            <h3>구매 전에 확인해 주세요.</h3>
+          </div>
+          <ul>
+            <li>라이선스는 구매한 1개 사업체에서 사용하는 조건이며 공유·양도할 수 없습니다.</li>
+            <li>최초 라이선스 활성화와 구매 이메일 인증에는 인터넷 연결이 필요합니다.</li>
+            <li>업무 데이터는 각 PC에 로컬 저장됩니다. 2대 PC 사이의 자동 데이터 동기화는 기본 기능에 포함되지 않습니다.</li>
+            <li>현재 구매 대상은 Inventory 모듈입니다. 향후 Sales·Order·Label 등 다른 모듈은 별도 상품이 될 수 있습니다.</li>
+          </ul>
+          <div class="purchase-policy-links">
+            <a href="terms.html">이용약관</a>
+            <a href="refund.html">환불 안내</a>
+            <a href="privacy.html">개인정보처리방침</a>
+            <a href="manual.html">설치 및 매뉴얼</a>
           </div>
         </div>
       </div>
@@ -2414,6 +2548,18 @@ img, video { display: block; max-width: 100%; }
           <details>
             <summary><span class="faq-question">무료 체험이 있나요?</span></summary>
             <div class="faq-answer">네. 자사몰에서 이메일 인증을 완료하면 Inventory 7일 무료체험 코드가 발급됩니다. 코드와 설치파일 다운로드 링크는 인증된 이메일로도 보내드립니다. 최초 PC 활성화 시점부터 7일이며 체험판은 1대의 PC에서 사용합니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">업데이트 비용은 어떻게 되나요?</span></summary>
+            <div class="faq-answer">Inventory v1.x 범위의 업데이트는 정식 라이선스 구매자에게 추가 비용 없이 제공합니다. 향후 v2.x처럼 메이저 버전이 변경되는 경우에는 별도 유료 업그레이드 정책을 적용할 수 있으며, 출시 전에 가격과 조건을 안내합니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">PC를 바꾸거나 고장 나면 라이선스를 다시 살 필요가 있나요?</span></summary>
+            <div class="faq-answer">아니요. 정상적으로 사용할 수 있는 기존 PC에서는 장치를 직접 해제한 뒤 새 PC에서 다시 활성화할 수 있습니다. 기존 PC가 고장·분실되어 직접 해제할 수 없는 경우에는 고객지원에서 확인 후 장치를 강제 해제합니다.</div>
+          </details>
+          <details>
+            <summary><span class="faq-question">구매 후 무엇을 받게 되나요?</span></summary>
+            <div class="faq-answer">자사몰 결제가 오픈되면 결제 완료 즉시 구매 이메일로 정식 라이선스 코드, 서명된 ORDENTORY 설치파일 다운로드 링크, 사용자 매뉴얼과 라이선스 활성화 방법을 자동 안내합니다.</div>
           </details>
           <details>
             <summary><span class="faq-question">구매와 라이선스 발급은 어떻게 진행되나요?</span></summary>
