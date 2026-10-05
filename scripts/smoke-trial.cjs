@@ -82,6 +82,13 @@ const server=http.createServer((request,response)=>{
    fs.mkdirSync(path.join(root,"artifacts"),{recursive:true});
    await page.screenshot({path:path.join(root,"artifacts","trial-"+name+".png"),fullPage:true});
    console.log("PASS verified Trial "+name+" "+width+"px, OTP, error handling, code & download, zero live API requests");
+   await page.goto(origin+"/manual.html",{waitUntil:"load"});
+   assert.match(await page.locator("h1").textContent(),/설치 및 사용자 매뉴얼/,name+": public getting-started guide");
+   assert.equal(await page.locator("#manual-pdf").isVisible(),false,name+": unapproved PDF link never visible");
+   assert.equal(await page.locator('a[href="https://api.ordentory.kr/v1/store/installer"]').count(),1,name+": installer URL retained");
+   const guideOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+   assert.ok(guideOverflow<=2,name+": guide horizontal overflow "+guideOverflow+"px");
+   console.log("PASS manual portal "+name+": offline PDF placement, usable guide, unapproved PDF withheld");
    await page.close();
   }
   console.log("TRIAL BROWSER QA ALL PASS");
