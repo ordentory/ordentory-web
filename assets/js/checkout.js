@@ -19,6 +19,7 @@ let widgets=null;
 let paymentMethodWidget=null;
 let agreementWidget=null;
 let currentOffer=null;
+let expiryTimer=null;
 
 function money(value){
   return new Intl.NumberFormat("ko-KR",{style:"currency",currency:"KRW",maximumFractionDigits:0}).format(Number(value||0));
@@ -48,7 +49,35 @@ function renderOffer(offer){
   }
 }
 
+function stopExpiryCountdown(){
+  if(expiryTimer){clearInterval(expiryTimer);expiryTimer=null;}
+}
+
+function startExpiryCountdown(expiresAt){
+  stopExpiryCountdown();
+  const node=document.getElementById("summary-expiry");
+  const end=new Date(expiresAt).getTime();
+  if(!Number.isFinite(end)){node.textContent="-";return;}
+  const tick=()=>{
+    const remaining=Math.max(0,Math.ceil((end-Date.now())/1000));
+    if(remaining<=0){
+      node.textContent="만료됨";
+      requestButton.disabled=true;
+      requestButton.textContent="주문 만료 · 다시 준비";
+      stopExpiryCountdown();
+      return;
+    }
+    const minutes=Math.floor(remaining/60);
+    const seconds=String(remaining%60).padStart(2,"0");
+    node.textContent=minutes+"분 "+seconds+"초";
+  };
+  tick();
+  expiryTimer=setInterval(tick,1000);
+}
+
 async function loadOffer(){
+  prepareButton.disabled=true;
+  prepareButton.textContent="판매가 확인 중…";
   try{
     const response=await fetch(STORE_API+"/offer",{method:"GET",credentials:"omit",cache:"no-store"});
     const body=await response.json().catch(()=>({}));
@@ -57,25 +86,39 @@ async function loadOffer(){
       throw new Error("판매가 응답이 올바르지 않습니다.");
     }
     renderOffer(body);
+    prepareButton.disabled=false;
+    prepareButton.textContent="결제수단 선택";
   }catch(_){
     currentOffer=null;
-    currentPriceNode.textContent="결제 준비 시 확정";
+    currentPriceNode.textContent="판매 준비 중";
     regularPriceNode.hidden=true;
     regularPriceNode.textContent="";
-    offerStatusNode.textContent="결제수단 선택 시 서버에서 최종 가격을 다시 확인합니다.";
+    offerStatusNode.textContent="현재 판매가를 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.";
+    prepareButton.disabled=true;
+    prepareButton.textContent="판매 준비 중";
   }
 }
 
 async function preparePayment(){
   checkoutError.textContent="";
-  const email=emailInput.value.trim();
+  const email=emailInput.value.trim().toLowerCase();
   if(!email||!emailInput.checkValidity()){
     emailInput.reportValidity();
     return;
   }
   const policyConsent=document.getElementById("checkout-policy-consent");
+  const deliveryConsent=document.getElementById("checkout-delivery-consent");
   if(!policyConsent?.checked){
     checkoutError.textContent="이용약관, 개인정보처리방침, 환불 안내와 구매 조건을 확인해 주세요.";
+    return;
+  }
+  if(!deliveryConsent?.checked){
+    checkoutError.textContent="구매 이메일로 라이선스와 설치 안내가 발송되는 내용을 확인해 주세요.";
+    return;
+  }
+  if(!currentOffer){
+    checkoutError.textContent="현재 판매가를 확인한 뒤 결제를 진행할 수 있습니다.";
+    await loadOffer();
     return;
   }
   prepareButton.disabled=true;
@@ -97,9 +140,8 @@ async function preparePayment(){
     checkout=body;
     document.getElementById("summary-email").textContent=checkout.buyerEmail;
     document.getElementById("summary-price").textContent=money(checkout.amount);
-    summaryOfferNode.textContent=checkout.launchOffer
-      ?"서버에서 출시 기념 할인가를 예약했습니다. 결제 완료 전까지 이 주문에 적용됩니다."
-      :"현재 정가가 적용됩니다.";
+    summaryOfferNode.textContent=checkout.launchOffer?"출시 기념가":"정가";
+    startExpiryCountdown(checkout.expiresAt);
 
     currentPriceNode.textContent=money(checkout.amount);
     const showRegular=checkout.launchOffer&&currentOffer&&Number(currentOffer.regularPrice)>Number(checkout.amount);
@@ -154,6 +196,7 @@ async function resetCheckout(){
   try{if(paymentMethodWidget?.destroy)await paymentMethodWidget.destroy()}catch{}
   try{if(agreementWidget?.destroy)await agreementWidget.destroy()}catch{}
   checkout=null;widgets=null;paymentMethodWidget=null;agreementWidget=null;
+  stopExpiryCountdown();
   paymentView.hidden=true;
   startView.hidden=false;
   requestButton.disabled=true;
