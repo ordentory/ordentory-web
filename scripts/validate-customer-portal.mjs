@@ -11,6 +11,8 @@ const my=fs.readFileSync("my.html","utf8");
 const feedback=fs.readFileSync("feedback.html","utf8");
 const auth=fs.readFileSync("assets/js/account-auth.js","utf8");
 const portal=fs.readFileSync("assets/js/my-ordentory.js","utf8");
+const checkout=fs.readFileSync("assets/js/checkout.js","utf8");
+const checkoutHtml=fs.readFileSync("checkout.html","utf8");
 const home=fs.readFileSync("index.html","utf8");
 
 assert.match(login,/My ORDENTORY/i);
@@ -24,6 +26,7 @@ assert.match(forgot,/reset-otp/);
 assert.match(my,/내 라이선스/);
 assert.match(my,/내 PC/);
 assert.match(my,/구매후기 작성/);
+assert.match(my,/구매 증빙/);
 assert.match(my,/기능제안/);
 assert.match(my,/문의 · 버그신고/);
 assert.match(my,/사업자정보/);
@@ -42,6 +45,7 @@ assert.match(portal,/credentials:"include"/);
 assert.match(portal,/\/portal\/overview/);
 assert.match(portal,/\/auth\/profile/);
 assert.match(portal,/\/auth\/password/);
+assert.match(portal,/\/billing/);
 assert.match(portal,/\/business-profile/);
 assert.match(portal,/\/reviews/);
 assert.match(portal,/\/features/);
@@ -50,8 +54,13 @@ assert.match(portal,/\/devices\//);
 assert.match(home,/feedback\.html/);
 assert.match(home,/login\.html/);
 assert.match(home,/customer-reviews/);
+assert.match(checkout,/\/auth\/session/);
+assert.match(checkout,/\/customer.*store\/checkouts|CUSTOMER_API\+"\/store\/checkouts"/);
+assert.match(checkout,/credentials:"include"/);
+assert.match(checkoutHtml,/id="billing-preference"/);
+assert.match(checkoutHtml,/ORDENTORY 계정 이메일/);
 
-for(const source of [login,signup,forgot,my,feedback,auth,portal]){
+for(const source of [login,signup,forgot,my,feedback,auth,portal,checkout,checkoutHtml]){
   assert.doesNotMatch(source,/ORDENTORY_TOSS_SECRET_KEY|RESEND_API_KEY|PASSWORD_HASH|LICENSE_SIGNING_SEED/i);
 }
 console.log("CUSTOMER PORTAL SOURCE CONTRACT PASS");
