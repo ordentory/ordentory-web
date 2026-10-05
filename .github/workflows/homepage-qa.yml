@@ -38,6 +38,8 @@ jobs:
         run: node scripts/smoke-homepage.cjs
       - name: Direct-store checkout workflow (mock API and Toss)
         run: node scripts/smoke-checkout.cjs
+      - name: Payment success/failure result workflow (mock API)
+        run: node scripts/smoke-payment-results.cjs
       - name: Trial application OTP workflow (mock API, no real emails)
         run: node scripts/smoke-trial.cjs
       - name: Save browser screenshots for review
