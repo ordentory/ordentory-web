@@ -94,6 +94,10 @@ async function boot(){
   try{
     state.session=await api("/auth/session");
     el("account-email").textContent=state.session.email;
+    el("account-profile-email").value=state.session.email||"";
+    el("account-profile-name").value=state.session.fullName||"";
+    el("account-profile-phone").value=state.session.phone||"";
+    el("account-profile-business").value=state.session.businessName||"";
     await Promise.all([loadOverview(),loadBusiness(),loadFeedback(),loadRelease()]);
     el("portal-loading").hidden=true;el("portal-content").hidden=false;
   }catch(err){
@@ -104,6 +108,33 @@ async function boot(){
   }
 }
 el("logout-button").addEventListener("click",async()=>{try{await api("/auth/logout",{method:"POST",body:"{}"})}catch{}location.href="/"});
+el("account-profile-form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=el("account-profile-message");msg.textContent="";
+  try{
+    const updated=await api("/auth/profile",{method:"PUT",body:JSON.stringify({
+      fullName:el("account-profile-name").value.trim(),
+      phone:el("account-profile-phone").value.trim(),
+      businessName:el("account-profile-business").value.trim()
+    })});
+    state.session={...state.session,...updated};
+    el("portal-name").textContent=updated.fullName||updated.email||"고객";
+    el("account-email").textContent=updated.email||state.session.email||"";
+    msg.textContent="계정정보를 저장했습니다.";
+  }catch(err){msg.textContent=err.message}
+});
+el("account-password-form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=el("account-password-message");msg.textContent="";
+  const currentPassword=el("account-current-password").value;
+  const newPassword=el("account-new-password").value;
+  const confirmPassword=el("account-new-password-confirm").value;
+  if(newPassword!==confirmPassword){msg.textContent="새 비밀번호 확인이 일치하지 않습니다.";return}
+  try{
+    await api("/auth/password",{method:"POST",body:JSON.stringify({currentPassword,newPassword})});
+    location.href="/login.html?passwordChanged=1";
+  }catch(err){msg.textContent=err.message}
+});
 el("business-form").addEventListener("submit",async e=>{
   e.preventDefault();const msg=el("business-message");msg.textContent="";
   try{
