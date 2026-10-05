@@ -3,31 +3,67 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ORDENTORY 결제 중단</title>
+  <meta name="robots" content="noindex,nofollow">
+  <title>ORDENTORY | 결제 미완료</title>
+  <meta name="description" content="ORDENTORY Inventory 결제 미완료 안내">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 <body class="checkout-body">
   <header class="checkout-header">
-    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+    <a href="/" class="checkout-brand" aria-label="ORDENTORY 홈">
+      <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+    </a>
+    <span class="checkout-back result-header-status">결제 결과</span>
   </header>
+
   <main class="result-main">
-    <section class="result-card">
-      <div class="result-icon error">!</div>
+    <section class="result-card result-card-commercial">
+      <div class="result-icon error" aria-hidden="true">!</div>
       <p class="section-label">PAYMENT NOT COMPLETED</p>
       <h1>결제가 완료되지 않았습니다.</h1>
-      <p id="fail-message">결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.</p>
-      <div class="result-actions">
-        <a class="button button-primary" href="/checkout.html">다시 결제하기</a>
-        <a class="button button-secondary" href="/">홈으로</a>
+      <p id="fail-message" class="result-lead">결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.</p>
+
+      <div class="result-order-summary result-fail-summary">
+        <div><span>주문번호</span><strong id="fail-order-id">확인되지 않음</strong></div>
+        <div><span>오류코드</span><strong id="fail-code">-</strong></div>
       </div>
-      <p class="checkout-help">결제 실패 페이지에서는 결제 승인을 요청하지 않습니다. 실제 결제 여부가 불확실하다면 재결제 전에 고객지원으로 문의해 주세요.</p>
+
+      <div class="result-caution result-caution-warning">
+        <strong>실제 결제 여부가 불확실하면 바로 다시 결제하지 마세요.</strong>
+        <p>카드사 또는 Toss 화면에서 승인 완료를 보셨거나 결제 알림을 받으셨다면 고객지원에서 주문 상태를 먼저 확인하는 것이 안전합니다.</p>
+      </div>
+
+      <div class="result-actions">
+        <a class="button button-primary" href="/checkout.html">결제 페이지로 돌아가기</a>
+        <a id="fail-support-link" class="button button-secondary" href="mailto:support@ordentory.kr?subject=ORDENTORY%20결제%20문의">고객지원 문의</a>
+      </div>
+
+      <div class="result-footer-actions">
+        <a href="/" class="checkout-text-link">ORDENTORY 홈으로</a>
+      </div>
     </section>
   </main>
+
   <script>
-    const p=new URLSearchParams(location.search);
-    const msg=p.get("message");
-    if(msg) document.getElementById("fail-message").textContent=msg;
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const message = String(params.get("message") || "").trim();
+      const code = String(params.get("code") || "").trim();
+      const orderId = String(params.get("orderId") || "").trim();
+
+      if (message) document.getElementById("fail-message").textContent = message;
+      if (code) document.getElementById("fail-code").textContent = code;
+      if (orderId) document.getElementById("fail-order-id").textContent = orderId;
+
+      const subject = orderId
+        ? "ORDENTORY 결제 문의 · " + orderId
+        : "ORDENTORY 결제 문의";
+      document.getElementById("fail-support-link").href =
+        "mailto:support@ordentory.kr?subject=" + encodeURIComponent(subject);
+
+      history.replaceState(null, "", "/payment-fail.html");
+    })();
   </script>
 </body>
 </html>
