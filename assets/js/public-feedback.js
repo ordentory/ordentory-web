@@ -1,7 +1,7 @@
 const CUSTOMER_PUBLIC_API="https://api.ordentory.kr/v1/customer/public";
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
 function date(v){if(!v)return "";const d=new Date(v);return Number.isNaN(d.getTime())?"":new Intl.DateTimeFormat("ko-KR",{year:"numeric",month:"2-digit",day:"2-digit"}).format(d)}
-async function load(path){const r=await fetch(CUSTOMER_PUBLIC_API+path,{credentials:"omit",cache:"no-store"});if(!r.ok)return {items:[]};return r.json().catch(()=>({items:[]}))}
+async function load(path){try{const r=await fetch(CUSTOMER_PUBLIC_API+path,{credentials:"omit",cache:"no-store"});if(!r.ok)return {items:[]};return r.json().catch(()=>({items:[]}))}catch{return {items:[]}}}
 function statusLabel(s){return ({REVIEWING:"검토 중",PLANNED:"개발 예정",IN_PROGRESS:"개발 중",COMPLETED:"완료",ON_HOLD:"보류",SUBMITTED:"접수"})[s]||s}
 async function bootFeedback(){
   const [reviews,roadmap]=await Promise.all([load("/reviews?limit=50"),load("/roadmap")]);
