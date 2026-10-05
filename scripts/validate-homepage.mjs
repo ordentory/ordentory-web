@@ -13,7 +13,9 @@ const check=(name,condition)=>{assert.ok(condition,name);process.stdout.write("P
 check("Standalone preview matches live HTML/CSS/JS",preview===expectedPreview);
 check("Commercial Inventory version is v1.0.0",html.includes("ORDENTORY INVENTORY v1.0.0")&&!/v1\.0\.[1-9]/.test(html+read("checkout.html")));
 check("Inventory-only price and VAT",html.includes("169,000원")&&html.includes("199,000원")&&html.includes("VAT 포함 · Inventory 모듈 기준"));
-check("Purchase button remains disabled",html.includes('class="button button-disabled" aria-disabled="true"'));
+check("Purchase button remains disabled",html.includes('class="button button-disabled price-purchase-disabled" aria-disabled="true"'));
+check("Live Trial is the primary pricing CTA before checkout launch",html.indexOf('class="button button-primary price-trial-cta"')<html.indexOf('class="button button-disabled price-purchase-disabled"')&&html.includes("7일 무료체험 시작"));
+check("Trial issuance guidance is visible",html.includes("이메일 인증 후 체험 라이선스와 설치 안내를 바로 받아볼 수 있습니다."));
 check("Launch offer is capped at first 30 completed licenses",html.includes("최초 30개 정식 라이선스 결제 완료까지 출시가 적용")&&html.includes("선착순 30 라이선스"));
 check("Commercial license policy is explicit",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료 업데이트","공유·양도할 수 없습니다."].every(x=>html.includes(x)));
 check("Major-version upgrade policy is explicit",html.includes("v2.x")&&html.includes("메이저 버전")&&html.includes("별도 유료"));

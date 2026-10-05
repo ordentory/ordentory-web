@@ -1279,7 +1279,7 @@ img, video { display: block; max-width: 100%; }
   border-radius: 24px;
   background: var(--ink-strong);
 }
-.pricing-copy { padding: 72px; color: #fff; }
+.pricing-copy { padding: 72px; color: #fff; display: flex; flex-direction: column; justify-content: center; }
 .pricing-copy .section-label { color: #8fb5ff; }
 .pricing-copy h2 { margin: 0; font-size: clamp(38px, 4.7vw, 62px); line-height: 1.05; letter-spacing: -.05em; }
 .pricing-copy p { max-width: 540px; margin: 22px 0 0; color: #aeb9ca; font-size: 16px; line-height: 1.75; }
@@ -1319,6 +1319,28 @@ img, video { display: block; max-width: 100%; }
 .price-license { margin-top: 4px; color: #64748b; font-size: 11px; line-height: 1.5; }
 .trial-link { display: inline-block; margin-top: 14px; color: var(--blue); font-size: 13px; font-weight: 900; text-decoration: none; }
 .trial-link:hover { text-decoration: underline; }
+.price-trial-cta {
+  width: 100%;
+  margin-top: 2px;
+  text-align: center;
+}
+.price-trial-note {
+  display: block;
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: center;
+}
+.price-purchase-disabled {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: -.01em;
+}
 .price-note { margin: 18px 0 0; color: #64748b; font-size: 11px; line-height: 1.65; }
 .price-list { margin: 0 0 26px; padding: 0; list-style: none; }
 .price-list li { margin: 10px 0; color: #475569; font-size: 13px; }
@@ -1517,6 +1539,7 @@ img, video { display: block; max-width: 100%; }
   .story-block.reverse .story-copy { order: initial; }
   .audience-layout { grid-template-columns: 1fr; gap: 46px; }
   .pricing-wrap { grid-template-columns: 1fr; }
+  .pricing-copy { display: block; }
   .price-box { margin-top: 0; }
   .purchase-assurances { grid-template-columns: 1fr; }
   .purchase-assurances article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -1597,6 +1620,7 @@ img, video { display: block; max-width: 100%; }
   .feature-row p { grid-column: 2; }
   .pricing-copy { padding: 44px 30px; }
   .price-box { margin: 16px; padding: 28px; }
+  .price-trial-cta, .price-purchase-disabled { width: 100%; }
   .purchase-assurances article { padding: 24px 22px; }
   .purchase-assurance-index { margin-bottom: 16px; }
   .purchase-before { margin-top: 14px; padding: 26px 22px; }
