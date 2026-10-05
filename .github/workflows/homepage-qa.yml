@@ -5,10 +5,12 @@ on:
     branches:
       - feature/homepage-modular-v100-20261005
       - feature/trial-otp-email-20261005
+      - feature/installer-manual-portal-20261005
   pull_request:
     branches:
       - feat/homepage-v1
       - feature/homepage-modular-v100-20261005
+      - feature/trial-otp-email-20261005
 
 permissions:
   contents: read
@@ -23,6 +25,8 @@ jobs:
           node-version: '22'
       - name: Check modular v1.0.0 homepage and standalone preview
         run: node scripts/validate-homepage.mjs
+      - name: Verify official manual portal and PDF approval gate
+        run: node scripts/validate-manual-portal.mjs
       - name: Prepare browser QA
         run: |
           npm install --no-save playwright@1.58.2
