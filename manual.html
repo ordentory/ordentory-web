@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ORDENTORY Inventory | 사용자 매뉴얼 및 설치 안내</title>
+  <meta name="description" content="ORDENTORY Inventory v1.0.0 설치, 7일 무료체험, 정식 라이선스 활성화와 공식 PDF 매뉴얼 안내">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/checkout.css">
+  <style>
+    .manual-content{max-width:800px;margin:auto}
+    .manual-card{padding:33px;margin-bottom:22px;border:1px solid #e0e7f1;background:#fff;border-radius:14px}
+    .manual-card h2{font-size:23px;margin:0 0 16px;letter-spacing:-.04em}
+    .manual-card h3{font-size:16px;margin:20px 0 9px}
+    .manual-card p,.manual-card li{font-size:14px;line-height:1.8;color:#516074}
+    .manual-card ol{padding-left:22px}
+    .manual-card li{margin-bottom:7px}
+    .manual-current{font-size:12px;font-weight:800;color:#125aef}
+    .manual-note{background:#f2f6ff;border-radius:9px;padding:13px 16px}
+    .manual-actions{display:flex;gap:12px;flex-wrap:wrap;margin:21px 0 4px}
+    .manual-status{font-size:12px;color:#68788d}
+    .manual-card .button{min-height:45px;text-align:center}
+    #manual-pdf[hidden]{display:none!important}
+    @media(max-width:600px){.manual-card{padding:22px 18px}.manual-actions .button{width:100%}}
+  </style>
+</head>
+<body class="checkout-body">
+  <header class="checkout-header">
+    <a href="index.html" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+    <a href="index.html" class="checkout-back">홈으로</a>
+  </header>
+  <main class="checkout-main manual-content">
+    <section class="checkout-intro">
+      <p class="section-label">ORDENTORY SUPPORT</p>
+      <h1>설치 및 사용자 매뉴얼</h1>
+      <p>무료체험과 정식 구매자는 같은 Windows 설치파일을 사용합니다. 라이선스 종류에 따라 활성화 방식만 다릅니다.</p>
+      <div class="checkout-points"><span>Inventory v1.0.0</span><span>Windows 설치형</span><span>오프라인 도움말</span></div>
+    </section>
+
+    <section class="manual-card">
+      <span class="manual-current">01. OFFICIAL DOCUMENTATION</span>
+      <h2>공식 사용자 매뉴얼</h2>
+      <p>매뉴얼을 포함한 개선된 정식 설치 패키지에서는 설치 후 프로그램의 <b>[도움말]</b> 화면에서 공식 사용자 매뉴얼(PDF)과 빠른 시작(PDF)을 열 수 있습니다.</p>
+      <div class="manual-note"><strong>설치 위치</strong><p>ORDENTORY 설치 폴더 → <code>docs</code> → <code>ORDENTORY_User_Manual.pdf</code>, <code>START-HERE.pdf</code></p></div>
+      <div class="manual-actions">
+        <a class="button button-primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 받기</a>
+        <a id="manual-pdf" class="button button-secondary" href="assets/manuals/ORDENTORY_v1.0.0_User_Manual.pdf" download="ORDENTORY_v1.0.0_User_Manual.pdf" hidden>공식 PDF 매뉴얼 다운로드</a>
+      </div>
+      <p id="manual-status" class="manual-status" role="status">온라인 PDF는 승인된 최종 매뉴얼이 게시되면 다운로드 버튼이 표시됩니다. 설치본에는 승인된 매뉴얼만 포함합니다.</p>
+    </section>
+
+    <section class="manual-card">
+      <span class="manual-current">02. GET STARTED</span>
+      <h2>처음 사용하는 순서</h2>
+      <h3>설치</h3>
+      <ol><li>위 공식 설치파일을 다운로드하고 실행합니다.</li><li>ORDENTORY 실행 후 [라이선스] 화면으로 이동합니다.</li></ol>
+      <h3>7일 무료체험</h3>
+      <ol><li>평가판 안내 이메일의 Trial 코드를 입력합니다.</li><li><b>[7일 무료체험 라이선스 활성화]</b>를 선택합니다.</li><li>최초 PC 활성화 시점부터 7일이 시작되며, PC 1대에서 사용할 수 있습니다.</li></ol>
+      <h3>정식 구매</h3>
+      <ol><li>구매용 라이선스 코드와 구매 시 등록한 이메일을 입력합니다.</li><li>[이메일 인증번호 발송] 후 구매자 메일로 수신한 6자리 인증번호를 확인합니다.</li><li>[인증번호 확인 및 PC 활성화]를 완료합니다. 정식판은 1개 사업체 기준 최대 PC 2대입니다.</li></ol>
+      <h3>첫 재고 입력</h3>
+      <p>공급처 등록 → 상품 등록 → SKU/옵션 설정 → 초기재고 입력 → 안전재고 설정. 발주완료만으로는 현재고가 증가하지 않으며, 실제 입고 처리한 수량만 현재고에 반영됩니다.</p>
+      <p class="manual-note">중요한 변경이나 업데이트 전 [데이터 보관] → [백업 파일 저장]을 권장합니다. 오류가 발생해도 고객 데이터 폴더를 임의 삭제하지 마세요.</p>
+      <p>문의: <a href="mailto:support@ordentory.kr">support@ordentory.kr</a></p>
+    </section>
+  </main>
+  <script>
+    // Never display a broken/unapproved download button. The exact PDF is
+    // published separately only after manual-manifest approval.
+    const manualLink = document.getElementById("manual-pdf");
+    fetch(manualLink.getAttribute("href"),{method:"HEAD",cache:"no-store"})
+      .then(response => {
+        const type=(response.headers.get("content-type")||"").toLowerCase();
+        const bytes=Number(response.headers.get("content-length")||"0");
+        if(response.ok && type.includes("application/pdf") && bytes>10000){
+          manualLink.hidden=false;
+          document.getElementById("manual-status").textContent="공식 사용자 매뉴얼 PDF를 별도로 다운로드할 수도 있습니다.";
+        }
+      }).catch(()=>{});
+  </script>
+</body>
+</html>

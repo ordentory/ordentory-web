@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ORDENTORY 결제 완료</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/checkout.css">
+</head>
+<body class="checkout-body">
+  <header class="checkout-header">
+    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+  </header>
+  <main class="result-main">
+    <section class="result-card">
+      <div id="result-loading">
+        <div class="result-icon">···</div>
+        <h1>결제를 확인하고 있습니다.</h1>
+        <p>창을 닫지 마세요. 결제 승인과 라이선스 발급을 안전하게 처리하고 있습니다.</p>
+      </div>
+      <div id="result-success" hidden>
+        <div class="result-icon success">✓</div>
+        <p class="section-label">PAYMENT COMPLETE</p>
+        <h1>ORDENTORY 구매가 완료되었습니다.</h1>
+        <p>아래 라이선스 코드는 설치 후 최초 활성화에 사용합니다.</p>
+        <div class="license-result">
+          <span>ORDENTORY Inventory License</span>
+          <strong id="license-code"></strong>
+          <button id="copy-license" type="button">라이선스 코드 복사</button>
+        </div>
+        <div class="result-actions">
+          <a id="installer-link" class="button button-primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 받기</a>
+          <a class="button button-secondary" href="manual.html">설치·매뉴얼 안내</a>
+          <a class="button button-secondary" href="/">홈으로</a>
+        </div>
+        <p class="checkout-help">설치 후 [라이선스]에서 위 정식 구매용 코드와 구매 당시 등록한 이메일을 입력한 뒤, 수신된 6자리 이메일 인증번호로 PC를 활성화하세요. 최초 활성화에는 인터넷 연결이 필요합니다. 설치 후 [도움말]에서 포함된 공식 PDF 매뉴얼을 열 수 있습니다.</p>
+      </div>
+      <div id="result-error" hidden>
+        <div class="result-icon error">!</div>
+        <h1>결제 확인을 완료하지 못했습니다.</h1>
+        <p id="result-error-message">결제 내역은 임의로 다시 결제하지 말고 고객지원에 문의해 주세요.</p>
+        <div class="result-actions">
+          <a class="button button-primary" href="mailto:support@ordentory.kr?subject=ORDENTORY%20결제%20확인%20문의">고객지원 문의</a>
+          <a class="button button-secondary" href="/">홈으로</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/payment-success.js"></script>
+</body>
+</html>
