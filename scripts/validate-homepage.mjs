@@ -39,7 +39,7 @@ check("Final legal pages use confirmed support details",["070-7594-2101","평일
 check("Terms pin commercial license and update policy",["영구 사용권","1개 사업체","최대 2대","v1.x","v2.x","공유·양도·재판매"].every(x=>terms.includes(x)));
 check("Refund policy preserves statutory withdrawal rights",["7일","제공이 개시","7일 무료체험","3개월","30일","3영업일"].every(x=>refund.includes(x)));
 check("Privacy policy includes statutory retention and overseas processors",["6개월","5년","3년","Railway Corporation","Plus Five Five, Inc. (Resend)","미국","privacy@railway.com","privacy@resend.com"].every(x=>privacy.includes(x)));
-check("Public-launch mail-order registration remains an explicit private-branch blocker",html.includes("LAUNCH BLOCKER: 정식 공개 전 통신판매업 신고번호"));
+check("2026 mail-order filing exemption is disclosed without a fake registration number",html.includes("통신판매업 신고: 신고 면제 대상")&&html.includes("직전년도 통신판매 거래 50회 미만")&&terms.includes("통신판매업 신고: 신고 면제 대상")&&!html.includes("LAUNCH BLOCKER: 정식 공개 전 통신판매업 신고번호"));
 check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
 check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
 check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
