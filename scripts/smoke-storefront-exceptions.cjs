@@ -42,15 +42,20 @@ window.TossPayments=function(){
 function cors(origin){
  return {
   "access-control-allow-origin":origin,
-  "access-control-allow-methods":"POST, OPTIONS",
+  "access-control-allow-credentials":"true",
+  "access-control-allow-methods":"GET, POST, OPTIONS",
   "access-control-allow-headers":"content-type",
   "content-type":"application/json; charset=utf-8"
  };
 }
 
-async function mockOffer(page){
+async function mockOffer(page,origin){
  await page.route("https://api.ordentory.kr/**",route=>route.abort());
- await page.route("https://api.ordentory.kr/v1/store/offer",route=>route.fulfill({status:200,contentType:"application/json",body:JSON.stringify(offer)}));
+ await page.route("https://api.ordentory.kr/v1/store/offer",route=>route.fulfill({status:200,headers:cors(origin),body:JSON.stringify(offer)}));
+ await page.route("https://api.ordentory.kr/v1/customer/auth/session",route=>route.fulfill({
+  status:200,headers:cors(origin),
+  body:JSON.stringify({customerId:"11111111-1111-4111-8111-111111111111",email:"buyer@example.com",fullName:"구매자",phone:"01012345678",expiresAt:new Date(Date.now()+3600000).toISOString()})
+ }));
 }
 
 (async()=>{
@@ -62,12 +67,11 @@ async function mockOffer(page){
   {
    const page=await browser.newPage({viewport:{width:1100,height:850},reducedMotion:"reduce"});
    let checkoutCalls=0;
-   await mockOffer(page);
+   await mockOffer(page,origin);
    await page.route("https://js.tosspayments.com/v2/standard",route=>route.fulfill({status:200,contentType:"application/javascript",body:tossOk}));
-   await page.route("https://api.ordentory.kr/v1/store/checkouts",route=>{checkoutCalls++;return route.fulfill({status:500,contentType:"application/json",body:"{}"});});
+   await page.route("https://api.ordentory.kr/v1/customer/store/checkouts",route=>{checkoutCalls++;return route.fulfill({status:500,headers:cors(origin),body:"{}"});});
    await page.goto(origin+"/checkout.html",{waitUntil:"load"});
    await page.waitForFunction(()=>!document.querySelector("#prepare-payment").disabled);
-   await page.locator("#buyer-email").fill("buyer@example.com");
    await page.locator("#prepare-payment").click();
    assert.match(await page.locator("#checkout-error").textContent(),/이용약관/,"policy consent required");
    assert.equal(checkoutCalls,0,"no checkout API without policy consent");
@@ -82,14 +86,13 @@ async function mockOffer(page){
   // 2) Checkout: order reservation failure stays on safe pre-payment screen.
   {
    const page=await browser.newPage({viewport:{width:1100,height:850},reducedMotion:"reduce"});
-   await mockOffer(page);
+   await mockOffer(page,origin);
    await page.route("https://js.tosspayments.com/v2/standard",route=>route.fulfill({status:200,contentType:"application/javascript",body:tossOk}));
-   await page.route("https://api.ordentory.kr/v1/store/checkouts",route=>route.fulfill({
-    status:503,contentType:"application/json",body:JSON.stringify({error:{message:"결제 주문을 준비하지 못했습니다."}})
+   await page.route("https://api.ordentory.kr/v1/customer/store/checkouts",route=>route.fulfill({
+    status:503,headers:cors(origin),body:JSON.stringify({error:{message:"결제 주문을 준비하지 못했습니다."}})
    }));
    await page.goto(origin+"/checkout.html",{waitUntil:"load"});
    await page.waitForFunction(()=>!document.querySelector("#prepare-payment").disabled);
-   await page.locator("#buyer-email").fill("buyer@example.com");
    await page.locator("#checkout-policy-consent").check();
    await page.locator("#checkout-delivery-consent").check();
    await page.locator("#prepare-payment").click();
@@ -103,18 +106,17 @@ async function mockOffer(page){
   // 3) Checkout: expired reservation disables payment before Toss request.
   {
    const page=await browser.newPage({viewport:{width:1100,height:850},reducedMotion:"reduce"});
-   await mockOffer(page);
+   await mockOffer(page,origin);
    await page.route("https://js.tosspayments.com/v2/standard",route=>route.fulfill({status:200,contentType:"application/javascript",body:tossOk}));
-   await page.route("https://api.ordentory.kr/v1/store/checkouts",route=>route.fulfill({
-    status:201,contentType:"application/json",body:JSON.stringify({
+   await page.route("https://api.ordentory.kr/v1/customer/store/checkouts",route=>route.fulfill({
+    status:201,headers:cors(origin),body:JSON.stringify({
      orderId:"ORD-EXPIRE123",orderName:"ORDENTORY Inventory",buyerEmail:"buyer@example.com",productCode:"inventory",
-     clientKey:"test_ck_mock",customerKey:"ANONYMOUS",currency:"KRW",amount:169000,launchOffer:true,
+     clientKey:"test_ck_mock",customerKey:"11111111-1111-4111-8111-111111111111",currency:"KRW",amount:169000,launchOffer:true,
      successUrl:origin+"/payment-success.html",failUrl:origin+"/payment-fail.html",expiresAt:new Date(Date.now()+1200).toISOString()
     })
    }));
    await page.goto(origin+"/checkout.html",{waitUntil:"load"});
    await page.waitForFunction(()=>!document.querySelector("#prepare-payment").disabled);
-   await page.locator("#buyer-email").fill("buyer@example.com");
    await page.locator("#checkout-policy-consent").check();
    await page.locator("#checkout-delivery-consent").check();
    await page.locator("#prepare-payment").click();
@@ -130,18 +132,17 @@ async function mockOffer(page){
   // 4) Checkout: Toss UI failure surfaces error and permits a safe retry.
   {
    const page=await browser.newPage({viewport:{width:1100,height:850},reducedMotion:"reduce"});
-   await mockOffer(page);
+   await mockOffer(page,origin);
    await page.route("https://js.tosspayments.com/v2/standard",route=>route.fulfill({status:200,contentType:"application/javascript",body:tossThrows}));
-   await page.route("https://api.ordentory.kr/v1/store/checkouts",route=>route.fulfill({
-    status:201,contentType:"application/json",body:JSON.stringify({
+   await page.route("https://api.ordentory.kr/v1/customer/store/checkouts",route=>route.fulfill({
+    status:201,headers:cors(origin),body:JSON.stringify({
      orderId:"ORD-TOSSFAIL123",orderName:"ORDENTORY Inventory",buyerEmail:"buyer@example.com",productCode:"inventory",
-     clientKey:"test_ck_mock",customerKey:"ANONYMOUS",currency:"KRW",amount:169000,launchOffer:true,
+     clientKey:"test_ck_mock",customerKey:"11111111-1111-4111-8111-111111111111",currency:"KRW",amount:169000,launchOffer:true,
      successUrl:origin+"/payment-success.html",failUrl:origin+"/payment-fail.html",expiresAt:new Date(Date.now()+1800000).toISOString()
     })
    }));
    await page.goto(origin+"/checkout.html",{waitUntil:"load"});
    await page.waitForFunction(()=>!document.querySelector("#prepare-payment").disabled);
-   await page.locator("#buyer-email").fill("buyer@example.com");
    await page.locator("#checkout-policy-consent").check();
    await page.locator("#checkout-delivery-consent").check();
    await page.locator("#prepare-payment").click();
@@ -173,7 +174,7 @@ async function mockOffer(page){
    const page=await browser.newPage({viewport:{width:900,height:760}});
    await page.route("https://api.ordentory.kr/**",route=>route.abort());
    await page.route("https://api.ordentory.kr/v1/store/payments/confirm",route=>route.fulfill({
-    status:200,contentType:"application/json",body:JSON.stringify({
+    status:200,headers:cors(origin),body:JSON.stringify({
      orderId:"ORD-BADRESP1234",buyerEmail:"buyer@example.com",amount:169000,currency:"KRW",
      licenseCode:"INVALID",deviceLimit:99,perpetual:false,installerUrl:"https://evil.example/installer.exe"
     })
