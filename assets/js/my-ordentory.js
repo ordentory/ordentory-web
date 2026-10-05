@@ -132,6 +132,36 @@ el("account-profile-form").addEventListener("submit",async e=>{
     msg.textContent="계정정보를 저장했습니다.";
   }catch(err){msg.textContent=err.message}
 });
+
+el("account-password-form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=el("account-password-message");msg.textContent="";
+  const current=el("account-current-password").value;
+  const next=el("account-new-password").value;
+  const confirmPassword=el("account-new-password-confirm").value;
+  if(next!==confirmPassword){msg.textContent="새 비밀번호 확인이 일치하지 않습니다.";return}
+  try{
+    await api("/auth/password",{method:"POST",body:JSON.stringify({currentPassword:current,newPassword:next})});
+    alert("비밀번호가 변경되었습니다. 보안을 위해 다시 로그인해 주세요.");
+    location.href="/login.html";
+  }catch(err){msg.textContent=err.message}
+});
+
+el("account-profile-form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=el("account-profile-message");msg.textContent="";
+  try{
+    const updated=await api("/auth/profile",{method:"PUT",body:JSON.stringify({
+      fullName:el("account-profile-name").value.trim(),
+      phone:el("account-profile-phone").value.trim(),
+      businessName:el("account-profile-business").value.trim()
+    })});
+    state.session={...state.session,...updated};
+    el("portal-name").textContent=updated.fullName||updated.email||"고객";
+    el("account-email").textContent=updated.email||state.session.email||"";
+    msg.textContent="계정정보를 저장했습니다.";
+  }catch(err){msg.textContent=err.message}
+});
 el("account-password-form").addEventListener("submit",async e=>{
   e.preventDefault();
   const msg=el("account-password-message");msg.textContent="";
