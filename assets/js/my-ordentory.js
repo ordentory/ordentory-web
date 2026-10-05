@@ -1,6 +1,6 @@
 const CUSTOMER_API="https://api.ordentory.kr/v1/customer";
 const API_ORIGIN="https://api.ordentory.kr";
-const state={session:null,overview:null,business:null,reviews:[],features:[],tickets:[]};
+const state={session:null,overview:null,business:null,billing:[],reviews:[],features:[],tickets:[]};
 
 function el(id){return document.getElementById(id)}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
@@ -61,6 +61,15 @@ function renderOrders(){
   select.innerHTML='<option value="">구매건 선택</option>'+items.filter(x=>x.status==="PAID").map(x=>`<option value="${esc(x.id)}">${esc(x.productCode||"ORDENTORY")} · ${date(x.purchasedAt)} · ${esc(x.salesChannel)}</option>`).join("");
 }
 async function loadOverview(){state.overview=await api("/portal/overview");renderSummary();renderLicenses();renderDevices();renderOrders()}
+async function loadBilling(){
+  const result=await api("/billing");
+  state.billing=result.items||[];
+  const node=el("billing-list");
+  if(!node)return;
+  const typeLabel=v=>({CARD_RECEIPT:"카드매출전표",CASH_RECEIPT:"현금영수증",TAX_INVOICE:"전자세금계산서",PAYMENT_RECEIPT:"결제 영수증"})[v]||v;
+  node.innerHTML=state.billing.length?state.billing.map(x=>`<article class="portal-item"><div class="portal-item-head"><div><div class="portal-item-title">${typeLabel(x.documentType)} · ${esc(x.externalOrderId||"")}</div><div class="portal-item-meta"><span>${esc(x.paymentMethod||"-")}</span><span>${money(x.totalAmount)}</span><span>${date(x.requestedAt)}</span></div></div>${badge(x.status)}</div><div class="portal-item-meta">${x.companyName?`<span>${esc(x.companyName)}</span>`:""}${x.recipientEmail?`<span>${esc(x.recipientEmail)}</span>`:""}</div>${x.receiptUrl?`<div class="portal-item-actions"><a class="portal-link-button" href="${esc(x.receiptUrl)}" target="_blank" rel="noopener">증빙 보기</a></div>`:""}${x.lastError?`<div class="portal-note">처리 오류: ${esc(x.lastError)}</div>`:""}</article>`).join(""):'<div class="portal-empty">발급된 구매 증빙이 아직 없습니다.</div>';
+}
+
 async function loadBusiness(){
   state.business=await api("/business-profile");
   const map={"business-no":"businessRegistrationNumber","business-company":"companyName","business-rep":"representativeName","business-address1":"addressLine1","business-address2":"addressLine2","business-type":"businessType","business-item":"businessItem","business-email":"taxInvoiceEmail"};
@@ -98,7 +107,7 @@ async function boot(){
     el("account-profile-name").value=state.session.fullName||"";
     el("account-profile-phone").value=state.session.phone||"";
     el("account-profile-business").value=state.session.businessName||"";
-    await Promise.all([loadOverview(),loadBusiness(),loadFeedback(),loadRelease()]);
+    await Promise.all([loadOverview(),loadBusiness(),loadBilling(),loadFeedback(),loadRelease()]);
     el("portal-loading").hidden=true;el("portal-content").hidden=false;
   }catch(err){
     if(err.code==="CUSTOMER_UNAUTHORIZED"||err.code==="CUSTOMER_PORTAL_DISABLED"||err.message.includes("로그인")){
