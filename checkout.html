@@ -88,8 +88,12 @@
               <a href="/refund.html" target="_blank" rel="noopener">환불 안내</a>를 확인하고 구매 조건에 동의합니다.
             </span>
           </label>
+          <label class="policy-consent checkout-policy-consent">
+            <input id="checkout-delivery-consent" type="checkbox">
+            <span>결제 완료 후 위 구매 이메일로 정식 라이선스 코드, 설치파일 다운로드 링크, 사용자 매뉴얼 및 활성화 안내가 발송되는 것을 확인했습니다.</span>
+          </label>
 
-          <button id="prepare-payment" class="button button-primary checkout-button" type="button">결제수단 선택</button>
+          <button id="prepare-payment" class="button button-primary checkout-button" type="button" disabled>판매가 확인 중…</button>
           <p id="checkout-error" class="checkout-error" role="alert" aria-live="assertive"></p>
         </div>
 
@@ -107,6 +111,7 @@
             <div><span>라이선스</span><strong>영구 · 1사업체 · 최대 2PC</strong></div>
             <div><span>구매 이메일</span><strong id="summary-email"></strong></div>
             <div><span>최종 결제금액</span><strong id="summary-price"></strong></div>
+            <div><span>주문 유효시간</span><strong id="summary-expiry">-</strong></div>
           </div>
           <p id="summary-offer" class="checkout-summary-offer"></p>
 
