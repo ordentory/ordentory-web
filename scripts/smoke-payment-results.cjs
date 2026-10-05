@@ -89,8 +89,9 @@ const server=http.createServer((req,res)=>{
     await fail.goto(base+"/payment-fail.html?code=USER_CANCEL&orderId=ORD-FAIL-1234&message="+encodeURIComponent(injected),{waitUntil:"load"});
     assert.equal(await fail.locator("#fail-code").textContent(),"USER_CANCEL");
     assert.equal(await fail.locator("#fail-order-id").textContent(),"ORD-FAIL-1234");
-    assert.equal(await fail.locator("#fail-message").textContent(),injected);
-    assert.equal(await fail.locator("#xss").count(),0,"failure message is text, not HTML");
+    assert.equal(await fail.locator("#fail-message").textContent(),"결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.");
+    assert.ok(!(await fail.locator("body").textContent()).includes(injected),"untrusted failure message is not reflected");
+    assert.equal(await fail.locator("#xss").count(),0,"failure message cannot create HTML");
     assert.ok(!fail.url().includes("message="),"failure query details removed after rendering");
     const failOverflow=await fail.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(failOverflow<=2,"mobile fail horizontal overflow "+failOverflow+"px");
