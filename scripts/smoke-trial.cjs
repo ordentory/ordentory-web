@@ -42,11 +42,11 @@ const server=http.createServer((request,response)=>{
      otpRequests++;
      assert.deepEqual(payload,{email:"buyer@example.com"},name+": OTP email request");
      return route.fulfill({status:201,headers:cors,
-      body:JSON.stringify({challengeId:"12345678-1234-1234-1234-123456789abc",expiresAt:new Date(Date.now()+300000).toISOString(),verificationSent:true})});
+      body:JSON.stringify({challengeId:"12345678-1234-4abc-8def-123456789abc",expiresAt:new Date(Date.now()+300000).toISOString(),verificationSent:true})});
     }
     issueRequests++;
     assert.equal(payload.email,"buyer@example.com");
-    assert.equal(payload.challengeId,"12345678-1234-1234-1234-123456789abc");
+    assert.equal(payload.challengeId,"12345678-1234-4abc-8def-123456789abc");
     if(payload.code!=="123456"){
      return route.fulfill({status:400,headers:cors,body:JSON.stringify({error:{code:"TRIAL_OTP_INVALID",message:"인증번호가 올바르지 않습니다."}})});
     }
@@ -74,8 +74,12 @@ const server=http.createServer((request,response)=>{
    await page.locator("#trial-result").waitFor({state:"visible"});
    assert.equal(issueRequests,2,name+": only verified OTP issues");
    assert.equal(await page.locator("#trial-code").textContent(),"ORD-ABCD-EFGH-IJKL-MNOP");
+   assert.equal(await page.locator("#trial-result-email").textContent(),"buyer@example.com");
    assert.equal(await page.locator("#trial-installer").getAttribute("href"),"https://api.ordentory.kr/v1/store/installer");
    assert.ok((await page.locator("#trial-email-notice").textContent()).includes("발송 대기"),name+": queued mail not falsely reported as delivered");
+   assert.match(await page.locator(".trial-result-summary").textContent(),/최초 활성화부터 7일/);
+   assert.match(await page.locator(".trial-result-summary").textContent(),/Windows PC 1대/);
+   assert.match(await page.locator(".trial-result-summary").textContent(),/자동 결제/);
    assert.deepEqual(errors,[],name+": no runtime errors");
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=2,name+": horizontal overflow "+overflow+"px");
@@ -89,6 +93,50 @@ const server=http.createServer((request,response)=>{
    const guideOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(guideOverflow<=2,name+": guide horizontal overflow "+guideOverflow+"px");
    console.log("PASS manual portal "+name+": offline PDF placement, usable guide, unapproved PDF withheld");
+   await page.close();
+  }
+  {
+   const page=await browser.newPage({viewport:{width:900,height:760},reducedMotion:"reduce"});
+   let step=0;
+   page.on("dialog",dialog=>dialog.dismiss());
+   await page.route("https://api.ordentory.kr/v1/store/trials**",async route=>{
+    const request=route.request();
+    const cors={
+     "access-control-allow-origin":origin,
+     "access-control-allow-methods":"POST, OPTIONS",
+     "access-control-allow-headers":"content-type",
+     "content-type":"application/json; charset=utf-8"
+    };
+    if(request.method()==="OPTIONS")return route.fulfill({status:204,headers:cors,body:""});
+    if(request.url().endsWith("/email/start")){
+     return route.fulfill({status:201,headers:cors,body:JSON.stringify({
+      challengeId:"aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+      expiresAt:new Date(Date.now()+300000).toISOString(),
+      verificationSent:true
+     })});
+    }
+    step++;
+    return route.fulfill({status:201,headers:cors,body:JSON.stringify({
+     email:"buyer@example.com",
+     licenseCode:"ORD-ABCD-EFGH-IJKL-MNOP",
+     trialDays:7,
+     deviceLimit:1,
+     emailDelivery:"queued",
+     installerUrl:"https://evil.example/installer.exe"
+    })});
+   });
+   await page.goto(origin+"/trial.html",{waitUntil:"load"});
+   await page.locator("#trial-email").fill("buyer@example.com");
+   await page.locator("#trial-policy-consent").check();
+   await page.locator("#start-trial-email").click();
+   await page.locator("#trial-otp-step").waitFor({state:"visible"});
+   await page.locator("#trial-otp").fill("123456");
+   await page.locator("#issue-trial").click();
+   await page.waitForFunction(()=>document.getElementById("trial-error").textContent.includes("발급 응답"));
+   assert.equal(step,1,"unsafe installer response reached issuance response validation");
+   assert.equal(await page.locator("#trial-result").isVisible(),false,"unsafe installer response must not render success");
+   assert.equal(await page.locator("#trial-installer").getAttribute("href"),"https://api.ordentory.kr/v1/store/installer","official installer link remains unchanged");
+   console.log("PASS Trial rejects non-official installer response");
    await page.close();
   }
   console.log("TRIAL BROWSER QA ALL PASS");
