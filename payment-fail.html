@@ -3,31 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ORDENTORY 결제 중단</title>
+  <title>ORDENTORY 결제 미완료</title>
+  <meta name="description" content="ORDENTORY Inventory 결제 미완료 안내">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 <body class="checkout-body">
   <header class="checkout-header">
-    <a href="/" class="checkout-brand"><img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY"></a>
+    <a href="/" class="checkout-brand" aria-label="ORDENTORY 홈">
+      <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+    </a>
+    <span class="checkout-result-header-label">결제 미완료</span>
   </header>
+
   <main class="result-main">
-    <section class="result-card">
+    <section class="result-card result-card-fail">
       <div class="result-icon error">!</div>
       <p class="section-label">PAYMENT NOT COMPLETED</p>
       <h1>결제가 완료되지 않았습니다.</h1>
-      <p id="fail-message">결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.</p>
-      <div class="result-actions">
-        <a class="button button-primary" href="/checkout.html">다시 결제하기</a>
+      <p id="fail-message" class="result-lead">결제가 취소되었거나 인증 과정에서 문제가 발생했습니다.</p>
+
+      <div id="fail-order-box" class="fail-order-box" hidden>
+        <span>주문번호</span>
+        <strong id="fail-order-id"></strong>
+      </div>
+
+      <div class="result-error-box">
+        <strong>재결제하기 전에 확인해 주세요.</strong>
+        <span>카드사 또는 간편결제 앱에서 승인 알림이 왔다면 바로 다시 결제하지 마세요. 실제 승인 여부가 불확실하면 고객지원으로 주문번호와 함께 문의해 주세요.</span>
+      </div>
+
+      <div class="result-actions result-actions-fail">
+        <a class="button button-primary" href="/checkout.html">결제 다시 시도</a>
+        <a class="button button-secondary" href="mailto:support@ordentory.kr?subject=ORDENTORY%20결제%20문의">고객지원 문의</a>
         <a class="button button-secondary" href="/">홈으로</a>
       </div>
-      <p class="checkout-help">결제 실패 페이지에서는 결제 승인을 요청하지 않습니다. 실제 결제 여부가 불확실하다면 재결제 전에 고객지원으로 문의해 주세요.</p>
+
+      <p class="checkout-help result-support">결제 실패 페이지에서는 결제 승인이나 라이선스 발급을 요청하지 않습니다.</p>
     </section>
   </main>
-  <script>
-    const p=new URLSearchParams(location.search);
-    const msg=p.get("message");
-    if(msg) document.getElementById("fail-message").textContent=msg;
-  </script>
+
+  <script src="assets/js/payment-fail.js"></script>
 </body>
 </html>
