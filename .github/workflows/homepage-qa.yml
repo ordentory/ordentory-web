@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - ops/prelaunch-onepage-20261005
   pull_request:
     branches:
       - main
