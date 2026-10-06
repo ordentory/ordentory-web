@@ -67,7 +67,9 @@ async function loadBilling(){
   const node=el("billing-list");
   if(!node)return;
   const typeLabel=v=>({CARD_RECEIPT:"카드매출전표",CASH_RECEIPT:"현금영수증",TAX_INVOICE:"전자세금계산서",PAYMENT_RECEIPT:"결제 영수증"})[v]||v;
-  node.innerHTML=state.billing.length?state.billing.map(x=>`<article class="portal-item"><div class="portal-item-head"><div><div class="portal-item-title">${typeLabel(x.documentType)} · ${esc(x.externalOrderId||"")}</div><div class="portal-item-meta"><span>${esc(x.paymentMethod||"-")}</span><span>${money(x.totalAmount)}</span><span>${date(x.requestedAt)}</span></div></div>${badge(x.status)}</div><div class="portal-item-meta">${x.companyName?`<span>${esc(x.companyName)}</span>`:""}${x.recipientEmail?`<span>${esc(x.recipientEmail)}</span>`:""}</div>${x.receiptUrl?`<div class="portal-item-actions"><a class="portal-link-button" href="${esc(x.receiptUrl)}" target="_blank" rel="noopener">증빙 보기</a></div>`:""}${x.lastError?`<div class="portal-note">처리 오류: ${esc(x.lastError)}</div>`:""}</article>`).join(""):'<div class="portal-empty">발급된 구매 증빙이 아직 없습니다.</div>';
+  const statusLabel=v=>({PENDING:"발행 대기",PROCESSING:"처리 중",ISSUED:"발행 완료",FAILED:"발행 실패",CANCELLED:"취소됨",AMENDED:"수정 발행",NOT_REQUIRED:"별도 발행 불필요"})[v]||v||"-";
+  const billingBadge=v=>`<span class="account-badge ${esc(String(v||"").toLowerCase())}">${esc(statusLabel(v))}</span>`;
+  node.innerHTML=state.billing.length?state.billing.map(x=>`<article class="portal-item"><div class="portal-item-head"><div><div class="portal-item-title">${typeLabel(x.documentType)} · ${esc(x.externalOrderId||"")}</div><div class="portal-item-meta"><span>${esc(x.paymentMethod||"-")}</span><span>${money(x.totalAmount)}</span><span>${date(x.requestedAt)}</span></div></div>${billingBadge(x.status)}</div><div class="portal-item-meta">${x.companyName?`<span>${esc(x.companyName)}</span>`:""}${x.recipientEmail?`<span>${esc(x.recipientEmail)}</span>`:""}${x.issuedAt?`<span>발행일 ${date(x.issuedAt)}</span>`:""}</div>${x.receiptUrl?`<div class="portal-item-actions"><a class="portal-link-button" href="${esc(x.receiptUrl)}" target="_blank" rel="noopener">증빙 보기</a></div>`:""}${x.lastError?`<div class="portal-note">처리 오류: ${esc(x.lastError)}</div>`:""}</article>`).join(""):'<div class="portal-empty">발급된 구매 증빙이 아직 없습니다.</div>';
 }
 
 async function loadBusiness(){
@@ -147,33 +149,6 @@ el("account-password-form").addEventListener("submit",async e=>{
   }catch(err){msg.textContent=err.message}
 });
 
-el("account-profile-form").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const msg=el("account-profile-message");msg.textContent="";
-  try{
-    const updated=await api("/auth/profile",{method:"PUT",body:JSON.stringify({
-      fullName:el("account-profile-name").value.trim(),
-      phone:el("account-profile-phone").value.trim(),
-      businessName:el("account-profile-business").value.trim()
-    })});
-    state.session={...state.session,...updated};
-    el("portal-name").textContent=updated.fullName||updated.email||"고객";
-    el("account-email").textContent=updated.email||state.session.email||"";
-    msg.textContent="계정정보를 저장했습니다.";
-  }catch(err){msg.textContent=err.message}
-});
-el("account-password-form").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const msg=el("account-password-message");msg.textContent="";
-  const currentPassword=el("account-current-password").value;
-  const newPassword=el("account-new-password").value;
-  const confirmPassword=el("account-new-password-confirm").value;
-  if(newPassword!==confirmPassword){msg.textContent="새 비밀번호 확인이 일치하지 않습니다.";return}
-  try{
-    await api("/auth/password",{method:"POST",body:JSON.stringify({currentPassword,newPassword})});
-    location.href="/login.html?passwordChanged=1";
-  }catch(err){msg.textContent=err.message}
-});
 el("business-form").addEventListener("submit",async e=>{
   e.preventDefault();const msg=el("business-message");msg.textContent="";
   try{
