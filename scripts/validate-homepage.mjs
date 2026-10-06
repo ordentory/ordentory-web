@@ -49,6 +49,8 @@ check("Manual links Trial, Checkout and final policies",["trial.html","checkout.
 check("Checkout explains license, update, local-data and delivery terms",["영구 사용권","1사업체 · 최대 2PC","v1.x 무료","각 PC 로컬 저장","정식 라이선스 코드","서명된 설치파일 다운로드 링크"].every(x=>checkout.includes(x)));
 check("Checkout final amount remains server-authoritative",checkoutJS.includes('summary-price')&&checkoutJS.includes('checkout.amount')&&!checkoutJS.includes('body:JSON.stringify({buyerEmail:email,amount'));
 check("Checkout enforces server reservation expiry",checkout.includes('id="summary-expiry"')&&checkoutJS.includes("주문 유효시간 만료"));
+check("Tax invoice is fail-safe disabled until provider capability is confirmed",checkout.includes('id="tax-invoice-option" value="TAX_INVOICE" disabled')&&checkout.includes('id="tax-invoice-status"')&&checkoutJS.includes("offer.taxInvoiceAvailable"));
+check("Tax invoice selection falls back safely when provider is unavailable",checkoutJS.includes('billingPreference.value="AUTO"')&&checkoutJS.includes("TAX_INVOICE_UNAVAILABLE")&&checkoutJS.includes("renderTaxInvoiceAvailability(false)"));
 check("Payment success page shows commercial order summary",["result-order-id","result-buyer-email","result-amount","license-code","installer-link"].every(id=>paymentSuccess.includes('id="'+id+'"')));
 check("Payment success page includes activation and email guidance",paymentSuccess.includes("구매 완료 메일도 자동 발송됩니다.")&&paymentSuccess.includes("설치 후 이렇게 활성화하세요.")&&paymentSuccess.includes("최대 2대의 PC"));
 check("Payment confirmation sanitizes paymentKey from browser URL",paymentSuccessJS.includes("PENDING_PREFIX")&&paymentSuccessJS.includes("history.replaceState")&&paymentSuccessJS.includes("sessionStorage"));
