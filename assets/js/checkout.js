@@ -15,6 +15,8 @@ const regularPriceNode=document.getElementById("offer-regular-price");
 const offerStatusNode=document.getElementById("offer-status");
 const summaryOfferNode=document.getElementById("summary-offer");
 const billingPreference=document.getElementById("billing-preference");
+const taxInvoiceOption=document.getElementById("tax-invoice-option");
+const taxInvoiceStatus=document.getElementById("tax-invoice-status");
 
 let checkout=null;
 let widgets=null;
@@ -36,8 +38,27 @@ function validPositiveInteger(value){
   return Number.isInteger(Number(value))&&Number(value)>0;
 }
 
+function renderTaxInvoiceAvailability(available){
+  const enabled=available===true;
+  if(taxInvoiceOption){
+    taxInvoiceOption.disabled=!enabled;
+    taxInvoiceOption.textContent=enabled
+      ?"전자세금계산서 요청"
+      :"전자세금계산서 요청 · 발행 준비 중";
+  }
+  if(!enabled&&billingPreference?.value==="TAX_INVOICE"){
+    billingPreference.value="AUTO";
+  }
+  if(taxInvoiceStatus){
+    taxInvoiceStatus.innerHTML=enabled
+      ?'카드 결제는 카드매출전표 등 결제수단에 맞는 증빙이 우선 적용됩니다. 전자세금계산서를 요청하려면 <a href="/my.html">My ORDENTORY의 사업자정보</a>를 먼저 입력해 주세요.'
+      :"현재 전자세금계산서 자동발행 연결을 준비 중입니다. 카드매출전표 또는 현금영수증 등 다른 증빙 방식을 선택해 주세요.";
+  }
+}
+
 function renderOffer(offer){
   currentOffer=offer;
+  renderTaxInvoiceAvailability(offer.taxInvoiceAvailable);
   currentPriceNode.textContent=money(offer.currentPrice);
   const showRegular=offer.launchOffer&&Number(offer.regularPrice)>Number(offer.currentPrice);
   regularPriceNode.hidden=!showRegular;
@@ -107,6 +128,7 @@ async function loadOffer(){
     prepareButton.textContent="결제수단 선택";
   }catch(_){
     currentOffer=null;
+    renderTaxInvoiceAvailability(false);
     currentPriceNode.textContent="판매 준비 중";
     regularPriceNode.hidden=true;
     regularPriceNode.textContent="";
@@ -138,6 +160,11 @@ async function preparePayment(){
     await loadOffer();
     return;
   }
+  if(billingPreference?.value==="TAX_INVOICE"&&currentOffer.taxInvoiceAvailable!==true){
+    billingPreference.value="AUTO";
+    checkoutError.textContent="현재 전자세금계산서 자동발행 연결을 준비 중입니다. 다른 증빙 방식을 선택해 주세요.";
+    return;
+  }
   prepareButton.disabled=true;
   prepareButton.textContent="결제 준비 중…";
   try{
@@ -152,6 +179,10 @@ async function preparePayment(){
     if(!response.ok){
       if(body?.error?.code==="CUSTOMER_UNAUTHORIZED"||body?.error?.code==="CUSTOMER_LOGIN_REQUIRED"){location.href="/login.html?next=/checkout.html";return;}
       if(body?.error?.code==="BILLING_PROFILE_REQUIRED"){throw new Error("전자세금계산서를 요청하려면 My ORDENTORY에서 사업자정보를 먼저 입력해 주세요.");}
+      if(body?.error?.code==="TAX_INVOICE_UNAVAILABLE"){
+        renderTaxInvoiceAvailability(false);
+        throw new Error("현재 전자세금계산서 자동발행 연결을 준비 중입니다. 다른 증빙 방식을 선택해 주세요.");
+      }
       throw new Error(readMessage(body,"결제 주문을 준비하지 못했습니다."));
     }
     if(!body.orderId||!body.clientKey||!body.customerKey||!validPositiveInteger(body.amount)){
