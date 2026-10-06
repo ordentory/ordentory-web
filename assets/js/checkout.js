@@ -17,6 +17,17 @@ const summaryOfferNode=document.getElementById("summary-offer");
 const billingPreference=document.getElementById("billing-preference");
 const taxInvoiceOption=document.getElementById("tax-invoice-option");
 const taxInvoiceStatus=document.getElementById("tax-invoice-status");
+const taxInvoiceFields=document.getElementById("tax-invoice-fields");
+const taxProfileInputs={
+  businessRegistrationNumber:document.getElementById("tax-business-registration-number"),
+  companyName:document.getElementById("tax-company-name"),
+  representativeName:document.getElementById("tax-representative-name"),
+  addressLine1:document.getElementById("tax-address-line1"),
+  addressLine2:document.getElementById("tax-address-line2"),
+  businessType:document.getElementById("tax-business-type"),
+  businessItem:document.getElementById("tax-business-item"),
+  taxInvoiceEmail:document.getElementById("tax-invoice-email")
+};
 
 let checkout=null;
 let widgets=null;
@@ -38,27 +49,84 @@ function validPositiveInteger(value){
   return Number.isInteger(Number(value))&&Number(value)>0;
 }
 
-function renderTaxInvoiceAvailability(available){
+function renderTaxInvoiceAvailability(available,automatic=false){
   const enabled=available===true;
   if(taxInvoiceOption){
     taxInvoiceOption.disabled=!enabled;
     taxInvoiceOption.textContent=enabled
-      ?"전자세금계산서 요청"
-      :"전자세금계산서 요청 · 발행 준비 중";
+      ?"전자세금계산서 발행 요청"
+      :"전자세금계산서 요청 · 현재 이용 불가";
   }
   if(!enabled&&billingPreference?.value==="TAX_INVOICE"){
     billingPreference.value="AUTO";
   }
   if(taxInvoiceStatus){
-    taxInvoiceStatus.innerHTML=enabled
-      ?'카드 결제는 카드매출전표 등 결제수단에 맞는 증빙이 우선 적용됩니다. 전자세금계산서를 요청하려면 <a href="/my.html">My ORDENTORY의 사업자정보</a>를 먼저 입력해 주세요.'
-      :"현재 전자세금계산서 자동발행 연결을 준비 중입니다. 카드매출전표 또는 현금영수증 등 다른 증빙 방식을 선택해 주세요.";
+    taxInvoiceStatus.textContent=enabled
+      ?(automatic
+        ?"전자세금계산서 요청 건은 결제 완료 후 발행 절차로 접수됩니다."
+        :"전자세금계산서 요청 건은 결제 완료 후 발행 대기로 접수되며, 관리자가 홈택스에서 직접 발행합니다.")
+      :"현재 전자세금계산서 요청을 접수할 수 없습니다.";
   }
+  renderTaxInvoiceFields();
+}
+
+function renderTaxInvoiceFields(){
+  if(!taxInvoiceFields)return;
+  taxInvoiceFields.hidden=billingPreference?.value!=="TAX_INVOICE";
+}
+
+function taxProfilePayload(){
+  return Object.fromEntries(Object.entries(taxProfileInputs).map(([key,node])=>[key,node?.value?.trim()||""]));
+}
+
+function fillTaxProfile(profile={}){
+  for(const [key,node] of Object.entries(taxProfileInputs)){
+    if(node)node.value=profile?.[key]||"";
+  }
+  if(taxProfileInputs.taxInvoiceEmail&&!taxProfileInputs.taxInvoiceEmail.value&&customerSession?.email){
+    taxProfileInputs.taxInvoiceEmail.value=customerSession.email;
+  }
+}
+
+function validTaxProfile(profile){
+  const digits=String(profile.businessRegistrationNumber||"").replace(/\D/g,"");
+  return digits.length===10
+    && !!profile.companyName
+    && !!profile.representativeName
+    && !!profile.addressLine1
+    && !!profile.businessType
+    && !!profile.businessItem
+    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.taxInvoiceEmail||"");
+}
+
+async function loadTaxProfile(){
+  try{
+    const response=await fetch(CUSTOMER_API+"/business-profile",{method:"GET",credentials:"include",cache:"no-store"});
+    if(!response.ok)return;
+    fillTaxProfile(await response.json().catch(()=>({})));
+  }catch(_){}
+}
+
+async function saveTaxProfile(){
+  const profile=taxProfilePayload();
+  if(!validTaxProfile(profile)){
+    throw new Error("전자세금계산서 발행에 필요한 사업자등록번호, 상호, 대표자, 주소, 업태, 종목, 수신 이메일을 모두 확인해 주세요.");
+  }
+  const response=await fetch(CUSTOMER_API+"/business-profile",{
+    method:"PUT",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(profile),
+    credentials:"include",
+    cache:"no-store"
+  });
+  const body=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(readMessage(body,"사업자정보를 저장하지 못했습니다."));
+  fillTaxProfile(body);
 }
 
 function renderOffer(offer){
   currentOffer=offer;
-  renderTaxInvoiceAvailability(offer.taxInvoiceAvailable);
+  renderTaxInvoiceAvailability(offer.taxInvoiceAvailable,offer.taxInvoiceAutoIssuance===true);
   currentPriceNode.textContent=money(offer.currentPrice);
   const showRegular=offer.launchOffer&&Number(offer.regularPrice)>Number(offer.currentPrice);
   regularPriceNode.hidden=!showRegular;
@@ -128,7 +196,7 @@ async function loadOffer(){
     prepareButton.textContent="결제수단 선택";
   }catch(_){
     currentOffer=null;
-    renderTaxInvoiceAvailability(false);
+    renderTaxInvoiceAvailability(false,false);
     currentPriceNode.textContent="판매 준비 중";
     regularPriceNode.hidden=true;
     regularPriceNode.textContent="";
@@ -160,10 +228,14 @@ async function preparePayment(){
     await loadOffer();
     return;
   }
-  if(billingPreference?.value==="TAX_INVOICE"&&currentOffer.taxInvoiceAvailable!==true){
-    billingPreference.value="AUTO";
-    checkoutError.textContent="현재 전자세금계산서 자동발행 연결을 준비 중입니다. 다른 증빙 방식을 선택해 주세요.";
-    return;
+  if(billingPreference?.value==="TAX_INVOICE"){
+    if(currentOffer.taxInvoiceAvailable!==true){
+      billingPreference.value="AUTO";
+      renderTaxInvoiceFields();
+      checkoutError.textContent="현재 전자세금계산서 요청을 접수할 수 없습니다.";
+      return;
+    }
+    try{await saveTaxProfile()}catch(error){checkoutError.textContent=error?.message||"사업자정보를 확인해 주세요.";return}
   }
   prepareButton.disabled=true;
   prepareButton.textContent="결제 준비 중…";
@@ -180,8 +252,8 @@ async function preparePayment(){
       if(body?.error?.code==="CUSTOMER_UNAUTHORIZED"||body?.error?.code==="CUSTOMER_LOGIN_REQUIRED"){location.href="/login.html?next=/checkout.html";return;}
       if(body?.error?.code==="BILLING_PROFILE_REQUIRED"){throw new Error("전자세금계산서를 요청하려면 My ORDENTORY에서 사업자정보를 먼저 입력해 주세요.");}
       if(body?.error?.code==="TAX_INVOICE_UNAVAILABLE"){
-        renderTaxInvoiceAvailability(false);
-        throw new Error("현재 전자세금계산서 자동발행 연결을 준비 중입니다. 다른 증빙 방식을 선택해 주세요.");
+        renderTaxInvoiceAvailability(false,false);
+        throw new Error("현재 전자세금계산서 요청을 접수할 수 없습니다.");
       }
       throw new Error(readMessage(body,"결제 주문을 준비하지 못했습니다."));
     }
@@ -262,6 +334,16 @@ async function resetCheckout(){
 prepareButton.addEventListener("click",preparePayment);
 requestButton.addEventListener("click",requestPayment);
 changeEmail.addEventListener("click",resetCheckout);
-billingPreference?.addEventListener("change",()=>{checkoutError.textContent="";});
+billingPreference?.addEventListener("change",async()=>{
+  checkoutError.textContent="";
+  renderTaxInvoiceFields();
+  if(billingPreference.value==="TAX_INVOICE"){
+    await loadTaxProfile();
+  }
+});
 
-(async()=>{await loadCustomerSession();await loadOffer();})();
+(async()=>{
+  await loadCustomerSession();
+  await Promise.all([loadOffer(),loadTaxProfile()]);
+  renderTaxInvoiceFields();
+})();
