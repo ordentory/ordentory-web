@@ -72,10 +72,28 @@
           <label class="checkout-label checkout-billing-label" for="billing-preference">사업자 증빙</label>
           <select id="billing-preference" class="checkout-input">
             <option value="AUTO">결제수단에 맞게 자동 처리</option>
-            <option id="tax-invoice-option" value="TAX_INVOICE" disabled>전자세금계산서 요청 · 발행 준비 중</option>
+            <option id="tax-invoice-option" value="TAX_INVOICE">전자세금계산서 발행 요청</option>
             <option value="CASH_RECEIPT">현금영수증 요청</option>
           </select>
-          <p id="tax-invoice-status" class="checkout-help">현재 전자세금계산서 자동발행 연결을 준비 중입니다. 카드매출전표 또는 현금영수증 등 다른 증빙 방식을 선택해 주세요.</p>
+          <p id="tax-invoice-status" class="checkout-help">전자세금계산서 요청 건은 결제 완료 후 발행 대기로 접수되며, 관리자가 홈택스에서 발행합니다.</p>
+
+          <section id="tax-invoice-fields" class="tax-invoice-fields" hidden aria-label="전자세금계산서 사업자정보">
+            <div class="tax-invoice-fields-head">
+              <strong>전자세금계산서 발행 정보</strong>
+              <span>입력한 정보는 My ORDENTORY 사업자정보에도 저장됩니다.</span>
+            </div>
+            <div class="tax-invoice-grid">
+              <label>사업자등록번호<input id="tax-business-registration-number" class="checkout-input" inputmode="numeric" maxlength="12" placeholder="123-45-67890"></label>
+              <label>상호<input id="tax-company-name" class="checkout-input" maxlength="120" placeholder="상호명"></label>
+              <label>대표자명<input id="tax-representative-name" class="checkout-input" maxlength="80" placeholder="대표자명"></label>
+              <label>세금계산서 수신 이메일<input id="tax-invoice-email" class="checkout-input" type="email" maxlength="254" placeholder="billing@example.com"></label>
+              <label class="tax-invoice-wide">사업장 주소<input id="tax-address-line1" class="checkout-input" maxlength="240" placeholder="사업장 주소"></label>
+              <label class="tax-invoice-wide">상세 주소 <span class="field-optional">선택</span><input id="tax-address-line2" class="checkout-input" maxlength="240" placeholder="상세 주소"></label>
+              <label>업태<input id="tax-business-type" class="checkout-input" maxlength="120" placeholder="예: 서비스업"></label>
+              <label>종목<input id="tax-business-item" class="checkout-input" maxlength="120" placeholder="예: 소프트웨어 개발 및 공급"></label>
+            </div>
+            <p class="checkout-help">카드매출전표 또는 현금영수증이 결제 과정에서 발행되는 경우 해당 증빙이 우선 적용될 수 있습니다.</p>
+          </section>
 
           <div class="checkout-policy-box">
             <strong>결제 전 확인사항</strong>
