@@ -72,10 +72,10 @@
           <label class="checkout-label checkout-billing-label" for="billing-preference">사업자 증빙</label>
           <select id="billing-preference" class="checkout-input">
             <option value="AUTO">결제수단에 맞게 자동 처리</option>
-            <option value="TAX_INVOICE">전자세금계산서 요청</option>
+            <option id="tax-invoice-option" value="TAX_INVOICE" disabled>전자세금계산서 요청 · 발행 준비 중</option>
             <option value="CASH_RECEIPT">현금영수증 요청</option>
           </select>
-          <p class="checkout-help">카드 결제는 카드매출전표 등 결제수단에 맞는 증빙이 우선 적용됩니다. 전자세금계산서를 요청하려면 <a href="/my.html">My ORDENTORY의 사업자정보</a>를 먼저 입력해 주세요.</p>
+          <p id="tax-invoice-status" class="checkout-help">현재 전자세금계산서 자동발행 연결을 준비 중입니다. 카드매출전표 또는 현금영수증 등 다른 증빙 방식을 선택해 주세요.</p>
 
           <div class="checkout-policy-box">
             <strong>결제 전 확인사항</strong>
