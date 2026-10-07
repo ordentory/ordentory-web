@@ -2,6 +2,11 @@ name: Inspect Gabia Webhosting
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/gabia-inspect.yml"
 
 permissions:
   contents: read
@@ -35,4 +40,8 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$SSHPASS"
-          sshpass -e ssh             -o PreferredAuthentications=password             -o PubkeyAuthentication=no             "$GABIA_USER@$GABIA_HOST"             'printf "REMOTE_PWD="; pwd; echo "---"; ls -la; echo "--- directories ---"; find . -maxdepth 2 -type d -print | sort | head -100'
+          sshpass -e ssh \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            "$GABIA_USER@$GABIA_HOST" \
+            'printf "REMOTE_PWD="; pwd; echo "---"; ls -la; echo "--- directories ---"; find . -maxdepth 2 -type d -print | sort | head -100'
