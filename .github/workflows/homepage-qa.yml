@@ -30,8 +30,12 @@ jobs:
           grep -q 'href="/terms.html"' index.html
           grep -q 'href="/privacy.html"' index.html
           grep -q 'href="/refund.html"' index.html
-          ! grep -q 'href="checkout.html"' index.html
-          ! grep -q 'href="/checkout.html"' index.html
+          grep -q 'href="/checkout.html"' index.html
+          grep -q '169,000원' index.html
+          grep -q '199,000원' index.html
+          grep -q '최대 2PC' index.html
+          grep -q 'v1.x 무료 업데이트' index.html
+          grep -q 'PG 심사 중' index.html
           ! grep -q 'href="trial.html"' index.html
           ! grep -q 'href="/trial.html"' index.html
           test -f assets/images/product/hero-home.webp
@@ -45,6 +49,11 @@ jobs:
           ! grep -q 'http-equiv="refresh"' checkout.html
           ! grep -q 'location.replace("/")' checkout.html
           grep -q 'https://js.tosspayments.com/v2/standard' checkout.html
+          grep -q 'data-store-payments-enabled="false"' checkout.html
+          grep -q 'disabled aria-disabled="true"' checkout.html
+          grep -q 'PG 심사 진행 중' checkout.html
+          grep -q 'STORE_PAYMENTS_ENABLED' assets/js/checkout.js
+          grep -q 'REVIEW_DISABLED_MESSAGE' assets/js/checkout.js
           grep -q '169,000원' checkout.html
           grep -q '199,000원' checkout.html
           grep -q '영구 사용권' checkout.html
@@ -66,7 +75,11 @@ jobs:
             grep -q "070-7594-2101" "$f"
           done
           grep -q "Toss Payments" privacy.html
-          grep -q "통신판매업 신고: 신고 면제 대상" terms.html
+          grep -q "v1.x" terms.html
+          grep -q "v2.x" terms.html
+          grep -q "결제일로부터 7일 이내" refund.html
+          ! grep -q "통신판매업 신고" terms.html
+          ! grep -q "통신판매업 신고" privacy.html
       - name: Verify payment result routes are available for test flow
         shell: bash
         run: |
