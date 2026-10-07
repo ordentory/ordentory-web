@@ -1,4 +1,4 @@
-name: ORDENTORY Prelaunch One-page QA
+name: ORDENTORY Prelaunch + Toss Review QA
 
 on:
   push:
@@ -12,11 +12,11 @@ permissions:
   contents: read
 
 jobs:
-  verify-prelaunch:
+  verify-prelaunch-review:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify one-page prelaunch site
+      - name: Verify public prelaunch home
         shell: bash
         run: |
           set -euo pipefail
@@ -24,40 +24,76 @@ jobs:
           grep -q "복잡한 재고관리를" index.html
           grep -q "Windows용 재고관리 프로그램" index.html
           grep -q "assets/images/product/hero-home.webp" index.html
-          grep -q "Inventory에서 시작해" index.html
-          grep -q "support@ordentory.kr" index.html
           grep -q 'name="robots" content="noindex,nofollow,noarchive"' index.html
-          ! grep -q "169,000원" index.html
-          ! grep -q 'href="trial.html"' index.html
+          grep -q "286-34-01739" index.html
+          grep -q "070-7594-2101" index.html
+          grep -q 'href="/terms.html"' index.html
+          grep -q 'href="/privacy.html"' index.html
+          grep -q 'href="/refund.html"' index.html
           ! grep -q 'href="checkout.html"' index.html
-          ! grep -q "선착순 30" index.html
+          ! grep -q 'href="/checkout.html"' index.html
+          ! grep -q 'href="trial.html"' index.html
+          ! grep -q 'href="/trial.html"' index.html
           test -f assets/images/product/hero-home.webp
           test -f assets/images/brand/ordentory-logo.webp
           test "$(tr -d '\r\n' < CNAME)" = "ordentory.kr"
-      - name: Verify hidden storefront routes redirect home
+      - name: Verify Toss review checkout is accessible but noindex
         shell: bash
         run: |
           set -euo pipefail
-          for f in checkout.html payment-fail.html payment-success.html preview.html privacy.html refund.html terms.html trial.html 404.html; do
+          grep -q 'name="robots" content="noindex,nofollow,noarchive"' checkout.html
+          ! grep -q 'http-equiv="refresh"' checkout.html
+          ! grep -q 'location.replace("/")' checkout.html
+          grep -q 'https://js.tosspayments.com/v2/standard' checkout.html
+          grep -q '169,000원' checkout.html
+          grep -q '199,000원' checkout.html
+          grep -q '영구 사용권' checkout.html
+          grep -q '최대 2PC' checkout.html
+          grep -q '286-34-01739' checkout.html
+          grep -q '070-7594-2101' checkout.html
+          grep -q '/terms.html' checkout.html
+          grep -q '/privacy.html' checkout.html
+          grep -q '/refund.html' checkout.html
+      - name: Verify legal policies are review-accessible
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in terms.html privacy.html refund.html; do
             grep -q 'name="robots" content="noindex,nofollow,noarchive"' "$f"
-            grep -q 'http-equiv="refresh" content="0;url=/"' "$f"
-            grep -q 'location.replace("/")' "$f"
+            ! grep -q 'http-equiv="refresh"' "$f"
+            ! grep -q 'location.replace("/")' "$f"
+            grep -q "286-34-01739" "$f"
+            grep -q "070-7594-2101" "$f"
           done
-      - name: Verify buyer manual remains available during prelaunch
+          grep -q "Toss Payments" privacy.html
+          grep -q "통신판매업 신고: 신고 면제 대상" terms.html
+      - name: Verify payment result routes are available for test flow
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in payment-success.html payment-fail.html; do
+            grep -q 'name="robots" content="noindex,nofollow,noarchive"' "$f"
+            ! grep -q 'http-equiv="refresh"' "$f"
+            ! grep -q 'location.replace("/")' "$f"
+          done
+          grep -q 'assets/js/payment-success.js' payment-success.html
+          grep -q 'checkout.html' payment-fail.html
+      - name: Verify public Trial remains hidden
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'name="robots" content="noindex,nofollow,noarchive"' trial.html
+          grep -q 'http-equiv="refresh" content="0;url=/"' trial.html
+          grep -q 'location.replace("/")' trial.html
+      - name: Verify buyer manual remains available
         shell: bash
         run: |
           set -euo pipefail
           grep -q 'ORDENTORY INVENTORY v1.0.0' manual.html
-          grep -q '설치 및 사용자 매뉴얼' manual.html
           grep -q 'https://api.ordentory.kr/v1/store/installer' manual.html
-          grep -q 'ORDENTORY_User_Manual.pdf' manual.html
           grep -q '1개 사업체 / 최대 2PC' manual.html
           grep -q 'name="robots" content="noindex,nofollow,noarchive"' manual.html
           ! grep -q 'http-equiv="refresh"' manual.html
-          ! grep -q 'location.replace("/")' manual.html
-          ! grep -q '169,000원' manual.html
-          ! grep -q 'checkout.html' manual.html
-          ! grep -q 'trial.html' manual.html
       - name: Verify crawler block
         shell: bash
         run: |
