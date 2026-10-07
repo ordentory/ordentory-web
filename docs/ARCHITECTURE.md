@@ -13,7 +13,10 @@
 ordentory.kr /
   -> prelaunch brand/product page
 
-checkout/trial/payment/manual/legal legacy routes
+manual.html
+  -> noindex buyer installation/manual guide
+
+checkout/trial/payment/legal legacy routes
   -> noindex
   -> immediate redirect to /
 ```
@@ -51,7 +54,8 @@ Inventory 정식 구매의 라이선스 정책은 판매채널과 무관하게 �
 
 - `index.html`
 - `robots.txt`
-- 숨김 경로 redirect HTML
+- 구매자용 `manual.html` 설치/매뉴얼 안내
+- 숨김 판매 경로 redirect HTML
 - `.github/workflows/homepage-qa.yml`
 
 prelaunch 상태에서 과거 전체 storefront를 검증하던 Playwright/source validation 스크립트는 사용하지 않는다.
