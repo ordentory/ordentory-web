@@ -1,4 +1,6 @@
 const STORE_API="https://api.ordentory.kr/v1/store";
+const STORE_PAYMENTS_ENABLED=document.body?.dataset?.storePaymentsEnabled==="true";
+const REVIEW_DISABLED_MESSAGE="현재 PG 심사 진행 중으로 결제 요청이 비활성화되어 있습니다.";
 
 const emailInput=document.getElementById("buyer-email");
 const prepareButton=document.getElementById("prepare-payment");
@@ -24,6 +26,10 @@ function readMessage(body,fallback){
 
 async function preparePayment(){
   checkoutError.textContent="";
+  if(!STORE_PAYMENTS_ENABLED){
+    checkoutError.textContent=REVIEW_DISABLED_MESSAGE;
+    return;
+  }
   const email=emailInput.value.trim();
   if(!email||!emailInput.checkValidity()){
     emailInput.reportValidity();
@@ -103,7 +109,12 @@ async function resetCheckout(){
   emailInput.focus();
 }
 
+if(!STORE_PAYMENTS_ENABLED){
+  prepareButton.disabled=true;
+  prepareButton.setAttribute("aria-disabled","true");
+  prepareButton.textContent="결제 준비 중 · PG 심사 진행 중";
+}
 prepareButton.addEventListener("click",preparePayment);
 requestButton.addEventListener("click",requestPayment);
 changeEmail.addEventListener("click",resetCheckout);
-emailInput.addEventListener("keydown",e=>{if(e.key==="Enter")preparePayment()});
+emailInput.addEventListener("keydown",e=>{if(e.key==="Enter"&&STORE_PAYMENTS_ENABLED)preparePayment()});
