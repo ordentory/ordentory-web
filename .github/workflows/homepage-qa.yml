@@ -20,7 +20,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -q "정식 오픈 준비 중" index.html
+          grep -q "PG 심사 준비 · 정식 오픈 전" index.html
           grep -q "복잡한 재고관리를" index.html
           grep -q "Windows용 재고관리 프로그램" index.html
           grep -q "assets/images/product/hero-home.webp" index.html
