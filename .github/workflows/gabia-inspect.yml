@@ -44,4 +44,4 @@ jobs:
             -o PreferredAuthentications=password \
             -o PubkeyAuthentication=no \
             "$GABIA_USER@$GABIA_HOST" \
-            'printf "REMOTE_PWD="; pwd; echo "---"; ls -la; echo "--- directories ---"; find . -maxdepth 2 -type d -print | sort | head -100'
+            'printf "REMOTE_PWD="; pwd; echo "--- HOME ---"; ls -la; echo "--- WEB ROOT ---"; ls -laL www_root; echo "--- CAPABILITIES ---"; if test -w www_root; then echo "WEB_ROOT_WRITABLE=yes"; else echo "WEB_ROOT_WRITABLE=no"; fi; if command -v rsync >/dev/null 2>&1; then echo "RSYNC_AVAILABLE=yes"; else echo "RSYNC_AVAILABLE=no"; fi'
