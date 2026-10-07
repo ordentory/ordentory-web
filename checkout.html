@@ -4,11 +4,73 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta http-equiv="refresh" content="0;url=/">
-  <title>ORDENTORY | 정식 오픈 준비 중</title>
-  <script>location.replace("/");</script>
+  <title>ORDENTORY Inventory 구매</title>
+  <meta name="description" content="ORDENTORY Inventory 정식 라이선스 구매">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/checkout.css">
+  <script src="https://js.tosspayments.com/v2/standard"></script>
 </head>
-<body>
-  <p><a href="/">ORDENTORY 정식 오픈 준비 페이지로 이동</a></p>
+<body class="checkout-body">
+  <header class="checkout-header">
+    <a href="/" class="checkout-brand" aria-label="ORDENTORY 홈">
+      <img src="assets/images/brand/ordentory-logo.png" alt="ORDENTORY">
+    </a>
+    <a href="/" class="checkout-back">홈으로</a>
+  </header>
+
+  <main class="checkout-main">
+    <section class="checkout-intro">
+      <p class="section-label">ORDENTORY INVENTORY v1.0.0</p>
+      <h1>정식 라이선스 구매</h1>
+      <p>월 구독 없이 한 번 구매하면 계속 사용할 수 있는 Windows 재고관리 프로그램입니다.</p>
+      <p class="review-notice">전자결제 심사 및 테스트 결제 확인용 페이지입니다. 정식 판매 오픈 전까지 일반 구매 동선에는 노출하지 않습니다.</p>
+      <div class="checkout-points">
+        <span>영구 사용권</span><span>1사업체 · 최대 2PC</span><span>서명된 자동 업데이트</span>
+      </div>
+    </section>
+
+    <section class="checkout-card">
+      <div id="checkout-start">
+        <div class="checkout-price">
+          <small>결제 금액</small>
+          <strong id="display-price">169,000원</strong>
+          <span id="display-offer">출시가 · 정가 199,000원 · 선착순 30 라이선스</span>
+        </div>
+        <label class="checkout-label" for="buyer-email">라이선스를 받을 이메일</label>
+        <input id="buyer-email" class="checkout-input" type="email" autocomplete="email" placeholder="buyer@example.com" required>
+        <p class="checkout-help">결제 완료 후 이 이메일을 기준으로 ORDENTORY Inventory 라이선스가 발급됩니다.</p>
+        <label class="policy-consent">
+          <input id="checkout-policy-consent" type="checkbox">
+          <span><a href="/terms.html" target="_blank" rel="noopener">이용약관</a>, <a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>, <a href="/refund.html" target="_blank" rel="noopener">환불 안내</a>를 확인했습니다.</span>
+        </label>
+        <button id="prepare-payment" class="button button-primary checkout-button" type="button">결제 준비</button>
+        <p id="checkout-error" class="checkout-error" role="alert"></p>
+      </div>
+
+      <div id="checkout-payment" hidden>
+        <div class="checkout-summary">
+          <div><span>상품</span><strong>ORDENTORY Inventory v1.0.0</strong></div>
+          <div><span>라이선스</span><strong>영구 · 최대 2PC</strong></div>
+          <div><span>이메일</span><strong id="summary-email"></strong></div>
+          <div><span>결제금액</span><strong id="summary-price"></strong></div>
+        </div>
+        <div id="payment-method"></div>
+        <div id="agreement"></div>
+        <button id="request-payment" class="button button-primary checkout-button" type="button" disabled>결제하기</button>
+        <button id="change-email" class="checkout-text-button" type="button">이메일 다시 입력</button>
+        <p id="payment-error" class="checkout-error" role="alert"></p>
+      </div>
+    </section>
+
+    <p class="checkout-footnote">결제 기능은 Toss Payments를 통해 제공됩니다. 테스트 환경에서는 실제 결제금액이 청구되지 않으며, 결제가 완료되기 전에는 라이선스가 발급되지 않습니다.</p>
+    <section class="checkout-business-footer" aria-label="사업자 정보">
+      <div><strong>오덴토리</strong> · 대표자 이보승 · 사업자등록번호 286-34-01739</div>
+      <div>인천광역시 부평구 동수북로 172, 4층 가2호(부평동) · 고객지원 070-7594-2101 · <a href="mailto:support@ordentory.kr">support@ordentory.kr</a></div>
+      <div>통신판매업 신고 면제 대상</div>
+      <div class="footer-policy-links"><a href="/terms.html">이용약관</a> · <a href="/privacy.html">개인정보처리방침</a> · <a href="/refund.html">환불 안내</a></div>
+    </section>
+  </main>
+
+  <script src="assets/js/checkout.js"></script>
 </body>
 </html>
