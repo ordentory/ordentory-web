@@ -15,6 +15,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      GABIA_HOST: 211.47.74.75
+      GABIA_USER: ordentoryweb
     steps:
       - uses: actions/checkout@v4
 
@@ -30,12 +33,44 @@ jobs:
           test -f robots.txt
           test -d assets
 
-      - name: Copy static site to Gabia
-        uses: appleboy/scp-action@v1
-        with:
-          host: 211.47.74.75
-          username: ordentoryweb
-          password: ${{ secrets.GABIA_SFTP_PASSWORD }}
-          source: "*.html,robots.txt,assets"
-          target: "www_root"
-          overwrite: true
+      - name: Install SSH password helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+
+      - name: Trust Gabia host key
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -T 10 -H "$GABIA_HOST" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload static site with OpenSSH SCP
+        shell: bash
+        env:
+          SSHPASS: ${{ secrets.GABIA_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$SSHPASS"
+          sshpass -e scp -r \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            -- \
+            *.html robots.txt assets \
+            "$GABIA_USER@$GABIA_HOST:www_root/"
+
+      - name: Verify remote site files
+        shell: bash
+        env:
+          SSHPASS: ${{ secrets.GABIA_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          sshpass -e ssh \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            "$GABIA_USER@$GABIA_HOST" \
+            'set -e; cd www_root; test -f index.html; test -f checkout.html; test -f terms.html; test -f privacy.html; test -f refund.html; test -f robots.txt; test -d assets; echo GABIA_DEPLOY_OK'
