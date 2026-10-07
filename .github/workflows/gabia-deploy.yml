@@ -1,0 +1,41 @@
+name: Deploy ORDENTORY Web to Gabia
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/gabia-deploy.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify deployable site files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f checkout.html
+          test -f terms.html
+          test -f privacy.html
+          test -f refund.html
+          test -f robots.txt
+          test -d assets
+
+      - name: Copy static site to Gabia
+        uses: appleboy/scp-action@v1
+        with:
+          host: 211.47.74.75
+          username: ordentoryweb
+          password: ${{ secrets.GABIA_SFTP_PASSWORD }}
+          source: "*.html,robots.txt,assets"
+          target: "www_root"
+          overwrite: true
