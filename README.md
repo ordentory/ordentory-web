@@ -8,7 +8,8 @@ ORDENTORY 공식 웹사이트 저장소.
 
 - 공개 홈: `index.html`
 - 검색엔진: `noindex,nofollow,noarchive`
-- `checkout.html`, `trial.html`, `manual.html`, 결제 결과·약관 관련 기존 경로는 현재 모두 `/`로 즉시 이동
+- `manual.html`은 구매자용 설치/매뉴얼 안내 페이지로 공개
+- `checkout.html`, `trial.html`, 결제 결과·약관 관련 기존 판매 경로는 현재 `/`로 즉시 이동
 - Toss 실결제와 웹 Trial 발급은 공개하지 않음
 - 현재 CI의 기준은 `.github/workflows/homepage-qa.yml`
 

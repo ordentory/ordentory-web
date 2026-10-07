@@ -38,11 +38,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for f in checkout.html manual.html payment-fail.html payment-success.html preview.html privacy.html refund.html terms.html trial.html 404.html; do
+          for f in checkout.html payment-fail.html payment-success.html preview.html privacy.html refund.html terms.html trial.html 404.html; do
             grep -q 'name="robots" content="noindex,nofollow,noarchive"' "$f"
             grep -q 'http-equiv="refresh" content="0;url=/"' "$f"
             grep -q 'location.replace("/")' "$f"
           done
+      - name: Verify buyer manual remains available during prelaunch
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'ORDENTORY INVENTORY v1.0.0' manual.html
+          grep -q '설치 및 사용자 매뉴얼' manual.html
+          grep -q 'https://api.ordentory.kr/v1/store/installer' manual.html
+          grep -q 'ORDENTORY_User_Manual.pdf' manual.html
+          grep -q '1개 사업체 / 최대 2PC' manual.html
+          grep -q 'name="robots" content="noindex,nofollow,noarchive"' manual.html
+          ! grep -q 'http-equiv="refresh"' manual.html
+          ! grep -q 'location.replace("/")' manual.html
+          ! grep -q '169,000원' manual.html
+          ! grep -q 'checkout.html' manual.html
+          ! grep -q 'trial.html' manual.html
       - name: Verify crawler block
         shell: bash
         run: |

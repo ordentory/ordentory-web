@@ -4,11 +4,80 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta http-equiv="refresh" content="0;url=/">
-  <title>ORDENTORY | 정식 오픈 준비 중</title>
-  <script>location.replace("/");</script>
+  <title>ORDENTORY | 설치 및 사용자 매뉴얼</title>
+  <style>
+    :root{font-family:Pretendard,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;color:#0e162a;background:#f5f7fb}
+    *{box-sizing:border-box}body{margin:0}.wrap{max-width:820px;margin:0 auto;padding:32px 18px 56px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+    .logo{height:34px;width:auto}.home{color:#526078;text-decoration:none;font-size:14px}
+    .hero,.card{background:#fff;border:1px solid #e2e8f0;border-radius:18px}.hero{padding:34px}
+    .eyebrow{color:#125aef;font-weight:800;font-size:12px;letter-spacing:.12em}.hero h1{font-size:32px;letter-spacing:-.04em;margin:12px 0 10px}
+    .hero p,.card p,.card li{color:#526078;line-height:1.75}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+    .button{display:inline-block;padding:13px 18px;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px}
+    .primary{background:#125aef;color:#fff}.secondary{border:1px solid #cbdcfb;color:#125aef;background:#fff}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{padding:24px}.card h2{margin:0 0 12px;font-size:18px}
+    ol,ul{margin:0;padding-left:20px}.path{font-family:Consolas,monospace;background:#f7faff;border:1px solid #dbe7ff;border-radius:9px;padding:10px 12px;color:#1e40af;overflow-wrap:anywhere}
+    .notice{margin-top:14px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid #dbe7ff;color:#526078;line-height:1.7}
+    footer{margin-top:26px;color:#64748b;font-size:13px;line-height:1.7}
+    @media(max-width:650px){.wrap{padding:22px 14px 42px}.hero{padding:26px 20px}.hero h1{font-size:27px}.grid{grid-template-columns:1fr}.top{align-items:flex-start}.logo{height:30px}}
+  </style>
 </head>
 <body>
-  <p><a href="/">ORDENTORY 정식 오픈 준비 페이지로 이동</a></p>
+  <main class="wrap">
+    <div class="top">
+      <img class="logo" src="assets/images/brand/ordentory-logo.webp" alt="ORDENTORY">
+      <a class="home" href="/">홈으로</a>
+    </div>
+    <section class="hero">
+      <div class="eyebrow">ORDENTORY INVENTORY v1.0.0</div>
+      <h1>설치 및 사용자 매뉴얼</h1>
+      <p>구매 후 받은 라이선스 코드와 구매 이메일로 ORDENTORY를 활성화할 수 있습니다. 설치파일에는 공식 사용자 매뉴얼과 빠른 시작 안내서가 함께 포함됩니다.</p>
+      <div class="actions">
+        <a class="button primary" href="https://api.ordentory.kr/v1/store/installer">ORDENTORY 설치파일 다운로드</a>
+        <a class="button secondary" href="mailto:support@ordentory.kr">이메일 문의</a>
+      </div>
+    </section>
+    <div class="grid">
+      <section class="card">
+        <h2>1. 설치</h2>
+        <ol>
+          <li>위 버튼에서 <strong>ORDENTORY_Setup.exe</strong> 다운로드</li>
+          <li>Windows에서 설치파일 실행</li>
+          <li>게시자 및 코드서명 확인 후 설치 진행</li>
+          <li>설치가 끝나면 ORDENTORY 실행</li>
+        </ol>
+      </section>
+      <section class="card">
+        <h2>2. 라이선스 활성화</h2>
+        <ol>
+          <li>[라이선스] 메뉴 이동</li>
+          <li>구매 이메일과 라이선스 코드 입력</li>
+          <li>이메일로 받은 6자리 인증번호 입력</li>
+          <li>활성화 완료 후 Inventory 사용</li>
+        </ol>
+      </section>
+      <section class="card">
+        <h2>3. 공식 PDF 매뉴얼</h2>
+        <p>설치 후 ORDENTORY 설치 폴더의 <strong>docs</strong>에서 공식 문서를 확인할 수 있습니다.</p>
+        <div class="path">docs\ORDENTORY_User_Manual.pdf</div>
+        <div class="path" style="margin-top:8px">docs\START-HERE.pdf</div>
+      </section>
+      <section class="card">
+        <h2>4. 라이선스 정책</h2>
+        <ul>
+          <li>1개 사업체 / 최대 2PC</li>
+          <li>영구 사용권</li>
+          <li>v1.x 업데이트 무료</li>
+          <li>PC 이전 시 기존 장치 해제 후 새 PC 활성화</li>
+          <li>고장·분실 시 고객지원에서 강제 해제 지원</li>
+        </ul>
+      </section>
+    </div>
+    <div class="notice"><strong>설치파일을 메일에 직접 첨부하지 않는 이유</strong><br>보안을 위해 공식 서명된 설치파일을 동일한 다운로드 경로에서 제공합니다. 구매 메일의 라이선스 코드와 구매 이메일은 별도로 보관해 주세요.</div>
+    <footer>
+      고객지원: <a href="mailto:support@ordentory.kr">support@ordentory.kr</a> · 대표전화 070-7594-2101<br>
+      전화상담 평일 18:30–21:00 · 이메일 문의 상시 접수
+    </footer>
+  </main>
 </body>
 </html>
