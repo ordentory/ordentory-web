@@ -1,0 +1,38 @@
+name: Inspect Gabia Webhosting
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GABIA_HOST: 211.47.74.75
+      GABIA_USER: ordentoryweb
+    steps:
+      - name: Install SSH password helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+      - name: Trust Gabia host key
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -T 10 -H "$GABIA_HOST" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      - name: Inspect remote web root
+        shell: bash
+        env:
+          SSHPASS: ${{ secrets.GABIA_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$SSHPASS"
+          sshpass -e ssh             -o PreferredAuthentications=password             -o PubkeyAuthentication=no             "$GABIA_USER@$GABIA_HOST"             'printf "REMOTE_PWD="; pwd; echo "---"; ls -la; echo "--- directories ---"; find . -maxdepth 2 -type d -print | sort | head -100'
