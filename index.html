@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#ffffff">
-  <title>ORDENTORY | Inventory 출시 준비 중</title>
-  <meta name="description" content="ORDENTORY Inventory는 발주, 입고, 출고, 현재고를 한 흐름으로 관리하는 Windows 재고관리 프로그램입니다. 현재 정식 출시를 준비하고 있습니다.">
+  <title>ORDENTORY | 통합 재고·주문 관리 플랫폼 준비 중</title>
+  <meta name="description" content="ORDENTORY는 재고, 발주, 입출고, 판매주문 업무를 연결하는 통합 관리 플랫폼을 개발하고 있습니다. 웹 서비스를 우선 개발하며 Windows·모바일 지원을 계획하고 있습니다.">
   <style>
     :root{
       --ink:#0e162a;
@@ -185,6 +185,12 @@
       .launch-panel{padding:34px 26px;border-radius:22px}
       .contact{width:100%}
     }
+    .platform-preview{min-height:280px;padding:48px 32px;background:linear-gradient(135deg,#f6f9ff,#fff);border-radius:14px;display:flex;flex-direction:column;justify-content:center}
+    .platform-preview h2{font-size:clamp(30px,3vw,46px)}
+    .platform-preview>p:not(.section-label){color:var(--muted);font-size:15px;line-height:1.75;max-width:430px}
+    .platform-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .platform-chips span{border:1px solid #dce7ff;border-radius:999px;padding:8px 12px;background:#fff;color:#31507d;font-size:12px;font-weight:750}
+    @media(max-width:640px){.platform-preview{padding:32px 20px;min-height:240px}}
   </style>
 </head>
 <body>
@@ -193,7 +199,7 @@
       <a class="brand" href="/" aria-label="ORDENTORY 홈">
         <img src="assets/images/brand/ordentory-logo.webp" alt="ORDENTORY">
       </a>
-      <span class="prelaunch-badge">PG 심사 준비 · 정식 오픈 전</span>
+      <span class="prelaunch-badge">서비스 개발 중</span>
     </div>
   </header>
 
@@ -201,16 +207,21 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">ORDENTORY INVENTORY</p>
-          <h1>복잡한 재고관리를<br>더 단순하게.</h1>
+          <p class="eyebrow">ORDENTORY PLATFORM</p>
+          <h1>복잡한 재고와 주문 관리,<br>더 단순하게.</h1>
           <p class="hero-copy">
-            발주부터 입고, 출고, 현재고까지. ORDENTORY Inventory는 반복되는 재고관리 업무를
-            한 흐름으로 정리하는 Windows용 재고관리 프로그램입니다.
+            재고부터 발주, 입출고, 판매주문까지. 흩어져 있는 업무를
+            하나의 시스템으로 연결하는 통합 관리 플랫폼을 만들고 있습니다.
           </p>
-          <div class="hero-note"><strong>현재 전자결제 심사 준비 중</strong><span>정식 판매 및 무료체험은 아직 시작 전</span></div>
+          <div class="hero-note"><strong>현재 서비스 개발 중</strong><span>출시 일정 및 이용 조건은 확정 후 안내합니다.</span></div>
         </div>
-        <div class="product-frame" aria-label="ORDENTORY Inventory 프로그램 화면">
-          <img src="assets/images/product/hero-home.webp" alt="ORDENTORY Inventory 프로그램 메인 화면">
+        <div class="product-frame" aria-label="ORDENTORY 지원 플랫폼 안내">
+          <div class="platform-preview">
+            <p class="section-label">ONE CONNECTED WORKSPACE</p>
+            <h2>하나로 연결되는<br>업무 관리</h2>
+            <p>웹에서 시작해 Windows와 모바일까지 확장하는 ORDENTORY의 미래를 준비하고 있습니다.</p>
+            <div class="platform-chips"><span>웹 · 우선 개발</span><span>Windows · 지원 예정</span><span>모바일 · 지원 예정</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -218,92 +229,63 @@
     <section class="section section-soft">
       <div class="container">
         <div class="section-head">
-          <p class="section-label">Inventory Workflow</p>
-          <h2>재고 흐름을 한곳에서.</h2>
+          <p class="section-label">Core Workflow</p>
+          <h2>재고와 주문 흐름을 한곳에서.</h2>
           <p class="section-desc">
-            재고 수량만 보여주는 프로그램이 아니라, 실제 업무에서 이어지는 발주·입고·출고·현재고 흐름을 중심으로 설계했습니다.
+            상품과 재고부터 발주·입출고·판매주문, 조직별 업무 관리까지 하나의 흐름으로 연결하는 서비스를 개발하고 있습니다.
           </p>
         </div>
         <div class="flow-grid">
           <article class="flow-item">
             <span class="flow-index">01</span>
-            <h3>발주</h3>
-            <p>공급처별 발주와 입고예정 수량을 관리.</p>
+            <h3>재고관리</h3>
+            <p>상품과 창고별 재고 현황 및 변동 이력을 관리하는 기능을 개발 중입니다.</p>
           </article>
           <article class="flow-item">
             <span class="flow-index">02</span>
-            <h3>입고</h3>
-            <p>전체입고와 부분입고를 실제 처리 흐름에 맞게 기록.</p>
+            <h3>발주·입출고</h3>
+            <p>발주부터 입고와 출고까지 이어지는 업무 흐름을 준비하고 있습니다.</p>
           </article>
           <article class="flow-item">
             <span class="flow-index">03</span>
-            <h3>출고</h3>
-            <p>상품·옵션 기준 출고 이력과 재고 변동을 추적.</p>
+            <h3>주문관리</h3>
+            <p>판매주문과 재고 처리를 연결하는 기능을 개발 중입니다.</p>
           </article>
           <article class="flow-item">
             <span class="flow-index">04</span>
-            <h3>현재고</h3>
-            <p>현재 수량과 입출고 이력을 한 화면에서 확인.</p>
+            <h3>조직관리</h3>
+            <p>조직과 직원별 역할·권한에 맞춘 업무 환경을 준비하고 있습니다.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="pricing">
+    <section class="section" aria-label="지원 플랫폼">
       <div class="container">
         <div class="section-head">
-          <p class="section-label">Product & Pricing</p>
-          <h2>정식 판매 조건을 미리 확인할 수 있습니다.</h2>
-          <p class="section-desc">
-            ORDENTORY Inventory v1.0.0은 Windows 설치형 재고관리 프로그램입니다. 현재는 전자결제 심사 준비 단계로 실제 결제는 받지 않습니다.
-          </p>
+          <p class="section-label">Platform Direction</p>
+          <h2>어디서든 연결되는 업무 환경을 목표로.</h2>
+          <p class="section-desc">ORDENTORY는 웹 서비스를 우선 개발하고 있습니다. Windows 프로그램과 모바일 앱은 향후 지원을 목표로 하며, 세부 일정은 확정되지 않았습니다.</p>
         </div>
-        <div class="review-grid">
-          <article class="review-card">
-            <p class="section-label">PRICE</p>
-            <h3>ORDENTORY Inventory v1.0.0</h3>
-            <div class="price-line"><strong>169,000원</strong><del>정가 199,000원</del></div>
-            <p class="offer-note">출시가 · 선착순 30 라이선스</p>
-            <span class="review-status">PG 심사 중 · 현재 결제 불가</span>
-            <br>
-            <a class="review-link" href="/checkout.html">상품·결제 준비 상태 보기</a>
-          </article>
-          <article class="review-card">
-            <p class="section-label">LICENSE</p>
-            <h3>정식 라이선스 조건</h3>
-            <ul class="license-list">
-              <li>1개 사업체 · 최대 2PC</li>
-              <li>영구 사용권</li>
-              <li>v1.x 무료 업데이트</li>
-              <li>v2.x는 별도 유료로 제공될 수 있음</li>
-              <li>최초 온라인 인증 후 사용</li>
-              <li>결제 완료 후 구매 이메일로 라이선스 및 설치 안내 제공</li>
-              <li>기존 장치 해제 후 PC 이전 가능</li>
-              <li>라이선스 공유·양도 금지</li>
-            </ul>
-          </article>
+        <div class="flow-grid platform-flow">
+          <article class="flow-item"><span class="flow-index">01</span><h3>웹</h3><p>브라우저에서 사용하는 서비스를 우선 개발 중입니다.</p></article>
+          <article class="flow-item"><span class="flow-index">02</span><h3>Windows</h3><p>데스크톱 프로그램 지원을 계획하고 있습니다.</p></article>
+          <article class="flow-item"><span class="flow-index">03</span><h3>모바일</h3><p>스마트폰 앱 지원을 계획하고 있습니다.</p></article>
+          <article class="flow-item"><span class="flow-index">04</span><h3>통합 데이터</h3><p>하나의 업무 데이터로 연결되는 환경을 목표로 합니다.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-soft">
       <div class="container roadmap">
         <div>
-          <p class="section-label">Product Direction</p>
-          <h2>Inventory에서 시작해<br>업무 도구를 확장합니다.</h2>
-          <p class="section-desc">
-            ORDENTORY는 Inventory 하나로 끝나는 제품이 아니라, 업무에 필요한 기능을 모듈 단위로 확장하는 방향으로 개발하고 있습니다.
-          </p>
+          <p class="section-label">Development Status</p>
+          <h2>한 단계씩<br>준비하고 있습니다.</h2>
+          <p class="section-desc">정식 출시 전 개발 및 검증을 진행 중입니다. 기능과 지원 환경은 준비 상황에 따라 달라질 수 있습니다.</p>
         </div>
         <div class="roadmap-box">
-          <div class="roadmap-row">
-            <strong>Inventory</strong>
-            <span>현재 개발 완료 단계. 전자결제 심사 및 정식 출시 준비 중.</span>
-          </div>
-          <div class="roadmap-row">
-            <strong>Next Modules</strong>
-            <span>Sales · Order · Label 등 후속 업무 모듈을 검토 중이며, 세부 기능과 출시 일정은 확정 후 안내합니다.</span>
-          </div>
+          <div class="roadmap-row"><strong>현재</strong><span>재고·주문·입출고·조직관리 기능을 중심으로 웹 서비스를 개발하고 있습니다.</span></div>
+          <div class="roadmap-row"><strong>향후</strong><span>Windows 및 모바일 지원을 계획하고 있으며, 출시 일정과 이용 조건은 확정 후 안내합니다.</span></div>
         </div>
       </div>
     </section>
@@ -313,10 +295,10 @@
         <div class="launch-panel">
           <div>
             <p class="section-label">Opening Soon</p>
-            <h2>정식 판매를 준비하고 있습니다.</h2>
+            <h2>정식 출시를 준비하고 있습니다.</h2>
             <p>
-              상품·가격·이용 정책과 사업자 정보는 전자결제 심사를 위해 공개되어 있습니다.
-              실제 결제와 7일 무료체험은 정식 오픈 시 활성화합니다.
+              ORDENTORY는 현재 개발 및 검증 단계에 있습니다.
+              서비스 출시 일정과 이용 조건은 확정 후 안내하겠습니다. 문의는 이메일로 연락해 주세요.
             </p>
           </div>
           <a class="contact" href="mailto:support@ordentory.kr">support@ordentory.kr</a>
