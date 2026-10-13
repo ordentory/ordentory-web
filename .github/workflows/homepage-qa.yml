@@ -16,30 +16,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify public prelaunch home
+      - name: Verify public ORDENTORY prelaunch home
         shell: bash
         run: |
           set -euo pipefail
-          grep -q "PG 심사 준비 · 정식 오픈 전" index.html
-          grep -q "복잡한 재고관리를" index.html
-          grep -q "Windows용 재고관리 프로그램" index.html
-          grep -q "assets/images/product/hero-home.webp" index.html
+          grep -q "서비스 개발 중" index.html
+          grep -q "복잡한 재고와 주문 관리" index.html
+          grep -q "ORDENTORY PLATFORM" index.html
+          grep -q "발주·입출고" index.html
+          grep -q "주문관리" index.html
+          grep -q "조직관리" index.html
+          grep -q "Windows · 지원 예정" index.html
+          grep -q "모바일 · 지원 예정" index.html
           grep -q 'name="robots" content="noindex,nofollow,noarchive"' index.html
           grep -q "286-34-01739" index.html
           grep -q "070-7594-2101" index.html
           grep -q 'href="/terms.html"' index.html
           grep -q 'href="/privacy.html"' index.html
           grep -q 'href="/refund.html"' index.html
-          grep -q 'href="/checkout.html"' index.html
-          grep -q '169,000원' index.html
-          grep -q '199,000원' index.html
-          grep -q '최대 2PC' index.html
-          grep -q 'v1.x 무료 업데이트' index.html
-          grep -q '구매 이메일로 라이선스 및 설치 안내 제공' index.html
-          grep -q 'PG 심사 중' index.html
-          ! grep -q 'href="trial.html"' index.html
-          ! grep -q 'href="/trial.html"' index.html
-          test -f assets/images/product/hero-home.webp
+          ! grep -q '169,000원' index.html
+          ! grep -q 'PG 심사' index.html
+          ! grep -q 'href="/checkout.html"' index.html
+          ! grep -q 'hero-home.webp' index.html
           test -f assets/images/brand/ordentory-logo.webp
           test "$(tr -d '\r\n' < CNAME)" = "ordentory.kr"
       - name: Verify Toss review checkout is accessible but noindex
